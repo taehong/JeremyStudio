@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'/>
+		<title>Candle Light FSM</title>
+
+		<script src='Library/jquery-2.0.0.js'></script>
+		<script src='Library/requestAnimFrame.js'></script>
+
+		<script src='JeremyLibrary/JeremyCanvas.js'></script>
+		<script src='JeremyLibrary/JeremyImage.js'></script>
+		<script src='JeremyLibrary/JeremySprite.js'></script>
+		<script src='JeremyLibrary/JeremyTimer.js'></script>
+		<script src='JeremyLibrary/JeremyScene.js'></script>
+		<script src='JeremyLibrary/JeremySceneContext.js'></script>
+		<script src='JeremyLibrary/JeremyRenderable2D.js'></script>
+
+		<script src='JeremyStudio/JeremyStudio.js'></script>
+		<script src='JeremyStudio/AssetManager.js'></script>
+		<script src='JeremyStudio/SceneManager.js'></script>
+		<script src='JeremyStudio/EventManager.js'></script>
+		<script src='JeremyStudio/DataManager.js'></script>
+		<script src='JeremyStudio/LayerConfig.js'></script>
+		<script src='JeremyStudio/Renderer2D.js'></script>
+	</head>
+	<body>
+		<div id='GameArea'>
+
+		</div>
+		<script>
+			function startGame() {
+				JS('SceneManager').add(new JeremyScene('testSceneA', ['testSceneB'], [], new JeremySceneContext(function init() {
+					this.magentaRect = new JeremyRenderable2D('gui', function(ctx, argo) {
+						ctx.fillStyle = argo.fillStyle;
+						ctx.fillRect(argo.posX, argo.posY, argo.width, argo.height);
+					}, {
+						fillStyle : "#ff00ff",
+						posX : 20,
+						posY : 20,
+						width : 100,
+						height : 100
+					});
+					JS('Renderer2D').add(this.magentaRect);
+
+					this.timer = new JeremyTimer(2000, function(argo) {
+						console.log(argo.message);
+						console.log(argo.timer.count);
+					}, {message:'2 secs elapsed!'});
+				}, function update() {
+					this.timer.update();
+				}, function destroy() {
+					JS('Renderer2D').remove(this.magentaRect);
+				})));
+
+				JS('SceneManager').add(
+					new JeremyScene('testSceneB', [], ['testSceneA'], 
+					new JeremySceneContext(
+						function init() {
+						this.angle = 0;
+						this.redRect = new JeremyRenderable2D('gui', function(ctx, argo) {
+							ctx.fillStyle = argo.fillStyle;
+							ctx.fillRect(argo.centerX + argo.posX(), argo.centerY + argo.posY(), argo.width, argo.height);
+						}, {
+							fillStyle : "#ff0000",
+							centerX : 100,
+							centerY : 100,
+							posX : function () { return JS('DataManager').get('redRectPosX')},
+							posY : function () { return JS('DataManager').get('redRectPosY')},
+							width : 100,
+							height : 100
+						});
+						JS('DataManager').set('redRectPosX', 0);
+						JS('DataManager').set('redRectPosY', 0);
+						JS('Renderer2D').add(this.redRect);
+					}, function update() {
+						this.angle+=0.1;
+						JS('DataManager').set('redRectPosX', 20 * Math.sin(this.angle));
+						JS('DataManager').set('redRectPosY', 20 * Math.cos(this.angle));
+					}, function destroy() {
+						JS('Renderer2D').remove(this.redRect);
+				})));
+
+				JS('SceneManager').play('testSceneA');
+			}
+		</script>
+	</body>
+</html>
