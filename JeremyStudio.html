@@ -23,6 +23,12 @@
 		<script src='JeremyStudio/DataManager.js'></script>
 		<script src='JeremyStudio/LayerConfig.js'></script>
 		<script src='JeremyStudio/Renderer2D.js'></script>
+
+		<style>
+			canvas {
+				border: 1px solid black;
+			}
+		</style>
 	</head>
 	<body>
 		<div id='GameArea'>
@@ -30,104 +36,119 @@
 		</div>
 		<script>
 			function startGame() {
-				JS('SceneManager').add(new JeremyScene('testSceneA', ['testSceneB'], [], new JeremySceneContext(function init() {
-					this.magentaRect = new JeremyRenderable2D('gui', function(ctx, argo) {
-						ctx.fillStyle = argo.fillStyle;
-						ctx.fillRect(argo.posX, argo.posY, argo.width, argo.height);
-					}, {
-						fillStyle : "#ff00ff",
-						posX : 20,
-						posY : 20,
-						width : 100,
-						height : 100
-					});
-					JS('Renderer2D').add(this.magentaRect);
-
-					this.timer = new JeremyTimer(2000, function(argo) {
-						console.log(argo.message);
-						console.log(argo.timer.count);
-					}, {
-						message : '2 secs elapsed!'
-					});
-				}, function update() {
-					this.timer.update();
-				}, function destroy() {
-					JS('Renderer2D').remove(this.magentaRect);
-				})));
-
-				JS('SceneManager').add(new JeremyScene('testSceneB', ['testSceneC'], ['testSceneA'], new JeremySceneContext(function init() {
-					var src = 'https://trello-attachments.s3.amazonaws.com/5145c9410a6873f66e00041d/51d6a0f56054b8c353005ac6/5b8147870226408fe3dac93a39d33516/IMG_3926.jpg';
-					JS('AssetManager').add(JS('AssetManager').make('myImage', src, '', ''));
-					this.myImage = new JeremyRenderable2D('gui', function(ctx, argo) {
+				JS('SceneManager').add(new JeremyScene('SplashScreenDigitalMedia', ['SplashScreenBrainstorm'], [], new JeremySceneContext(function init() {
+					var srcSplashDigitalMedia = "Assets/Images/splash/MediaDept_splashscreen.png";
+					JS('AssetManager').add(JS('AssetManager').make('splashDigitalMedia', srcSplashDigitalMedia, 'splashImage', 'splashDigitalMedia'));
+					this.splashDigitalMedia = new JeremyRenderable2D('gui', function(ctx, argo) {
 						ctx.drawImage(argo.img(), argo.posX, argo.posY);
 					}, {
 						img : function() {
-							return JS('AssetManager').get('IMAGE', 'myImage').getImage();
+							return JS('AssetManager').get('IMAGE', 'splashDigitalMedia').getImage();
 						},
-						posX : 10,
-						posY : 10
+						posX : 0,
+						posY : 0
 					});
-					JS('Renderer2D').add(this.myImage);
+					this.angle = 0;
+					JS('DataManager').set('splashAlphaAngle', this.angle);
+					this.timer = new JeremyTimer(1, function(argo) {
+						if (argo.timer.count > argo.duration) {
+							JS('SceneManager').next();
+						} else {
+							var ctx = JS('Renderer2D').context('gui');
+							ctx.globalAlpha = argo.getAlpha();
+						}
+					}, {
+						duration : 240,
+						getAlpha : function() {
+							return Math.sin(JS('DataManager').get('splashAlphaAngle'));
+						}
+					});
 
-					this.angle = 0;
-					this.redRect = new JeremyRenderable2D('gui', function(ctx, argo) {
-						ctx.fillStyle = argo.fillStyle;
-						ctx.fillRect(argo.centerX + argo.posX(), argo.centerY + argo.posY(), argo.width, argo.height);
-					}, {
-						fillStyle : "#ff0000",
-						centerX : 100,
-						centerY : 100,
-						posX : function() {
-							return JS('DataManager').get('redRectPosX')
-						},
-						posY : function() {
-							return JS('DataManager').get('redRectPosY')
-						},
-						width : 100,
-						height : 100
-					});
-					JS('DataManager').set('redRectPosX', 0);
-					JS('DataManager').set('redRectPosY', 0);
-					JS('Renderer2D').add(this.redRect);
+					JS('Renderer2D').add(this.splashDigitalMedia);
 				}, function update() {
-					this.angle += 0.1;
-					JS('DataManager').set('redRectPosX', 20 * Math.sin(this.angle));
-					JS('DataManager').set('redRectPosY', 20 * Math.cos(this.angle));
+					this.timer.update();
+					JS('DataManager').set('splashAlphaAngle', this.angle += (Math.PI / 240));
 				}, function destroy() {
-					JS('Renderer2D').remove(this.redRect);
-					JS('Renderer2D').remove(this.myImage);
-				})));
-				JS('SceneManager').add(new JeremyScene('testSceneC', [], ['testSceneB'], new JeremySceneContext(function init() {
-					this.angle = 0;
-					this.blueRect = new JeremyRenderable2D('gui', function(ctx, argo) {
-						ctx.fillStyle = argo.fillStyle;
-						ctx.fillRect(argo.centerX + argo.posX(), argo.centerY + argo.posY(), argo.width, argo.height);
-					}, {
-						fillStyle : "#0000ff",
-						centerX : 100,
-						centerY : 100,
-						posX : function() {
-							return JS('DataManager').get('blueRectPosX');
-						},
-						posY : function() {
-							return JS('DataManager').get('blueRectPosY');
-						},
-						width : 100,
-						height : 100
-					});
-					JS('DataManager').set('blueRectPosX', 0);
-					JS('DataManager').set('blueRectPosY', 0);
-					JS('Renderer2D').add(this.blueRect);
-				}, function update() {
-					this.angle += 0.1;
-					JS('DataManager').set('blueRectPosX', 20 * Math.cos(this.angle));
-					JS('DataManager').set('blueRectPosY', 20 * Math.sin(this.angle));
-				}, function destroy() {
-					JS('Renderer2D').remove(this.blueRect);
+					JS('Renderer2D').remove(this.splashDigitalMedia);
 				})));
 
-				JS('SceneManager').play('testSceneA');
+				JS('SceneManager').add(new JeremyScene('SplashScreenBrainstorm', ['SplashScreenCandleLight'], ['SplashScreenDigitalMedia'], new JeremySceneContext(function init() {
+					var srcSplashBrainstorm = "Assets/Images/splash/Brainstorm_splashscreen.png";
+					JS('AssetManager').add(JS('AssetManager').make('splashBrainstorm', srcSplashBrainstorm, 'splashImage', 'splashBrainstorm'));
+					this.splashBrainstorm = new JeremyRenderable2D('gui', function(ctx, argo) {
+						ctx.drawImage(argo.img(), argo.posX, argo.posY);
+					}, {
+						img : function() {
+							return JS('AssetManager').get('IMAGE', 'splashBrainstorm').getImage();
+						},
+						posX : 0,
+						posY : 0
+					});
+
+					this.angle = 0;
+					JS('DataManager').set('splashAlphaAngle', this.angle);
+					this.timer = new JeremyTimer(1, function(argo) {
+						if (argo.timer.count > argo.duration) {
+							JS('SceneManager').next();
+						} else {
+							var ctx = JS('Renderer2D').context('gui');
+							ctx.globalAlpha = argo.getAlpha();
+						}
+					}, {
+						duration : 240,
+						getAlpha : function() {
+							return Math.sin(JS('DataManager').get('splashAlphaAngle'));
+						}
+					});
+
+					JS('Renderer2D').add(this.splashBrainstorm);
+				}, function update() {
+					this.timer.update();
+					JS('DataManager').set('splashAlphaAngle', this.angle += (Math.PI / 240));
+				}, function destroy() {
+					JS('Renderer2D').remove(this.splashBrainstorm);
+				})));
+
+				JS('SceneManager').add(new JeremyScene('SplashScreenCandleLight', ['SplashScreenDigitalMedia'], ['SplashScreenBrainstorm'], new JeremySceneContext(function init() {
+					var srcSplashCandleLight = "Assets/Images/splash/Candlelight_splashscreen1.png";
+					JS('AssetManager').add(JS('AssetManager').make('splashCandleLight', srcSplashCandleLight, 'splashImage', 'splashCandleLight'));
+					this.splashCandleLight = new JeremyRenderable2D('gui', function(ctx, argo) {
+						ctx.drawImage(argo.img(), argo.posX, argo.posY);
+					}, {
+						img : function() {
+							return JS('AssetManager').get('IMAGE', 'splashCandleLight').getImage();
+						},
+						posX : 0,
+						posY : 0
+					});
+
+					this.angle = 0;
+					JS('DataManager').set('splashAlphaAngle', this.angle);
+					this.timer = new JeremyTimer(1, function(argo) {
+						if (argo.timer.count > argo.duration) {
+							JS('SceneManager').next();
+						} else {
+							var ctx = JS('Renderer2D').context('gui');
+							ctx.globalAlpha = argo.getAlpha();
+						}
+					}, {
+						duration : 240,
+						getAlpha : function() {
+							return Math.sin(JS('DataManager').get('splashAlphaAngle'));
+						}
+					});
+
+					JS('Renderer2D').add(this.splashCandleLight);
+				}, function update() {
+					this.timer.update();
+					JS('DataManager').set('splashAlphaAngle', this.angle += (Math.PI / 240));
+				}, function destroy() {
+					JS('Renderer2D').remove(this.splashCandleLight);
+				})));
+
+				JS('SceneManager').play('SplashScreenDigitalMedia');
 			}
+
 		</script>
 	</body>
 </html>

@@ -19,10 +19,10 @@ JeremyStudio.Renderer2D = {
 		}
 	},
 	context : function(layer) {
-		return this.layers[layer].getContext();
+		return __Renderer2D.layers[layer].getContext();
 	},
 	canvas : function(layer) {
-		return this.layers[layer].getCanvas();
+		return __Renderer2D.layers[layer].getCanvas();
 	},
 	clearLayer : function(layer) {
 		var canvas = __Renderer2D.canvas(layer), ctx = __Renderer2D.context(layer);

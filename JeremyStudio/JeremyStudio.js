@@ -69,7 +69,13 @@ function JS(manager) {
 				})(),
 				remove : (function() {
 					return JeremyStudio.Renderer2D.removeRenderable;
-				})()
+				})(),
+				canvas : (function() {
+					return JeremyStudio.Renderer2D.canvas;
+				})(),
+				context : (function() {
+					return JeremyStudio.Renderer2D.context;
+				})()				
 			};
 			break;
 		case 'Renderer3D':
