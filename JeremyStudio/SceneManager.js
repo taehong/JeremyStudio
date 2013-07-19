@@ -106,7 +106,7 @@ JeremyStudio.SceneManager = {
 		this.prevScene = scene;
 	},
 	getScene : function(sceneName) {
-		var scene = this.scenes[sceneName];
+		var scene = __SceneManager.scenes[sceneName];
 		return scene;
 	},
 	__setNeedUpdateCurr : function() {

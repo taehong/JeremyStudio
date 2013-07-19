@@ -7,6 +7,7 @@
 		<script src='Library/jquery-2.0.0.js'></script>
 		<script src='Library/requestAnimFrame.js'></script>
 
+		<script src='JeremyLibrary/JeremyAsset.js'></script>
 		<script src='JeremyLibrary/JeremyCanvas.js'></script>
 		<script src='JeremyLibrary/JeremyImage.js'></script>
 		<script src='JeremyLibrary/JeremySprite.js'></script>
@@ -45,67 +46,85 @@
 					this.timer = new JeremyTimer(2000, function(argo) {
 						console.log(argo.message);
 						console.log(argo.timer.count);
-					}, {message:'2 secs elapsed!'});
+					}, {
+						message : '2 secs elapsed!'
+					});
 				}, function update() {
 					this.timer.update();
 				}, function destroy() {
 					JS('Renderer2D').remove(this.magentaRect);
 				})));
 
-				JS('SceneManager').add(
-					new JeremyScene('testSceneB', ['testSceneC'], ['testSceneA'], 
-					new JeremySceneContext(
-						function init() {
-						this.angle = 0;
-						this.redRect = new JeremyRenderable2D('gui', function(ctx, argo) {
-							ctx.fillStyle = argo.fillStyle;
-							ctx.fillRect(argo.centerX + argo.posX(), argo.centerY + argo.posY(), argo.width, argo.height);
-						}, {
-							fillStyle : "#ff0000",
-							centerX : 100,
-							centerY : 100,
-							posX : function () { return JS('DataManager').get('redRectPosX')},
-							posY : function () { return JS('DataManager').get('redRectPosY')},
-							width : 100,
-							height : 100
-						});
-						JS('DataManager').set('redRectPosX', 0);
-						JS('DataManager').set('redRectPosY', 0);
-						JS('Renderer2D').add(this.redRect);
-					}, function update() {
-						this.angle+=0.1;
-						JS('DataManager').set('redRectPosX', 20 * Math.sin(this.angle));
-						JS('DataManager').set('redRectPosY', 20 * Math.cos(this.angle));
-					}, function destroy() {
-						JS('Renderer2D').remove(this.redRect);
+				JS('SceneManager').add(new JeremyScene('testSceneB', ['testSceneC'], ['testSceneA'], new JeremySceneContext(function init() {
+					var src = 'https://trello-attachments.s3.amazonaws.com/5145c9410a6873f66e00041d/51d6a0f56054b8c353005ac6/5b8147870226408fe3dac93a39d33516/IMG_3926.jpg';
+					JS('AssetManager').add(JS('AssetManager').make('myImage', src, '', ''));
+					this.myImage = new JeremyRenderable2D('gui', function(ctx, argo) {
+						ctx.drawImage(argo.img(), argo.posX, argo.posY);
+					}, {
+						img : function() {
+							return JS('AssetManager').get('IMAGE', 'myImage').getImage();
+						},
+						posX : 10,
+						posY : 10
+					});
+					JS('Renderer2D').add(this.myImage);
+
+					this.angle = 0;
+					this.redRect = new JeremyRenderable2D('gui', function(ctx, argo) {
+						ctx.fillStyle = argo.fillStyle;
+						ctx.fillRect(argo.centerX + argo.posX(), argo.centerY + argo.posY(), argo.width, argo.height);
+					}, {
+						fillStyle : "#ff0000",
+						centerX : 100,
+						centerY : 100,
+						posX : function() {
+							return JS('DataManager').get('redRectPosX')
+						},
+						posY : function() {
+							return JS('DataManager').get('redRectPosY')
+						},
+						width : 100,
+						height : 100
+					});
+					JS('DataManager').set('redRectPosX', 0);
+					JS('DataManager').set('redRectPosY', 0);
+					JS('Renderer2D').add(this.redRect);
+				}, function update() {
+					this.angle += 0.1;
+					JS('DataManager').set('redRectPosX', 20 * Math.sin(this.angle));
+					JS('DataManager').set('redRectPosY', 20 * Math.cos(this.angle));
+				}, function destroy() {
+					JS('Renderer2D').remove(this.redRect);
+					JS('Renderer2D').remove(this.myImage);
 				})));
-				JS('SceneManager').add(
-					new JeremyScene('testSceneC', [], ['testSceneB'],
-					new JeremySceneContext(
-						function init() {
-						    this.angle = 0;
-						    this.blueRect = new JeremyRenderable2D('gui', function (ctx, argo) {
-						        ctx.fillStyle = argo.fillStyle;
-						        ctx.fillRect(argo.centerX + argo.posX(), argo.centerY + argo.posY(), argo.width, argo.height);
-						    }, {
-						        fillStyle: "#0000ff",
-						        centerX: 100,
-						        centerY: 100,
-						        posX: function () { return JS('DataManager').get('blueRectPosX') },
-						        posY: function () { return JS('DataManager').get('blueRectPosY') },
-						        width: 100,
-						        height: 100
-						    });
-						    JS('DataManager').set('blueRectPosX', 0);
-						    JS('DataManager').set('blueRectPosY', 0);
-						    JS('Renderer2D').add(this.blueRect);
-						}, function update() {
-						    this.angle += 0.1;
-						    JS('DataManager').set('blueRectPosX', 20 * Math.cos(this.angle));
-						    JS('DataManager').set('blueRectPosY', 20 * Math.sin(this.angle));
-						}, function destroy() {
-						    JS('Renderer2D').remove(this.blueRect);
-						})));
+				JS('SceneManager').add(new JeremyScene('testSceneC', [], ['testSceneB'], new JeremySceneContext(function init() {
+					this.angle = 0;
+					this.blueRect = new JeremyRenderable2D('gui', function(ctx, argo) {
+						ctx.fillStyle = argo.fillStyle;
+						ctx.fillRect(argo.centerX + argo.posX(), argo.centerY + argo.posY(), argo.width, argo.height);
+					}, {
+						fillStyle : "#0000ff",
+						centerX : 100,
+						centerY : 100,
+						posX : function() {
+							return JS('DataManager').get('blueRectPosX');
+						},
+						posY : function() {
+							return JS('DataManager').get('blueRectPosY');
+						},
+						width : 100,
+						height : 100
+					});
+					JS('DataManager').set('blueRectPosX', 0);
+					JS('DataManager').set('blueRectPosY', 0);
+					JS('Renderer2D').add(this.blueRect);
+				}, function update() {
+					this.angle += 0.1;
+					JS('DataManager').set('blueRectPosX', 20 * Math.cos(this.angle));
+					JS('DataManager').set('blueRectPosY', 20 * Math.sin(this.angle));
+				}, function destroy() {
+					JS('Renderer2D').remove(this.blueRect);
+				})));
 
 				JS('SceneManager').play('testSceneA');
 			}

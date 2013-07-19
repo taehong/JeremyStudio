@@ -16,8 +16,15 @@ function JS(manager) {
 					};
 				})(),
 				set : (function() {
+					// TODO : 뭐지 이게?
 					return JeremyStudio.AssetManager.addResource;
-				})
+				})(),
+				add : (function() {
+					return JeremyStudio.AssetManager.addAsset;
+				})(),
+				make : (function() {
+					return JeremyStudio.AssetManager.generateImageAsset;
+				})()
 			};
 			break;
 		case 'DataManager':
@@ -34,6 +41,9 @@ function JS(manager) {
 			interfaceObject = {
 				add : (function() {
 					return JeremyStudio.SceneManager.addScene;
+				})(),
+				get : (function() {
+					return JeremyStudio.SceneManager.getScene;
 				})(),
 				play : (function() {
 					return JeremyStudio.SceneManager.playScene;
@@ -63,7 +73,7 @@ function JS(manager) {
 			};
 			break;
 		case 'Renderer3D':
-		
+
 			break;
 	}
 	return interfaceObject;
