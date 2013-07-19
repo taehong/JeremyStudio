@@ -1,11 +1,11 @@
 ﻿/*** @Class JeremyTimer : 타이머 객체 ***/
-function JeremyTimer(unit, cb, argo) {
+function JeremyTimer(unit, timerCB, argo) {
 	this.unit = unit;
 	this.current = (new Date()).getTime();
 	this.previous = (new Date()).getTime();
 	this.count = 0;
 	this.elapsed = 0;
-	this.callback = cb;
+	this.callback = timerCB;
 	this.argo = argo;
 	this.argo.timer = this;
 };

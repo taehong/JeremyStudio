@@ -84,7 +84,6 @@ function JS(manager) {
 	}
 	return interfaceObject;
 }
-
 var JeremyStudio = {
 	init : function() {
 		console.log('Init: JeremyStudio');
