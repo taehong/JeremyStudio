@@ -8,12 +8,12 @@ function JeremyCanvas(str_selector, str_id, str_ctxMode, num_Width, num_Height, 
     this.left = px_Left;
     this.zIndex = num_zIndex;
 
-    var CANVAS = '<canvas id=\"' + this.id + '\" width=\"' + this.width + '\" height=\"' + this.height + '\"' + 'style=\"' +
+    var canvasElementStr = '<canvas id=\"' + this.id + '\" width=\"' + this.width + '\" height=\"' + this.height + '\"' + 'style=\"' +
         'position : absolute;' +
         ' left: ' + this.left + ';' +
         ' top: ' + this.top + ';' +
         'z-index : ' + this.zIndex + '\"' + '>canvas</canvas>';
-    $(str_selector).append(CANVAS);
+    $(str_selector).append(canvasElementStr);
 
     this.canvas = window.document.getElementById(this.id);
     this.canvas.ondblclick = function (e) {e.preventDefault();};
