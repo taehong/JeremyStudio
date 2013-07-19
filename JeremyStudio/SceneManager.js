@@ -6,16 +6,16 @@ JeremyStudio.SceneManager = {
 	init : function() {
 		console.log('Init: JeremyStudio.SceneManager');
 		__SceneManager = this;
-		this.type = 'SceneManager';
-		this.currScene = null;
-		this.nextScene = null;
-		this.prevScene = null;
-		this.needUpdateCurr = false;
-		this.needUpdateNext = false;
-		this.needUpdatePrev = false;
-		this.isPlaying = false;
-		this.isForward = false;
-		this.scenes = {};
+		__SceneManager.type = 'SceneManager';
+		__SceneManager.currScene = null;
+		__SceneManager.nextScene = null;
+		__SceneManager.prevScene = null;
+		__SceneManager.needUpdateCurr = false;
+		__SceneManager.needUpdateNext = false;
+		__SceneManager.needUpdatePrev = false;
+		__SceneManager.isPlaying = false;
+		__SceneManager.isForward = false;
+		__SceneManager.scenes = {};
 	},
 	addScene : function(scene) {
 		var sceneName = scene.name;
@@ -59,115 +59,115 @@ JeremyStudio.SceneManager = {
 		}
 	},
 	__playCurr : function() {
-		if (!this.isPlaying) {
-			this.isPlaying = true;
-			this.currScene.context.init();
+		if (!__SceneManager.isPlaying) {
+			__SceneManager.isPlaying = true;
+			__SceneManager.currScene.context.init();
 		}
 	},
 	__stopCurrentScene : function() {
-		if (this.isPlaying) {
-			this.currScene.context.destroy();
-			this.isPlaying = false;
+		if (__SceneManager.isPlaying) {
+			__SceneManager.currScene.context.destroy();
+			__SceneManager.isPlaying = false;
 		}
 	},
 	__changeNextToCurrent : function() {
 		/** Show Next Scene : Next button was clicked **/
-		if (this.nextScene) {
-			this.isForward = true;
-			this.__setNeedUpdateCurr();
+		if (__SceneManager.nextScene) {
+			__SceneManager.isForward = true;
+			__SceneManager.__setNeedUpdateCurr();
 		} else {
 			throw new Error('Undefined Next');
 		}
 	},
 	__changePrevToCurrent : function() {
 		/** Show Prev Scene : Back button was clicked **/
-		if (this.prevScene) {
-			this.isForward = false;
-			this.__setNeedUpdateCurr();
+		if (__SceneManager.prevScene) {
+			__SceneManager.isForward = false;
+			__SceneManager.__setNeedUpdateCurr();
 		} else {
 			throw new Error('Undefined Prev');
 		}
 	},
 	selectCurrScene : function(sceneName) {
-		// TODO this is for jump to any scene
-		var scene = this.getScene(sceneName);
-		this.currScene = scene;
-		this.__setNeedUpdateNext();
-		this.__setNeedUpdatePrev();
+		// TODO __SceneManager is for jump to any scene
+		var scene = __SceneManager.getScene(sceneName);
+		__SceneManager.currScene = scene;
+		__SceneManager.__setNeedUpdateNext();
+		__SceneManager.__setNeedUpdatePrev();
 	},
 	selectNextScene : function(sceneName) {
-		// TODO this is for undefined next : because currScene has multiple next scenes
-		var scene = this.getScene(sceneName);
-		this.nextScene = scene;
+		// TODO __SceneManager is for undefined next : because currScene has multiple next scenes
+		var scene = __SceneManager.getScene(sceneName);
+		__SceneManager.nextScene = scene;
 	},
 	selectPrevScene : function(sceneName) {
-		// TODO this is for undefined prev : because currScene has multiple prev scenes
-		var scene = this.getScene(sceneName);
-		this.prevScene = scene;
+		// TODO __SceneManager is for undefined prev : because currScene has multiple prev scenes
+		var scene = __SceneManager.getScene(sceneName);
+		__SceneManager.prevScene = scene;
 	},
 	getScene : function(sceneName) {
 		var scene = __SceneManager.scenes[sceneName];
 		return scene;
 	},
 	__setNeedUpdateCurr : function() {
-		this.needUpdateCurr = true;
+		__SceneManager.needUpdateCurr = true;
 	},
 	__setNeedUpdateNext : function() {
-		this.needUpdateNext = true;
+		__SceneManager.needUpdateNext = true;
 	},
 	__setNeedUpdatePrev : function() {
-		this.needUpdatePrev = true;
+		__SceneManager.needUpdatePrev = true;
 	},
 	__updateCurrScene : function() {
-		// TODO this is for going to next or prev
-		if (this.isForward) {
-			this.currScene = this.nextScene;
+		// TODO __SceneManager is for going to next or prev
+		if (__SceneManager.isForward) {
+			__SceneManager.currScene = __SceneManager.nextScene;
 		} else {
-			this.currScene = this.prevScene;
+			__SceneManager.currScene = __SceneManager.prevScene;
 		}
-		this.__setNeedUpdateNext();
-		this.__setNeedUpdatePrev();
-		this.needUpdateCurr = false;
+		__SceneManager.__setNeedUpdateNext();
+		__SceneManager.__setNeedUpdatePrev();
+		__SceneManager.needUpdateCurr = false;
 	},
 	__updateNextScene : function() {
 		// TODO set new next scene if there's only one next is exist, or just make it undefined
-		var nextSceneNames = this.currScene.nextSceneNames;
+		var nextSceneNames = __SceneManager.currScene.nextSceneNames;
 		if (nextSceneNames.length === 1) {
-			this.nextScene = this.getScene(nextSceneNames[0]);
+			__SceneManager.nextScene = __SceneManager.getScene(nextSceneNames[0]);
 		} else {
-			this.nextScene = undefined;
+			__SceneManager.nextScene = undefined;
 		}
-		this.needUpdateNext = false;
+		__SceneManager.needUpdateNext = false;
 	},
 	__updatePrevScene : function() {
 		// TODO set new prev scene if there's only one prev is exist, or just make it undefined
-		var prevSceneNames = this.currScene.prevSceneNames;
+		var prevSceneNames = __SceneManager.currScene.prevSceneNames;
 		if (prevSceneNames.length === 1) {
-			this.prevScene = this.getScene(prevSceneNames[0]);
+			__SceneManager.prevScene = __SceneManager.getScene(prevSceneNames[0]);
 		} else {
-			this.prevScene = undefined;
+			__SceneManager.prevScene = undefined;
 		}
-		this.needUpdatePrev = false;
+		__SceneManager.needUpdatePrev = false;
 	},
 	update : function() {
-		this.__changeCurrentScene();
-		this.__playCurrentScene();
+		__SceneManager.__changeCurrentScene();
+		__SceneManager.__playCurrentScene();
 	},
 	__changeCurrentScene : function() {
-		if (this.needUpdateCurr) {
-			this.__updateCurrScene();
-			this.__playCurr();
+		if (__SceneManager.needUpdateCurr) {
+			__SceneManager.__updateCurrScene();
+			__SceneManager.__playCurr();
 		}
-		if (this.needUpdateNext) {
-			this.__updateNextScene();
+		if (__SceneManager.needUpdateNext) {
+			__SceneManager.__updateNextScene();
 		}
-		if (this.needUpdatePrev) {
-			this.__updatePrevScene();
+		if (__SceneManager.needUpdatePrev) {
+			__SceneManager.__updatePrevScene();
 		}
 	},
 	__playCurrentScene : function() {
-		if (this.isPlaying) {
-			this.currScene.context.update();
+		if (__SceneManager.isPlaying) {
+			__SceneManager.currScene.context.update();
 		}
 	}
 };

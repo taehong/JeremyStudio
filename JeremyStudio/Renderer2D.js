@@ -41,11 +41,6 @@ JeremyStudio.Renderer2D = {
 			}
 		}
 	},
-	renderOnce : function() {
-		if (this.renderedMoreThanOnce)
-			return;
-		this.renderedMoreThanOnce = true;
-	},
 	update : function() {
 		var layerName = null;
 		// Clear Each Layers
