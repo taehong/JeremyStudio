@@ -1,8 +1,8 @@
 var __JeremyImage = null;
-
-function JeremyImage(src, className, id) {
+// @param src, className, id
+function JeremyImage(argo) {
 	__JeremyImage = this;
-	this.source = src;
+	this.source = argo.src;
 	this.loaded = false;
 	this.image = new Image();
 	this.image.addEventListener("load", __JeremyImage.loadCompleted(this), false);
@@ -10,12 +10,12 @@ function JeremyImage(src, className, id) {
 	this.width = 0;
 	this.height = 0;
 	if (className) {
-		this.image.className = this.className = className;
+		this.image.className = this.className = argo.className;
 	} else {
 		this.className = "";
 	}
 	if (id) {
-		this.image.id = this.id = id;
+		this.image.id = this.id = argo.id;
 	} else {
 		this.id = "";
 	}

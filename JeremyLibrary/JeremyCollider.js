@@ -1,9 +1,10 @@
 /**
  * @author Jeremy Jeong
  */
-function JeremyCollider(owner, rectangle) {
-	this.owner = owner;
-	this.area = rectangle;
+// @param owner, rectangle
+function JeremyCollider(argo) {
+	this.owner = argo.owner;
+	this.area = argo.rectangle;
 }
 JeremyCollider.prototype.isCollidedWith = function (collider) {
 	return this.area.isIntersectingWith(collider.area);

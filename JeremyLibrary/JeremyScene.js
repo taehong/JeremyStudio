@@ -1,11 +1,12 @@
 /**
  * @author JeremyJeong
  */
-function JeremyScene(name, nextScenes, prevScenes, context) {
-	this.name = name;
-	this.nextSceneNames = nextScenes;
-	this.prevSceneNames = prevScenes;
-	this.context = context;
+// @param name, nextScenes, prevScenes, context
+function JeremyScene(argo) {
+	this.name = argo.name;
+	this.nextSceneNames = argo.nextScenes;
+	this.prevSceneNames = argo.prevScenes;
+	this.context = argo.context;
 }
 JeremyScene.prototype.getNextSceneName = function(index) {
 	var nextSceneName = this.nextSceneNames[index];

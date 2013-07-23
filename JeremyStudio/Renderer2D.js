@@ -13,7 +13,7 @@ JeremyStudio.Renderer2D = {
 	initLayers : function(config) {
 		var c = config.layerConfig2D;
 		var l = c.layer;
-		for (var lName in l) {
+		for (var lName in l) { 
 			this.addLayer(c.target, l[lName].id, '2d', config.width, config.height, l[lName].zIndex, config.top, config.left);
 			this.addRenderQueue(l[lName].id);
 		}
@@ -52,8 +52,17 @@ JeremyStudio.Renderer2D = {
 			this.renderLayer(layerName);
 		}
 	},
-	addLayer : function(str_selector, str_id, str_ctxMode, num_Width, num_Height, num_zIndex, px_Top, px_Left) {
-		__Renderer2D.layers[str_id] = new JeremyCanvas(str_selector, str_id, str_ctxMode, num_Width, num_Height, num_zIndex, px_Top, px_Left);
+	addLayer : function(selector, id, ctxMode, Width, Height, zIndex, Top, Left) {
+		__Renderer2D.layers[str_id] = new JeremyCanvas({
+				str_selector : c.target,
+				str_id : l[lName].id,
+				str_ctxMode : '2d',
+				num_Width : config.width,
+				num_Height : config.height,
+				num_zIndex : l[lName].zIndex,
+				px_Top : config.top,
+				px_Left : config.left
+			});
 	},
 	addRenderQueue : function(layerName) {
 		var queueName = layerName;
@@ -74,4 +83,8 @@ JeremyStudio.Renderer2D = {
 	getRenderQueue : function(layer) {
 		return __Renderer2D.renderQueue[layer];
 	}
-};
+}; 
+
+
+
+

@@ -1,10 +1,11 @@
 /**
  * @author JeremyJeong
  */
-function JeremySceneContext(initCB, updateCB,destroyCB) {
-	this.initCB = initCB;
-	this.updateCB = updateCB;
-	this.destroyCB = destroyCB;
+// @param initCB, updateCB,destroyCB
+function JeremySceneContext(argo) {
+	this.initCB = argo.initCB;
+	this.updateCB = argo.updateCB;
+	this.destroyCB = argo.destroyCB;
 }
 JeremySceneContext.prototype.init = function () {
 	this.initCB.call(this);

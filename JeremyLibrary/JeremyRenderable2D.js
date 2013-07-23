@@ -1,8 +1,9 @@
 /**
  * @author JeremyJeong
  */
-function JeremyRenderable2D (layer, drawCB, argo) {
-	this.layer = layer;
-	this.drawFunc = drawCB;
-	this.argo = argo;
+// @param layer, drawCB, argo
+function JeremyRenderable2D (argo) {
+	this.layer = argo.layer;
+	this.drawFunc = argo.drawCB;
+	this.argo = argo.argo;
 }
