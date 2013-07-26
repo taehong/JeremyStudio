@@ -52,16 +52,16 @@ JeremyStudio.Renderer2D = {
 			this.renderLayer(layerName);
 		}
 	},
-	addLayer : function(selector, id, ctxMode, Width, Height, zIndex, Top, Left) {
-		__Renderer2D.layers[str_id] = new JeremyCanvas({
-				str_selector : c.target,
-				str_id : l[lName].id,
-				str_ctxMode : '2d',
-				num_Width : config.width,
-				num_Height : config.height,
-				num_zIndex : l[lName].zIndex,
-				px_Top : config.top,
-				px_Left : config.left
+	addLayer : function(selector, id, ctxMode, width, height, zIndex, top, left) {
+		__Renderer2D.layers[id] = new JeremyCanvas({
+				str_selector : selector,
+				str_id : id,
+				str_ctxMode : ctxMode,
+				num_Width : width,
+				num_Height : height,
+				num_zIndex : zIndex,
+				px_Top : top,
+				px_Left : left
 			});
 	},
 	addRenderQueue : function(layerName) {

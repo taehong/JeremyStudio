@@ -8,6 +8,7 @@ function JeremyScene(argo) {
 	this.prevSceneNames = argo.prevScenes;
 	this.context = argo.context;
 }
+
 JeremyScene.prototype.getNextSceneName = function(index) {
 	var nextSceneName = this.nextSceneNames[index];
 	return nextSceneName;

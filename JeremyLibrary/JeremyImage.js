@@ -9,12 +9,12 @@ function JeremyImage(argo) {
 	this.image.addEventListener("error", __JeremyImage.loadFailed(this), false);
 	this.width = 0;
 	this.height = 0;
-	if (className) {
+	if (argo.className) {
 		this.image.className = this.className = argo.className;
 	} else {
 		this.className = "";
 	}
-	if (id) {
+	if (argo.id) {
 		this.image.id = this.id = argo.id;
 	} else {
 		this.id = "";

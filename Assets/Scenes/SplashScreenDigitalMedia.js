@@ -8,8 +8,16 @@ var SplashScreenDigitalMedia = JL('Scene', {
 	prevScenes : [],
 	context : JL('SceneContext', {
 		initCB : function() {
-			var srcSplashDigitalMedia = "Assets/Images/splash/MediaDept_splashscreen.png";
-			JS('AssetManager').add(JS('AssetManager').make('splashDigitalMedia', srcSplashDigitalMedia, 'splashImage', 'splashDigitalMedia'));
+			var assetSplashImage = JL('Asset', {
+				type : 'IMAGE',
+				name : 'splashDigitalMedia',
+				item : JL('Image', {
+					src : "Assets/Images/splash/MediaDept_splashscreen.png",
+					className : 'splashImage',
+					id: 'splashDigitalMedia'
+				})
+			});
+			JS('AssetManager').add(assetSplashImage);
 			this.splashDigitalMedia = JL('Renderable2D', {
 				layer : 'gui',
 				drawCB : function(ctx, argo) {

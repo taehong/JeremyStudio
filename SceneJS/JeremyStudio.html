@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'/>
+		<title>SceneJS Testbed</title>
+		<script src='scenejs.js'></script>
+		<style>
+			canvas {
+				border: 1px solid black;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id='GameArea' width="480" height="480">
+			HTML5 Canvas
+		</canvas>
+		<script>
+			var scene = SceneJS.createScene({
+				nodes : [{
+					type : "lights",
+					id : "myLights",
+					lights : [
+
+					// This positional light is in World-space, meaning that
+					// it will move relative to our changing viewpoint, as if it
+					// were a fixture in the scene.
+					{
+						mode : "point",
+						color : {
+							r : 1.0,
+							g : 1.0,
+							b : 1.0
+						},
+						diffuse : true,
+						specular : true,
+						pos : {
+							x : 100.0,
+							y : -50.0,
+							z : 100.0
+						},
+						constantAttenuation : 0.2, // [0..1]
+						linearAttenuation : 0, // [0..1]
+						quadraticAttenuation : 0, // [0..1]
+						space : "world"
+					}],
+					nodes : [{
+						type : "material",
+						id : "myMaterial",
+						color : {
+							r : 0.5,
+							g : 0.5,
+							b : 0.6
+						},
+						specularColor : {
+							r : 1.0,
+							g : 1.0,
+							b : 1.0
+						},
+						specular : 1.0,
+						shine : 70.0,
+						emit : 0,
+						alpha : 1.0,
+
+						nodes : [{
+							type : "geometry",
+							plugin : "teapot"
+						}]
+					}]
+				}]
+			});
+		</script>
+	</body>
+</html>
