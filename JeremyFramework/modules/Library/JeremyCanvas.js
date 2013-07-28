@@ -41,3 +41,9 @@ JeremyCanvas.prototype.getCanvas = function () {
 JeremyCanvas.prototype.getContext = function () {
     return this.context;
 };
+(function() {
+	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyLibrary') : undefined);
+	if (target) {
+		target.addModule('JeremyCanvas', JeremyCanvas);
+	}
+})();

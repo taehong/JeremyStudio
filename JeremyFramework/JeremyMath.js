@@ -6,10 +6,6 @@ var __JeremyMath = {
 	addModule : function(name, module) {
 		__JeremyMath.modules[name] = module;
 	},
-	create : function(name, argo) {
-		var Constructor = __JeremyMath.getConstructorOf(name);
-		return new Constructor(argo);
-	},
 	getConstructorOf : function(name) {
 		var creator = __JeremyMath.modules["Jeremy" + name];
 		return creator;

@@ -16,4 +16,9 @@ JeremySceneContext.prototype.update = function () {
 JeremySceneContext.prototype.destroy = function () {
 	this.destroyCB.call(this);
 };
-
+(function() {
+	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyLibrary') : undefined);
+	if (target) {
+		target.addModule('JeremySceneContext', JeremySceneContext);
+	}
+})();

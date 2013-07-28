@@ -12,3 +12,9 @@ JeremyCollider.prototype.isCollidedWith = function (collider) {
 JeremyCollider.prototype.isSelected = function (point) {
 	return this.area.isContaining(point);
 };
+(function() {
+	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyLibrary') : undefined);
+	if (target) {
+		target.addModule('JeremyCollider', JeremyCollider);
+	}
+})();

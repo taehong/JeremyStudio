@@ -10,3 +10,9 @@ function JeremyAsset(argo) {
 JeremyAsset.prototype.getItem = function () {
     return this.item;
 };
+(function() {
+	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyLibrary') : undefined);
+	if (target) {
+		target.addModule('JeremyAsset', JeremyAsset);
+	}
+})();

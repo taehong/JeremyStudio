@@ -20,3 +20,9 @@ JeremySound.prototype.addSourceUrl = function (src) {
 JeremySound.prototype.addSourceName = function (srcName) {
     this.sourceName.push(srcName);
 };
+(function() {
+	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyLibrary') : undefined);
+	if (target) {
+		target.addModule('JeremySound', JeremySound);
+	}
+})();

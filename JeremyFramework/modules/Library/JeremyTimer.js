@@ -23,4 +23,10 @@ JeremyTimer.prototype.reset = function() {
 	this.current = (new Date()).getTime();
 	this.previous = (new Date()).getTime();
 	this.elapsed = 0;
-}; 
+};
+(function() {
+	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyLibrary') : undefined);
+	if (target) {
+		target.addModule('JeremyTimer', JeremyTimer);
+	}
+})(); 

@@ -70,3 +70,9 @@ JeremyImage.prototype.getClassName = function() {
 JeremyImage.prototype.getId = function() {
 	return this.id;
 };
+(function() {
+	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyLibrary') : undefined);
+	if (target) {
+		target.addModule('JeremyImage', JeremyImage);
+	}
+})();
