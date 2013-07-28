@@ -1,12 +1,23 @@
 /**
  * @author Jeremy Jeong
  */
-function JeremyRectangle(x, y, w, h) {
-    this.left = x;
-    this.top = y;
-    this.right = x + w;
-    this.bottom = y + h;
+function JeremyRectangle(argo) {
+	this.type = 'JeremyRectangle';
+    this.left = argo.x;
+    this.top = argo.y;
+    this.right = argo.x + argo.w;
+    this.bottom = argo.y + argo.h;
+    this.width = argo.w;
+    this.height = argo.h;
 }
+JeremyRectangle.prototype.setLeft = function (left) {
+	this.left = left;
+	this.right = this.left + this.width;
+};
+JeremyRectangle.prototype.setTop = function (top) {
+	this.top = top;
+	this.bottom = this.top + this.height;
+};
 JeremyRectangle.prototype.isIntersectingWith = function (rectangle) {
     var isIntersecting = false,
         leftTopTest = this.isContaining(rectangle.leftTop()),
@@ -28,14 +39,17 @@ JeremyRectangle.prototype.isContaining = function (point) {
     return isContaining;
 };
 JeremyRectangle.prototype.leftTop = function () {
-    return new JeremyVector3(this.left, this.top, 1);
+    return new JeremyVector3({x:this.left, y:this.top, w:1});
 };
 JeremyRectangle.prototype.rightTop = function () {
-    return new JeremyVector3(this.right, this.top, 1);
+    return new JeremyVector3({x:this.right, y:this.top, w:1});
 };
 JeremyRectangle.prototype.leftBottom = function () {
-    return new JeremyVector3(this.left, this.bottom, 1);
+    return new JeremyVector3({x:this.left, y:this.bottom, w:1});
 };
 JeremyRectangle.prototype.rightBottom = function () {
-    return new JeremyVector3(this.right, this.bottom, 1);
+    return new JeremyVector3({x:this.right, y:this.bottom, w:1});
 };
+if (JeremyMath) {
+	JeremyMath.modules.JeremyRectangle = JeremyRectangle;
+}

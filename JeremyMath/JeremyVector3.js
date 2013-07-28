@@ -1,11 +1,11 @@
 /**
  * @author Jeremy Jeong
  */
-function JeremyVector3(x, y, w) {
+function JeremyVector3(argo) {
 	this.type = 'JeremyVector3';
-	this.x = x;
-	this.y = y;
-	this.w = w;
+	this.x = argo.x;
+	this.y = argo.y;
+	this.w = argo.w;
 }
 
 JeremyVector3.prototype.isVector = function() {
@@ -21,7 +21,7 @@ JeremyVector3.prototype.addition = function(vector3) {
 		pointToVector = (this.isPoint() && vector3.isVector());
 	try {
 		if (vector3.type === 'JeremyVector3' && (vectorToVector || vectorToPoint || pointToVector)) {
-			result = new JeremyVector3(this.x + vector3.x, this.y + vector3.y, this.w + vector3.w);
+			result = new JeremyVector3({x:this.x + vector3.x, y:this.y + vector3.y, w:this.w + vector3.w});
 		} else {
 			throw new Error('Invalid Operation');
 		}
@@ -36,7 +36,7 @@ JeremyVector3.prototype.subtraction = function(vector3) {
 		pointToPoint = (this.isPoint() && vector3.isPoint());
 	try {
 		if (vector3.type === 'JeremyVector3' && (vectorToVector || pointToPoint)) {
-			result = new JeremyVector3(this.x - vector3.x, this.y - vector3.y, this.w - vector3.w);
+			result = new JeremyVector3({x:this.x - vector3.x, y:this.y - vector3.y, w:this.w - vector3.w});
 		} else {
 			throw new Error('Invalid Operation');
 		}
@@ -45,3 +45,6 @@ JeremyVector3.prototype.subtraction = function(vector3) {
 	}
 	return result;
 };
+if (JeremyMath) {
+	JeremyMath.modules.JeremyVector3 = JeremyVector3;
+}
