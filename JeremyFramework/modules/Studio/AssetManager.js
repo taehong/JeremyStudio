@@ -1,24 +1,19 @@
-var __AssetManager = null;
-JeremyStudio.AssetManager = {
+var eAssetType = {
+	IMAGE : 0,
+	SPRITE : 1,
+	AUDIO : 2,
+	MODEL : 3,
+}, __AssetManager = {
 	init : function() {
 		console.log('Init: JeremyStudio.AssetManager');
-		__AssetManager = this;
 		this.type = 'AssetManager';
-		this.assetType = {
-			IMAGE : 0,
-			SPRITE : 1,
-			SOUND : 2
-		};
-		this.resources = {
-			IMAGE : {},
-			SPRITE : {},
-			SOUND : {}
-		};
 		this.assets = {
-			IMAGE : {},
-			SPRITE : {},
-			SOUND : {}
+			image : {},
+			sprite : {},
+			audio : {},
+			model : {}
 		};
+		
 	},
 	initAssets : function() {
 		var resources = this.resources, resourceType = null;
@@ -44,11 +39,6 @@ JeremyStudio.AssetManager = {
 			this.addAsset(asset);
 		}
 	},
-	generateImageAsset : function(name, src, className, id) {
-		var image = new JeremyImage(src, className, id), 
-			asset = new JeremyAsset('IMAGE', name, image);
-		return asset;
-	},
 	loadSprite : function(spriteConfig) {
 		var assetName = null, assetData = null, sprite = null, asset = null;
 		for (assetName in spriteConfig) {
@@ -60,28 +50,22 @@ JeremyStudio.AssetManager = {
 		}
 	},
 	loadSound : function(soundConfig) {
-		// var assetName = null,
-		// assetData = null,
-		// sound = null,
-		// asset = null;
-		// for (assetName in soundConfig) {
-		// assetData = soundConfig[assetName];
-		// // sound = new JeremySound();
-		// // sound.initWithConfig(assetData);
-		// asset = new JeremyAsset('SOUND', assetName, sound);
-		// this.addAsset(asset);
-		// }
+	},
+	loadModel : function(modelConfig) {
 	},
 	addAsset : function(asset) {
 		__AssetManager.assets[asset.type][asset.name] = asset;
 	},
 	getAsset : function(type, name) {
 		return __AssetManager.assets[type][name].getItem();
-	},
-	addResource : function(type, name, dataObj) {
-		__AssetManager.resources[type][name] = dataObj;
-	},
-	update : function() {
-
 	}
-}; 
+};
+(function() {
+	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyStudio') : undefined);
+	if (target) {
+		target.addModule('AssetManager', __AssetManager);
+		target.addInterface('Asset', {
+			get: __AssetManager.getAsset
+		});
+	}
+})();

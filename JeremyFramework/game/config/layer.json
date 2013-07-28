@@ -1,0 +1,28 @@
+{
+	"common": {
+		"selector": "#GameArea",
+		"width": 720,
+		"height": 480,
+		"left": "0px",
+		"top": "0px"
+	},
+	"layer": [
+		{
+			"id": "gui",
+			"context": "2d",
+			"zIndex": 5
+		}, {
+			"id": "effect",
+			"context": "2d",
+			"zIndex": 4
+		}, {
+			"id": "game",
+			"context": "2d",
+			"zIndex": 3
+		}, {
+			"id": "background",
+			"context": "2d",
+			"zIndex": 0
+		}
+	]
+}
