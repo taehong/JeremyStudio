@@ -1,0 +1,21 @@
+{
+	"count": 3,
+	"scenes": [
+		{
+			"name": "SplashScreenDigitalMedia",
+			"context": "SplashScreen/SplashScreenDigitalMedia",
+			"nextScenes": ["SplashScreenBrainstorm"],
+			"prevScenes": [null]
+		}, {
+			"name": "SplashScreenBrainstorm",
+			"context": "SplashScreen/SplashScreenBrainstorm",
+			"nextScenes": ["SplashScreenCandleLight"],
+			"prevScenes": ["SplashScreenDigitalMedia"]
+		}, {
+			"name": "SplashScreenCandleLight",
+			"context": "SplashScreen/SplashScreenCandleLight",
+			"nextScenes": ["SplashScreenDigitalMedia"],
+			"prevScenes": ["SplashScreenBrainstorm"]
+		}
+	]
+}
