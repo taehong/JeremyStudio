@@ -1,18 +1,35 @@
 {
-    "image": {
-        "count": 0,
-        "items": []
-    },
-    "sprite": {
-        "count": 0,
-        "items": []
-    },
-    "audio": {
-        "count": 0,
-        "items": []
-    },
-    "model": {
-        "count": 0,
-        "items": []
-    }
+	"image": {
+		"count": 3,
+		"items": [
+			{
+				"name": "splashScreenDigitalMedia",
+				"src": "splashscreen/DigitalMedia_splashscreen.png",
+				"className": "splashImage",
+				"id": "splashScreenDigitalMedia"
+			}, {
+				"name": "splashScreenBrainstorm",
+				"src": "splashscreen/Brainstorm_splashscreen.png",
+				"className": "splashImage",
+				"id": "splashScreenBrainstorm"
+			}, {
+				"name": "splashScreenCandleLight",
+				"src": "splashscreen/CandleLight_splashscreen.png",
+				"className": "splashImage",
+				"id": "splashScreenCandleLight"
+			}
+		]
+	},
+	"sprite": {
+		"count": 0,
+		"items": []
+	},
+	"audio": {
+		"count": 0,
+		"items": []
+	},
+	"model": {
+		"count": 0,
+		"items": []
+	}
 }
