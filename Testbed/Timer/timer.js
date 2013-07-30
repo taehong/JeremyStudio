@@ -13,7 +13,7 @@ function Timer(argo) {
 	this.current = this.getTime();
 	this.previous = this.getTime();
 };
-Timer.prototype.update = function() {
+Timer.prototype.tick = function() {
 	if (this.isSleeping)
 		return;
 	this.current = this.getTime();
@@ -37,14 +37,13 @@ Timer.prototype.wake = function() {
 	this.isSleeping = false;
 };
 /*
- * Reset and Restart
+ * Reset
  */
 Timer.prototype.reset = function() {
 	this.current = this.getTime();
 	this.previous = this.getTime();
 	this.elapsed = 0;
 	this.count = 0;
-	this.wake();
 };
 Timer.prototype.getTime = function() {
 	return (new Date()).getTime();
