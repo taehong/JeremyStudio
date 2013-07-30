@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'/>
+		<title>Timer Test</title>
+		<script src='requestAnimFrame.js'></script>
+		<script src='timer.js'></script>
+	</head>
+	<body>
+		<script>
+			window.onload = start;
+			var timer1 = null, timer2 = null, kUnitForTimer1 = 500, kUnitForTimer2 = 1000;
+			function start() {
+				timer1 = new Timer({
+					unit : kUnitForTimer1,
+					onTick : function(argo) {
+						console.log('timer1 > ' + argo.timer.count + ' > ' + argo.msg);
+					},
+					argo : {
+						msg : 'Hello!'
+					}
+				});
+				timer2 = new Timer({
+					unit : kUnitForTimer2,
+					onTick : function(argo) {
+						if (argo.timer.count == 5) {
+							argo.timer.sleep();
+						}
+						console.log('timer2 > ' + argo.timer.count + ' > ' + argo.msg);
+					},
+					argo : {
+						msg : 'Hi'
+					}
+				});
+				requestAnimFrame(update);
+			}
+
+			function update() {
+				timer1.update();
+				timer2.update();
+				requestAnimFrame(update);
+			}
+		</script>
+	</body>
+</html>
