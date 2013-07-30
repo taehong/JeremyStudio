@@ -9,24 +9,24 @@
 	<body>
 		<script>
 			window.onload = start;
-			var timer1 = null, timer2 = null, kUnitForTimer1 = 500, kUnitForTimer2 = 1000;
+			var timer1 = null, timer2 = null;
 			function start() {
 				timer1 = new Timer({
-					unit : kUnitForTimer1,
-					onTick : function(argo) {
-						console.log('timer1 > ' + argo.timer.count + ' > ' + argo.msg);
+					unit : 500,
+					onTick : function(argo, timer) {
+						console.log('timer1 > ' + timer.count + ' > ' + argo.msg);
 					},
 					argo : {
 						msg : 'Hello!'
 					}
 				});
 				timer2 = new Timer({
-					unit : kUnitForTimer2,
-					onTick : function(argo) {
-						if (argo.timer.count == 5) {
-							argo.timer.sleep();
+					unit : 1000,
+					onTick : function(argo, timer) {
+						if (timer.count == 5) {
+							timer.sleep();
 						}
-						console.log('timer2 > ' + argo.timer.count + ' > ' + argo.msg);
+						console.log('timer2 > ' + timer.count + ' > ' + argo.msg);
 					},
 					argo : {
 						msg : 'Hi'

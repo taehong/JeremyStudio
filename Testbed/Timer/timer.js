@@ -1,13 +1,12 @@
 ﻿/*
  * argo.unit : unit time in msec
- * argo.onTick : function (argo) { ... }
+ * argo.onTick : function (argo, timer) { ... }
  * argo.argo : argo for callback
  */
 function Timer(argo) {
 	this.unit = argo.unit;
 	this.onTick = argo.onTick;
 	this.argo = argo.argo;
-	this.argo.timer = this;
 	this.isSleeping = false;
 	this.count = 0;
 	this.elapsed = 0;
@@ -20,7 +19,7 @@ Timer.prototype.update = function() {
 	this.current = this.getTime();
 	this.elapsed = this.current - this.previous;
 	if (this.elapsed >= this.unit) {
-		this.onTick(this.argo);
+		this.onTick(this.argo, this);
 		this.previous = this.current;
 		this.count++;
 	}
