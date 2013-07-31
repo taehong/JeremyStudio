@@ -1,5 +1,8 @@
 ﻿/*** @Class JeremyTimer : 타이머 객체 ***/
 // @param unit, timerCB, argo
+/*
+ * TODO: 이거 옛날거임 새걸로 업데이트 해야함
+ */
 function JeremyTimer(argo) {
 	this.unit = argo.unit;
 	this.current = (new Date()).getTime();
