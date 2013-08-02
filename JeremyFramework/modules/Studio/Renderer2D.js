@@ -1,35 +1,32 @@
-var __Renderer2D;
-JeremyStudio.Renderer2D = {
+var __Renderer2D = {
 	init : function() {
 		console.log('Init: JeremyStudio.Renderer2D');
-		__Renderer2D = this;
 		this.type = 'Renderer2D';
-		// this.layers = {};
 		this.renderQueue = {};
-
-		// var config = JeremyStudio.LayerConfig;
-		// this.initLayers(config);
 	},
-		context : function(layer) {
-		return __Renderer2D.layers[layer].getContext();
+	initRenderQueue : function() {
+		
+	},
+	context : function(layer) {
+		return J('STD')('Layer').layer(layer).getContext();
 	},
 	canvas : function(layer) {
-		return __Renderer2D.layers[layer].getCanvas();
+		return J('STD')('Layer').layer(layer).getCanvas();
 	},
-	clearLayer : function(layer) {
+	clear : function(layer) {
 		var canvas = __Renderer2D.canvas(layer), ctx = __Renderer2D.context(layer);
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 	},
-	render : function(layer, drawfunc, argv) {
+	render : function(layer, drawfunc, argo) {
 		var ctx = __Renderer2D.context(layer);
-		drawfunc(ctx, argv);
+		drawfunc(ctx, argo);
 	},
 	renderLayer : function(layer) {
-		var queue = this.getRenderQueue(layer), renderable = null, i = 0, length = queue.length;
+		var queue = __Renderer2D.getRenderQueue(layer), renderable = null, i = 0, length = queue.length;
 		for ( i = 0; i < length; i += 1) {
 			renderable = queue[i];
 			if (renderable) {
-				this.render(renderable.layer, renderable.drawFunc, renderable.argo);
+				__Renderer2D.render(renderable.layer, renderable.drawFunc, renderable.argo);
 			}
 		}
 	},
@@ -37,24 +34,12 @@ JeremyStudio.Renderer2D = {
 		var layerName = null;
 		// Clear Each Layers
 		for (layerName in __Renderer2D.layers) {
-			this.clearLayer(layerName);
+			__Renderer2D.clear(layerName);
 		}
 		// Render Each Layers
 		for (layerName in __Renderer2D.layers) {
-			this.renderLayer(layerName);
+			__Renderer2D.renderLayer(layerName);
 		}
-	},
-	addLayer : function(selector, id, ctxMode, width, height, zIndex, top, left) {
-		__Renderer2D.layers[id] = new JeremyCanvas({
-				str_selector : selector,
-				str_id : id,
-				str_ctxMode : ctxMode,
-				num_Width : width,
-				num_Height : height,
-				num_zIndex : zIndex,
-				px_Top : top,
-				px_Left : left
-			});
 	},
 	addRenderQueue : function(layerName) {
 		var queueName = layerName;
@@ -75,8 +60,17 @@ JeremyStudio.Renderer2D = {
 	getRenderQueue : function(layer) {
 		return __Renderer2D.renderQueue[layer];
 	}
-}; 
-
-
-
-
+};
+(function() {
+	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyStudio') : undefined);
+	if (target) {
+		target.addModule('Renderer2D', __Renderer2D);
+		target.addInterface('R2D', {
+			canvas : __Renderer2D.canvas,
+			context : __Renderer2D.context,
+			clear : __Renderer2D.clear,
+			add : __Renderer2D.addRenderable,
+			remove : __Renderer2D.removeRenderable
+		});
+	}
+})(); 
