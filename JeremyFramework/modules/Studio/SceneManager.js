@@ -1,7 +1,6 @@
 /**
  * @author JeremyJeong
  */
-var __SceneManager;
 JeremyStudio.SceneManager = {
 	init : function() {
 		console.log('Init: JeremyStudio.SceneManager');

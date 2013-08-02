@@ -4,9 +4,9 @@
 var __LayerManager = {
 	init : function() {
 		console.log('Init: JeremyStudio.LayerManager');
-		this.type = 'LayerManager';
-		this.layers = {};
-		this.initLayers(J('STD')('Config').get('layer'));
+		__LayerManager.type = 'LayerManager';
+		__LayerManager.layers = {};
+		__LayerManager.initLayers(J('STD')('Config').get('layer'));
 	},
 	update : function() {
 

@@ -3,17 +3,26 @@
 	"scenes": [
 		{
 			"name": "SplashScreenDigitalMedia",
-			"context": "SplashScreen/SplashScreenDigitalMedia",
+			"context": {
+				"name": "SplashScreenDigitalMedia",
+				"url": "game/scene/SplashScreen/SplashScreenDigitalMedia.js"
+			},
 			"nextScenes": ["SplashScreenBrainstorm"],
 			"prevScenes": [null]
 		}, {
 			"name": "SplashScreenBrainstorm",
-			"context": "SplashScreen/SplashScreenBrainstorm",
+			"context": {
+				"name": "SplashScreenBrainstorm",
+				"url": "game/scene/SplashScreen/SplashScreenBrainstorm.js"
+			},
 			"nextScenes": ["SplashScreenCandleLight"],
 			"prevScenes": ["SplashScreenDigitalMedia"]
 		}, {
 			"name": "SplashScreenCandleLight",
-			"context": "SplashScreen/SplashScreenCandleLight",
+			"context": {
+				"name": "SplashScreenCandleLight",
+				"url": "game/scene/SplashScreen/SplashScreenCandleLight.js"
+			},
 			"nextScenes": ["SplashScreenDigitalMedia"],
 			"prevScenes": ["SplashScreenBrainstorm"]
 		}
