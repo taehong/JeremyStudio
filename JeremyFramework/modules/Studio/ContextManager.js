@@ -1,62 +1,41 @@
 /**
  * @author Jeremy
  */
-var __SceneManager = {
+var __ContextManager = {
 	init : function() {
-		console.log('Init: JeremyStudio.ConfigManager');
-		__SceneManager.type = 'ConfigManager';
-		__SceneManager.configs = {};
-		__SceneManager.load();
+		console.log('Init: JeremyStudio.ContextManager');
+		__ContextManager.type = 'ContextManager';
+		__ContextManager.contexts = {};
+		__ContextManager.loadContexts(J('STD')('Config').get('scene'));
 	},
-	load : function() {
-		J('STD')('Request').request({
-			method : 'get',
-			url : 'game/config.json',
-			dataType : 'json',
-			onSuccess : function(res) {
-				var path = null, configQueue = J('LIB')('Queue')();
-				res.files.forEach(function(item) {
-					path = res.path + item;
-					configQueue.enqueue({
-						name : item.split('.')[0],
-						path : path
-					});
-				});
-				__SceneManager.configIterator = configQueue.iterator();
-				__SceneManager.loadConfig();
-			}
+	loadContexts : function(config) {
+		config.scenes.forEach(function(item) {
+			__ContextManager.loadContext(item.context);
 		});
 	},
-	loadConfig : function() {
-		var config = null;
-		if (__SceneManager.configIterator.hasMoreElement()) {
-			config = __SceneManager.configIterator.next();
-			J('STD')('Request').request({
-				method : 'get',
-				url : config.path,
-				dataType : 'json',
-				onSuccess : function(res) {
-					__SceneManager.addConfig(config.name, res);
-					__SceneManager.loadConfig();
-				}
-			});
-		} else {
-			delete __SceneManager.configIterator;
-		}
+	loadContext : function(contextConfig) {
+		$.ajax({
+			type : "GET",
+			url : contextConfig.url,
+			dataType : "script"
+		}).done(function(data) {
+			console.log('SceneContext Loaded : ' + contextConfig.name);
+		});
 	},
-	addConfig : function(name, config) {
-		__SceneManager.configs[name] = config;
+	addContext : function(name, context) {
+		__ContextManager.contexts[name] = context;
 	},
-	getConfig : function(name) {
-		return __SceneManager.configs[name];
+	getContext : function(name) {
+		return __ContextManager.contexts[name];
 	}
 };
 (function() {
 	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyStudio') : undefined);
 	if (target) {
-		target.addModule('SceneManager', __SceneManager);
-		target.addInterface('Scene', {
-			get : __SceneManager.getConfig
+		target.addModule('ContextManager', __ContextManager);
+		target.addInterface('Context', {
+			add : __ContextManager.addContext,
+			get : __ContextManager.getContext
 		});
 	}
 })();

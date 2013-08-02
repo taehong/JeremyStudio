@@ -35,7 +35,8 @@ var __SceneManager = {
 	if (target) {
 		target.addModule('SceneManager', __SceneManager);
 		target.addInterface('Scene', {
-			get : __SceneManager.getScene
+			get : __SceneManager.getScene,
+			scenes : __SceneManager.scenes
 		});
 	}
-})(); 
+})();

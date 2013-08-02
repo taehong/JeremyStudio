@@ -2,7 +2,7 @@
  * @Context SplashScreenDigitalMedia
  * @author Jeremy Jeong
  */
-var SplashScreenDigitalMedia = J('LIB')('SceneContext')({
+J('STD')('Context').add('SplashScreenDigitalMedia', J('LIB')('SceneContext')({
 	initCB : function() {
 		this.splashDigitalMedia = J('LIB')('Renderable2D')({
 			layer : 'gui',
@@ -44,4 +44,4 @@ var SplashScreenDigitalMedia = J('LIB')('SceneContext')({
 	destroyCB : function() {
 		// J('STD')('Renderer2D').remove(this.splashDigitalMedia);
 	}
-}); 
+})); 
