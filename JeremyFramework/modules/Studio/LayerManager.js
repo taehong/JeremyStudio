@@ -6,20 +6,10 @@ var __LayerManager = {
 		console.log('Init: JeremyStudio.LayerManager');
 		this.type = 'LayerManager';
 		this.layers = {};
-		this.loadConfig();
+		this.initLayers(J('STD')('Config').get('layer'));
 	},
 	update : function() {
 
-	},
-	loadConfig : function() {
-		J('STD')('Request').request({
-			method : 'get',
-			url : 'game/config/layer.json',
-			dataType : 'json',
-			onSuccess : function(res) {
-				__LayerManager.initLayers(res);
-			}
-		});
 	},
 	initLayers : function(config) {
 		var c = config.common, l = config.layers, lName = null;
@@ -28,7 +18,7 @@ var __LayerManager = {
 		});
 	},
 	addLayer : function(selector, id, ctxMode, width, height, zIndex, top, left) {
-		__LayerManager.layers[id] = new JeremyCanvas({
+		__LayerManager.layers[id] = J('LIB')('Canvas')({
 			str_selector : selector,
 			str_id : id,
 			str_ctxMode : ctxMode,
@@ -51,4 +41,4 @@ var __LayerManager = {
 			layer : __LayerManager.getLayer
 		});
 	}
-})();
+})(); 

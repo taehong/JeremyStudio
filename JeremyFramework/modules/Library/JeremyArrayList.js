@@ -4,6 +4,7 @@
 
 /*
  * TODO: 짜다가 말았다!!
+ * 어떻게 짜는지 알아보고 짜자
  */
 function JeremyArrayList() {
 	this.count = 0;
