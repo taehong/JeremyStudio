@@ -1,57 +1,73 @@
-var eAssetType = {
-	IMAGE : 0,
-	SPRITE : 1,
-	AUDIO : 2,
-	MODEL : 3,
-}, __AssetManager = {
+var __AssetManager = {
 	init : function() {
 		console.log('Init: JeremyStudio.AssetManager');
-		this.type = 'AssetManager';
-		this.assets = {
+		__AssetManager.type = 'AssetManager';
+		__AssetManager.assets = {
 			image : {},
 			sprite : {},
 			audio : {},
 			model : {}
 		};
-		
+		__AssetManager.loadAssets(J('STD')('Config').get('asset'));
 	},
-	initAssets : function() {
-		var resources = this.resources, resourceType = null;
-		for (resourceType in resources) {
-			switch (JS('asset').type(resourceType)) {
-				case JS('asset').type('IMAGE'):
-					this.loadImage(resources[resourceType]);
-					break;
-				case JS('asset').type('SPRITE'):
-					this.loadSprite(resources[resourceType]);
-					break;
-				case JS('asset').type('SOUND'):
-					this.loadSound(resources[resourceType]);
-					break;
-			}
+	loadAssets : function(config) {
+		__AssetManager.loadImageAssets(config.image);
+		__AssetManager.loadSpriteAssets(config.sprite);
+		__AssetManager.loadAudioAssets(config.audio);
+		__AssetManager.loadModelAssets(config.model);
+	},
+	loadImageAssets : function(config) {
+		var iteration = config.count, items = config.items, listIndex = 0;
+		for (listIndex, iteration; listIndex < iteration; listIndex++) {
+			__AssetManager.loadImage(items[listIndex]);
 		}
 	},
-	loadImage : function(imgConfig) {
-		var assetName = null, assetData = null, asset = null;
-		for (assetName in imgConfig) {
-			assetData = imgConfig[assetName];
-			asset = generateImageAsset(assetName, assetData.src, assetData.class, assetData.id);
-			this.addAsset(asset);
+	loadSpriteAssets : function(config) {
+		var iteration = config.count, items = config.items, listIndex = 0;
+		for (listIndex, iteration; listIndex < iteration; listIndex++) {
+			__AssetManager.loadSprite(items[listIndex]);
 		}
+	},
+	loadAudioAssets : function(config) {
+		var iteration = config.count, items = config.items, listIndex = 0;
+		for (listIndex, iteration; listIndex < iteration; listIndex++) {
+			__AssetManager.loadAudio(items[listIndex]);
+		}
+	},
+	loadModelAssets : function(config) {
+		var iteration = config.count, items = config.items, listIndex = 0;
+		for (listIndex, iteration; listIndex < iteration; listIndex++) {
+			__AssetManager.loadModel(items[listIndex]);
+		}
+	},
+	loadImage : function(imageConfig) {
+		var image = J('LIB')('Image')({
+			src : imageConfig.src,
+			className : imageConfig.className,
+			id : imageConfig.id
+		}), asset = J('LIB')('Asset')({
+			type : 'image',
+			name : imageConfig.name,
+			item : image
+		});
+		__AssetManager.addAsset(asset);
 	},
 	loadSprite : function(spriteConfig) {
-		var assetName = null, assetData = null, sprite = null, asset = null;
-		for (assetName in spriteConfig) {
-			assetData = spriteConfig[assetName];
-			sprite = new JeremySprite();
-			sprite.initWithConfig(assetData);
-			asset = new JeremyAsset('SPRITE', assetName, sprite);
-			this.addAsset(asset);
-		}
+		console.log(spriteConfig);
+		// var assetName = null, assetData = null, sprite = null, asset = null;
+		// for (assetName in spriteConfig) {
+		// assetData = spriteConfig[assetName];
+		// sprite = new JeremySprite();
+		// sprite.initWithConfig(assetData);
+		// asset = new JeremyAsset('SPRITE', assetName, sprite);
+		// __AssetManager.addAsset(asset);
+		// }
 	},
-	loadSound : function(soundConfig) {
+	loadAudio : function(soundConfig) {
+		console.log(soundConfig);
 	},
 	loadModel : function(modelConfig) {
+		console.log(modelConfig);
 	},
 	addAsset : function(asset) {
 		__AssetManager.assets[asset.type][asset.name] = asset;
@@ -65,7 +81,7 @@ var eAssetType = {
 	if (target) {
 		target.addModule('AssetManager', __AssetManager);
 		target.addInterface('Asset', {
-			get: __AssetManager.getAsset
+			get : __AssetManager.getAsset
 		});
 	}
 })();
