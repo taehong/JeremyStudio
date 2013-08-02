@@ -1,12 +1,12 @@
 {
 	"common": {
-		"selector": "#GameArea",
+		"selector": "#gamearea",
 		"width": 720,
 		"height": 480,
 		"left": "0px",
 		"top": "0px"
 	},
-	"layer": [
+	"layers": [
 		{
 			"id": "gui",
 			"context": "2d",

@@ -4,21 +4,13 @@ JeremyStudio.Renderer2D = {
 		console.log('Init: JeremyStudio.Renderer2D');
 		__Renderer2D = this;
 		this.type = 'Renderer2D';
-		this.layers = {};
+		// this.layers = {};
 		this.renderQueue = {};
 
-		var config = JeremyStudio.LayerConfig;
-		this.initLayers(config);
+		// var config = JeremyStudio.LayerConfig;
+		// this.initLayers(config);
 	},
-	initLayers : function(config) {
-		var c = config.layerConfig2D;
-		var l = c.layer;
-		for (var lName in l) { 
-			this.addLayer(c.target, l[lName].id, '2d', config.width, config.height, l[lName].zIndex, config.top, config.left);
-			this.addRenderQueue(l[lName].id);
-		}
-	},
-	context : function(layer) {
+		context : function(layer) {
 		return __Renderer2D.layers[layer].getContext();
 	},
 	canvas : function(layer) {
