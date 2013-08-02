@@ -2,6 +2,11 @@
  * @author Jeremy
  */
 var Jeremy = {
+	init: function() {
+		console.log('Init: Jeremy');
+		this.type = 'Jeremy';
+		
+	},
 	components : {},
 	interfaces : {},
 	isDefinedComponent : function(name) {

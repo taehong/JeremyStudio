@@ -1,0 +1,4 @@
+{
+	"path": "game/config/",
+	"files": ["asset.json", "layer.json", "scene.json"]
+}
