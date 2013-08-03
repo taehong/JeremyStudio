@@ -1,0 +1,34 @@
+{
+	"JeremyStudio": {
+		"LayerManager": {},
+		"AssetManager": {},
+		"SceneManager": {},
+		"ContextManager": {},
+		"EventManager": {},
+		"DataManager": {}
+	},
+	"JeremyLibrary": {
+		"JeremyAsset": {},
+		"JeremyCanvas": {},
+		"JeremyCollider": {},
+		"JeremyImage": {},
+		"JeremyRenderable2D": {},
+		"JeremyScene": {},
+		"JeremySceneContext": {},
+		"JeremySound": {},
+		"JeremySprite": {},
+		"JeremyTimer": {}
+	},
+	"JeremyDataStructure": {
+		"JeremyIterator": {},
+		"JeremyQueue": {},
+		"JeremyStack": {},
+		"JeremyDeque": {},
+		"JeremyArrayList": {}
+	},
+	"JeremyMathematics": {
+		"JeremyVector3": {},
+		"JeremyVector4": {},
+		"JeremyRectangle": {}
+	}
+}

@@ -43,7 +43,7 @@ JeremyStack.prototype.iterator = function() {
 	return new JeremyIterator(this);
 };
 (function() {
-	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyLibrary') : undefined);
+	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyDataStructure') : undefined);
 	if (target) {
 		target.addModule('JeremyStack', JeremyStack);
 	}

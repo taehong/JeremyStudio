@@ -20,7 +20,7 @@ JeremyIterator.prototype.hasMoreElement = function() {
 	return this.current < this.list.length;
 };
 (function() {
-	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyLibrary') : undefined);
+	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyDataStructure') : undefined);
 	if (target) {
 		target.addModule('JeremyIterator', JeremyIterator);
 	}

@@ -56,7 +56,7 @@ JeremyArrayList.prototype.__lastIndex = function() {
 	return this.count - 1;
 };
 (function() {
-	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyLibrary') : undefined);
+	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyDataStructure') : undefined);
 	if (target) {
 		target.addModule('JeremyArrayList', JeremyArrayList);
 	}

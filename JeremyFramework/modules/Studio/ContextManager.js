@@ -6,7 +6,7 @@ var __ContextManager = {
 		console.log('Init: JeremyStudio.ContextManager');
 		__ContextManager.type = 'ContextManager';
 		__ContextManager.contexts = {};
-		__ContextManager.loadContexts(J('STD')('Config').get('scene'));
+		__ContextManager.loadContexts(J('STU')('Config').get('scene'));
 	},
 	loadContexts : function(config) {
 		config.scenes.forEach(function(item) {

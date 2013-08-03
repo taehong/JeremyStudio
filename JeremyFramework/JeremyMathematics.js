@@ -1,23 +1,23 @@
 /**
  * @author Jeremy
  */
-var __JeremyMath = {
+var __JeremyMathematics = {
 	modules : {},
 	addModule : function(name, module) {
-		__JeremyMath.modules[name] = module;
+		__JeremyMathematics.modules[name] = module;
 	},
 	getConstructorOf : function(name) {
-		var creator = __JeremyMath.modules["Jeremy" + name];
+		var creator = __JeremyMathematics.modules["Jeremy" + name];
 		return creator;
 	}
 };
 function __JM(name) {
-	var creator = __JeremyMath.getConstructorOf(name);
+	var creator = __JeremyMathematics.getConstructorOf(name);
 	return function(argo) {
 		return new creator(argo);
 	};
 };
 if (Jeremy) {
-	Jeremy.addComponent('JeremyMath', __JeremyMath);
+	Jeremy.addComponent('JeremyMathematics', __JeremyMathematics);
 	Jeremy.addInterface('JM', __JM);
 }
