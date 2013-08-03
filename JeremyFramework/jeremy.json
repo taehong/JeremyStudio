@@ -1,34 +1,94 @@
 {
 	"JeremyStudio": {
-		"LayerManager": {},
-		"AssetManager": {},
-		"SceneManager": {},
-		"ContextManager": {},
-		"EventManager": {},
-		"DataManager": {}
+		"src": "modules/JeremyStudio.js",
+		"modules": {
+			"LayerManager": {
+				"src": "modules/Studio/LayerManager.js"
+			},
+			"AssetManager": {
+				"src": "modules/Studio/AssetManager.js"
+			},
+			"SceneManager": {
+				"src": "modules/Studio/SceneManager.js"
+			},
+			"ContextManager": {
+				"src": "modules/Studio/ContextManager.js"
+			},
+			"EventManager": {
+				"src": "modules/Studio/EventManager.js"
+			},
+			"DataManager": {
+				"src": "modules/Studio/DataManager.js"
+			}
+		}
 	},
 	"JeremyLibrary": {
-		"JeremyAsset": {},
-		"JeremyCanvas": {},
-		"JeremyCollider": {},
-		"JeremyImage": {},
-		"JeremyRenderable2D": {},
-		"JeremyScene": {},
-		"JeremySceneContext": {},
-		"JeremySound": {},
-		"JeremySprite": {},
-		"JeremyTimer": {}
+		"src": "modules/JeremyLibrary.js",
+		"modules": {
+			"JeremyAsset": {
+				"src": "modules/Library/JeremyAsset.js"
+			},
+			"JeremyCanvas": {
+				"src": "modules/Library/JeremyCanvas.js"
+			},
+			"JeremyCollider": {
+				"src": "modules/Library/JeremyCollider.js"
+			},
+			"JeremyImage": {
+				"src": "modules/Library/JeremyImage.js"
+			},
+			"JeremyRenderable2D": {
+				"src": "modules/Library/JeremyRenderable2D.js"
+			},
+			"JeremyScene": {
+				"src": "modules/Library/JeremyScene.js"
+			},
+			"JeremySceneContext": {
+				"src": "modules/Library/JeremySceneContext.js"
+			},
+			"JeremySound": {
+				"src": "modules/Library/JeremySound.js"
+			},
+			"JeremySprite": {
+				"src": "modules/Library/JeremySprite.js"
+			},
+			"JeremyTimer": {
+				"src": "modules/Library/JeremyTimer.js"
+			}
+		}
 	},
 	"JeremyDataStructure": {
-		"JeremyIterator": {},
-		"JeremyQueue": {},
-		"JeremyStack": {},
-		"JeremyDeque": {},
-		"JeremyArrayList": {}
+		"src": "modules/JeremyDataStructure.js",
+		"modules": {
+			"JeremyIterator": {
+				"src": "modules/DataStructure/JeremyIterator.js"
+			},
+			"JeremyQueue": {
+				"src": "modules/DataStructure/JeremyQueue.js"
+			},
+			"JeremyStack": {
+				"src": "modules/DataStructure/JeremyStack.js"
+			},
+			"JeremyDeque": {
+				"src": "modules/DataStructure/JeremyDeque.js"
+			},
+			"JeremyArrayList": {
+				"src": "modules/DataStructure/JeremyArrayList.js"
+			}
+		}
 	},
 	"JeremyMathematics": {
-		"JeremyVector3": {},
-		"JeremyVector4": {},
-		"JeremyRectangle": {}
+		"src": "modules/JeremyMathematics.js",
+		"modules": {
+			"JeremyVector3": {
+				"src": "modules/Mathematics/JeremyVector3.js"
+			},
+			"JeremyVector4": {
+				"src": "modules/Mathematics/JeremyVector4.js"
+			},
+			"JeremyRectangle": {
+				"src": "modules/Mathematics/JeremyRectangle.js"
+			}
+		}
 	}
 }

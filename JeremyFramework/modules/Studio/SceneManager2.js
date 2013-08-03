@@ -5,6 +5,19 @@ var __SceneManager = {
 	init : function() {
 		console.log('Init: JeremyStudio.SceneManager');
 		__SceneManager.type = 'SceneManager';
+		__SceneManager.currentScene = null;
+		$.event.trigger({
+			type : eSceneEvent.onPlay,
+			time : new Date()
+		});
+		$.event.trigger({
+			type : eSceneEvent.onNext,
+			time : new Date()
+		});
+		$.event.trigger({
+			type : eSceneEvent.onPrev,
+			time : new Date()
+		});
 		__SceneManager.scenes = {};
 		__SceneManager.loadScenes(Jeremy.getConfig('scene'));
 	},
@@ -29,7 +42,20 @@ var __SceneManager = {
 	},
 	getScene : function(name) {
 		return __SceneManager.scenes[name];
+	},
+	playScene: function(name) {
+		// TODO: Chane Current Scene with given	
+	},
+	playPrev : function() {
+		
+	},
+	playNext : function() {
+		
 	}
+}, eSceneEvent = {
+	onPlay:'onPlay',
+	onNext:'onNext',
+	onPrev:'onPrev'
 };
 (function() {
 	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyStudio') : undefined);

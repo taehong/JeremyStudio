@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>xmlparser</title>
+		<script src='jquery-2.0.0.js'></script>
+	</head>
+
+	<body>
+		<script>
+			function request(argo) {
+				var ajaxArgo = {
+					type : argo.method,
+					url : argo.url,
+					dataType : argo.dataType
+				};
+				if (argo.data) {
+					ajaxArgo.data = argo.data;
+				}
+				$.ajax(ajaxArgo).done(function(res) {
+					argo.onSuccess(res);
+				}).fail(function(jqXHR, textStatus) {
+					console.log("Request failed: " + textStatus);
+					if (argo.onFailure) {
+						argo.onFailure(jqXHR, textStatus);
+					}
+				});
+			}
+
+			request({
+				type : 'get',
+				url : 'box.dae',
+				dataType : 'xml',
+				onSuccess : function(res) {
+					console.log(res);
+				}
+			});
+			request({
+				type : 'get',
+				url : 'box.json',
+				dataType : 'json',
+				onSuccess : function(res) {
+					console.log(res);
+				}
+			});
+		</script>
+	</body>
+</html>

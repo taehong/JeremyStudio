@@ -2,12 +2,12 @@
  * @author Jeremy
  */
 var Jeremy = {
+	components : {},
+	interfaces : {},
+	configs : {},
 	init : function() {
 		console.log('Init: Jeremy');
 		Jeremy.type = 'Jeremy';
-		Jeremy.components = {};
-		Jeremy.interfaces = {};
-		Jeremy.configs = {};
 		Jeremy.load();
 	},
 	request : function(argo) {
@@ -33,16 +33,29 @@ var Jeremy = {
 			type : eJeremyEventType.onLoadConfigs,
 			time : new Date()
 		});
+		$.event.trigger({
+			type : eJeremyEventType.onInitModules,
+			time : new Date()
+		});
 		$('#jeremy').bind(eJeremyEventType.onLoadConfigs, function(e) {
 			delete Jeremy.configIterator;
 			$('#jeremy').unbind(eJeremyEventType.onLoadConfigs);
+			Jeremy.initModules();
 		});
+		$('#jeremy').bind(eJeremyEventType.onInitModules, function(e) {
+			delete Jeremy.moduleIterator;
+			$('#jeremy').unbind(eJeremyEventType.onInitModules);
+			// TODO: Jeremy.run();
+		});
+		Jeremy.loadConfigs();
+	},
+	loadConfigs : function() {
 		Jeremy.request({
 			method : 'get',
 			url : 'game/config.json',
 			dataType : 'json',
 			onSuccess : function(res) {
-				var path = null, configQueue = new JeremyQueue();
+				var path = null, configQueue = new J('DAT')('Queue')();
 				res.files.forEach(function(item) {
 					path = res.path + item;
 					configQueue.enqueue({
@@ -70,8 +83,19 @@ var Jeremy = {
 				}
 			});
 		} else {
-			$('#jeremy').trigger(eJeremyEventType.onLoadConfigs);
+			$('#jeremy').trigger(eJeremyEventType.onLoadConfigs);eJeremyEventType.onInitModules
 		}
+	},
+	initModules : function() {
+		var jeremyStudio = Jeremy.getComponent('JeremyStudio'), modules = jeremyStudio.modules, moduleName = null, moduleQueue = new J('DAT')('Queue')();
+		for (moduleName in modules) {
+			moduleQueue.enqueue(modules[moduleName]);
+		}
+		Jeremy.moduleIterator = moduleQueue.iterator();
+		while(Jeremy.moduleIterator.hasMoreElement()) {
+			Jeremy.moduleIterator.next().init();
+		}
+		$('#jeremy').trigger(eJeremyEventType.onInitModules);
 	}
 }, eJeremyComponentType = {
 	JeremyStudio : 'STU',
@@ -79,7 +103,8 @@ var Jeremy = {
 	JeremyDataStructure : 'DAT',
 	JeremyMathematics : 'MAT'
 }, eJeremyEventType = {
-	onLoadConfigs : 'onLoadConfigs'
+	onLoadConfigs : 'onLoadConfigs',
+	onInitModules : 'onInitModules'
 };
 Jeremy.isDefinedComponent = function(name) {
 	return (Jeremy.components[name] != undefined ? true : false);
