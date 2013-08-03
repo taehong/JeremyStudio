@@ -6,7 +6,7 @@ var __SceneManager = {
 		console.log('Init: JeremyStudio.SceneManager');
 		__SceneManager.type = 'SceneManager';
 		__SceneManager.scenes = {};
-		__SceneManager.loadScenes(J('STU')('Config').get('scene'));
+		__SceneManager.loadScenes(Jeremy.getConfig('scene'));
 	},
 	loadScenes : function(config) {
 		var iteration = config.count, listIndex = 0;

@@ -1,6 +1,6 @@
 {
 	"common": {
-		"selector": "#gamearea",
+		"selector": "#jeremy",
 		"width": 720,
 		"height": 480,
 		"left": "0px",

@@ -5,29 +5,10 @@ var Jeremy = {
 	init : function() {
 		console.log('Init: Jeremy');
 		Jeremy.type = 'Jeremy';
+		Jeremy.components = {};
+		Jeremy.interfaces = {};
 		Jeremy.configs = {};
-		// Jeremy.load();
-		// Jeremy.components.JeremyStudio.init();
-	},
-	components : {},
-	interfaces : {},
-	isDefinedComponent : function(name) {
-		return (Jeremy.components[name] != undefined ? true : false);
-	},
-	isDefinedInterface : function(name) {
-		return (Jeremy.interfaces[name] != undefined ? true : false);
-	},
-	getComponent : function(name) {
-		return Jeremy.components[name];
-	},
-	addComponent : function(name, component) {
-		Jeremy.components[name] = component;
-	},
-	getInterface : function(name) {
-		return Jeremy.interfaces[name];
-	},
-	addInterface : function(name, interface) {
-		Jeremy.interfaces[name] = interface;
+		Jeremy.load();
 	},
 	request : function(argo) {
 		var ajaxArgo = {
@@ -48,6 +29,14 @@ var Jeremy = {
 		});
 	},
 	load : function() {
+		$.event.trigger({
+			type : eJeremyEventType.onLoadConfigs,
+			time : new Date()
+		});
+		$('#jeremy').bind(eJeremyEventType.onLoadConfigs, function(e) {
+			delete Jeremy.configIterator;
+			$('#jeremy').unbind(eJeremyEventType.onLoadConfigs);
+		});
 		Jeremy.request({
 			method : 'get',
 			url : 'game/config.json',
@@ -75,25 +64,46 @@ var Jeremy = {
 				url : config.path,
 				dataType : 'json',
 				onSuccess : function(res) {
+					console.log('Config Loaded : ' + config.name);
 					Jeremy.addConfig(config.name, res);
 					Jeremy.loadConfig();
 				}
 			});
 		} else {
-			delete Jeremy.configIterator;
+			$('#jeremy').trigger(eJeremyEventType.onLoadConfigs);
 		}
-	},
-	addConfig : function(name, config) {
-		Jeremy.configs[name] = config;
-	},
-	getConfig : function(name) {
-		return Jeremy.configs[name];
 	}
 }, eJeremyComponentType = {
 	JeremyStudio : 'STU',
 	JeremyLibrary : 'LIB',
 	JeremyDataStructure : 'DAT',
 	JeremyMathematics : 'MAT'
+}, eJeremyEventType = {
+	onLoadConfigs : 'onLoadConfigs'
+};
+Jeremy.isDefinedComponent = function(name) {
+	return (Jeremy.components[name] != undefined ? true : false);
+};
+Jeremy.isDefinedInterface = function(name) {
+	return (Jeremy.interfaces[name] != undefined ? true : false);
+};
+Jeremy.getComponent = function(name) {
+	return Jeremy.components[name];
+};
+Jeremy.addComponent = function(name, component) {
+	Jeremy.components[name] = component;
+};
+Jeremy.getInterface = function(name) {
+	return Jeremy.interfaces[name];
+};
+Jeremy.addInterface = function(name, interface) {
+	Jeremy.interfaces[name] = interface;
+};
+Jeremy.addConfig = function(name, config) {
+	Jeremy.configs[name] = config;
+};
+Jeremy.getConfig = function(name) {
+	return Jeremy.configs[name];
 };
 function J(key) {
 	var value;

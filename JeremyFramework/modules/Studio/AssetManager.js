@@ -8,7 +8,7 @@ var __AssetManager = {
 			audio : {},
 			model : {}
 		};
-		__AssetManager.loadAssets(J('STU')('Config').get('asset'));
+		__AssetManager.loadAssets(Jeremy.getConfig('asset'));
 	},
 	loadAssets : function(config) {
 		__AssetManager.loadImageAssets(config.image);
