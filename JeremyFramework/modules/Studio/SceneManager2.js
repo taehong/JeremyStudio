@@ -18,6 +18,15 @@ var __SceneManager = {
 			type : eSceneEvent.onPrev,
 			time : new Date()
 		});
+		$('jeremy').bind(eSceneEvent.onPlay, function(e) {
+			// TODO: set the current context with the context of the current scene
+		});
+		$('jeremy').bind(eSceneEvent.onNext, function(e) {
+
+		});
+		$('jeremy').bind(eSceneEvent.onPrev, function(e) {
+
+		});
 		__SceneManager.scenes = {};
 		__SceneManager.loadScenes(Jeremy.getConfig('scene'));
 	},
@@ -43,19 +52,21 @@ var __SceneManager = {
 	getScene : function(name) {
 		return __SceneManager.scenes[name];
 	},
-	playScene: function(name) {
-		// TODO: Chane Current Scene with given	
+	playScene : function(name) {
+		// TODO: Chane Current Scene with given
+		__SceneManager.currentScene = __SceneManager.getScene(name);
+		$('jeremy').trigger(eSceneEvent.onPlay);
 	},
 	playPrev : function() {
 		
 	},
 	playNext : function() {
-		
+
 	}
 }, eSceneEvent = {
-	onPlay:'onPlay',
-	onNext:'onNext',
-	onPrev:'onPrev'
+	onPlay : 'onPlay',
+	onNext : 'onNext',
+	onPrev : 'onPrev'
 };
 (function() {
 	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyStudio') : undefined);
@@ -66,4 +77,4 @@ var __SceneManager = {
 			scenes : __SceneManager.scenes
 		});
 	}
-})();
+})(); 
