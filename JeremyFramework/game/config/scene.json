@@ -1,7 +1,15 @@
 {
-	"count": 3,
+	"count": 4,
 	"scenes": [
 		{
+			"name": "TestScene",
+			"context": {
+				"name": "TestScene",
+				"url": "game/scene/TestScene.js"
+			},
+			"nextScenes": ["SplashScreenDigitalMedia"],
+			"prevScenes": ["SplashScreenBrainstorm"]
+		}, {
 			"name": "SplashScreenDigitalMedia",
 			"context": {
 				"name": "SplashScreenDigitalMedia",

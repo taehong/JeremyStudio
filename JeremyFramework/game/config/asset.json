@@ -3,20 +3,20 @@
 		"count": 3,
 		"items": [
 			{
-				"name": "splashScreenDigitalMedia",
+				"name": "splashDigitalMedia",
 				"src": "game/asset/image/splashscreen/DigitalMedia_splashscreen.png",
 				"className": "splashImage",
-				"id": "splashScreenDigitalMedia"
+				"id": "splashDigitalMedia"
 			}, {
-				"name": "splashScreenBrainstorm",
+				"name": "splashBrainstorm",
 				"src": "game/asset/image/splashscreen/Brainstorm_splashscreen.png",
 				"className": "splashImage",
-				"id": "splashScreenBrainstorm"
+				"id": "splashBrainstorm"
 			}, {
-				"name": "splashScreenCandleLight",
+				"name": "splashCandleLight",
 				"src": "game/asset/image/splashscreen/CandleLight_splashscreen.png",
 				"className": "splashImage",
-				"id": "splashScreenCandleLight"
+				"id": "splashCandleLight"
 			}
 		]
 	},

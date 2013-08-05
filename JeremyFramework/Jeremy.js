@@ -5,9 +5,11 @@ var Jeremy = {
 	components : {},
 	interfaces : {},
 	configs : {},
-	init : function() {
+	option : null,
+	init : function(option) {
 		console.log('Init: Jeremy');
 		Jeremy.type = 'Jeremy';
+		Jeremy.option = option;
 		Jeremy.load();
 	},
 	request : function(argo) {
@@ -45,7 +47,7 @@ var Jeremy = {
 		$('#jeremy').bind(eJeremyEventType.onInitModules, function(e) {
 			delete Jeremy.moduleIterator;
 			$('#jeremy').unbind(eJeremyEventType.onInitModules);
-			// TODO: Jeremy.run();
+			Jeremy.run();
 		});
 		Jeremy.loadConfigs();
 	},
@@ -83,7 +85,7 @@ var Jeremy = {
 				}
 			});
 		} else {
-			$('#jeremy').trigger(eJeremyEventType.onLoadConfigs);eJeremyEventType.onInitModules
+			$('#jeremy').trigger(eJeremyEventType.onLoadConfigs);
 		}
 	},
 	initModules : function() {
@@ -92,10 +94,14 @@ var Jeremy = {
 			moduleQueue.enqueue(modules[moduleName]);
 		}
 		Jeremy.moduleIterator = moduleQueue.iterator();
-		while(Jeremy.moduleIterator.hasMoreElement()) {
+		while (Jeremy.moduleIterator.hasMoreElement()) {
 			Jeremy.moduleIterator.next().init();
 		}
 		$('#jeremy').trigger(eJeremyEventType.onInitModules);
+	},
+	run : function() {
+		J('STU')('Scene').play(Jeremy.option.firstScene);
+		J('STU')('RunLoop').start(Jeremy.option.runLoopOption);
 	}
 }, eJeremyComponentType = {
 	JeremyStudio : 'STU',
