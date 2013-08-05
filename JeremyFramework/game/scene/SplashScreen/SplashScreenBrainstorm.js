@@ -43,4 +43,4 @@ J('STU')('Context').add('SplashScreenBrainstorm', J('LIB')('SceneContext')({
 	destroyCB : function() {
 		// JS('Renderer2D').remove(this.splashBrainstorm);
 	}
-})); 
+}));
