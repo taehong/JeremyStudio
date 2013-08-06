@@ -6,3 +6,11 @@ window.onload = Jeremy.init(Jeremy.load(Jeremy.start));
 씬 전환과 컨텍스트 재생의 기능을 각각의 매니저에 나누어 구현하기
 
 렌더매니저, 렌더러2D, 렌더러3D 고치기
+
+
+Scene, Context, RunLoop
+=> 더 고쳐야한다.
+특히, GUIManager를 구현하고, 메인메뉴를 만든 다음 Scene과 Context 전환 등에 더 신경을 쓰도록 한다.
+또한, Pause의 구현에 대해 생각해본다.
+
+위 사항에 앞서서 먼저 Renderer2D를 작동하도록 수정한다.
