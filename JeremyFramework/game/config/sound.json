@@ -1,0 +1,20 @@
+{
+    "masterGain":{
+		"volume":"0.9"
+	},
+	"clips": [
+		{
+			"name": "effect1",
+			"url" : "123",
+			"gain": {
+				"volume":"0.5"
+			}
+		}, {
+			"name": "effect2",
+			"url" : "456",
+			"gain": {
+				"volume":"0.7"
+			}
+		}
+	]
+}
