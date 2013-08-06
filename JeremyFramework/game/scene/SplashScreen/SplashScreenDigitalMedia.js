@@ -2,15 +2,16 @@
  * @Context SplashScreenDigitalMedia
  * @author Jeremy Jeong
  */
-J('STU')('Context').add('SplashScreenDigitalMedia', J('LIB')('SceneContext')({
+J('STU')('Context').add(J('LIB')('SceneContext')({
+	name : 'SplashScreenDigitalMedia',
 	initCB : function() {
 		this.splashDigitalMedia = J('LIB')('Renderable2D')({
 			layer : 'gui',
 			drawCB : function(ctx, argo) {
-				ctx.drawImage(argo.img(), argo.posX, argo.posY);
+				ctx.drawImage(argo.img, argo.posX, argo.posY);
 			},
 			argo : {
-				img : J('STU')('Asset').get('image', 'splashDigitalMedia'),
+				img : J('STU')('Asset').get('image', 'splashDigitalMedia').getImage(),
 				posX : 0,
 				posY : 0
 			}
@@ -21,10 +22,10 @@ J('STU')('Context').add('SplashScreenDigitalMedia', J('LIB')('SceneContext')({
 			unit : 1,
 			timerCB : function(argo) {
 				if (argo.timer.count > argo.duration) {
-					// JS('SceneManager').next();
+					J('STU')('Scene').playNext();
 				} else {
-					// var ctx = JS('Renderer2D').context('gui');
-					// ctx.globalAlpha = argo.getAlpha();
+					var ctx = J('STU')('R2D').context('gui');
+					ctx.globalAlpha = argo.getAlpha();
 				}
 			},
 			argo : {
@@ -34,13 +35,14 @@ J('STU')('Context').add('SplashScreenDigitalMedia', J('LIB')('SceneContext')({
 				}
 			}
 		});
-		// JS('Renderer2D').add(this.splashDigitalMedia);
+		J('STU')('R2D').add(this.splashDigitalMedia);
 	},
 	updateCB : function() {
 		this.timer.update();
 		J('STU')('Data').set('splashAlphaAngle', this.angle += (Math.PI / 240));
 	},
 	destroyCB : function() {
-		// J('STU')('Renderer2D').remove(this.splashDigitalMedia);
+		J('STU')('R2D').remove(this.splashDigitalMedia);
+		this.timer = null;
 	}
 }));

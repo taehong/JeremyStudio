@@ -22,7 +22,7 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 			unit : 1,
 			timerCB : function(argo) {
 				if (argo.timer.count > argo.duration) {
-					// J('STU')('Scene').playNext();
+					J('STU')('Scene').playNext();
 				} else {
 					var ctx = J('STU')('R2D').context('gui');
 					ctx.globalAlpha = argo.getAlpha();

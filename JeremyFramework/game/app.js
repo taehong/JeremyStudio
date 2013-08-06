@@ -3,7 +3,7 @@
  */
 function start() {
 	Jeremy.init({
-		firstScene:'TestScene'
+		firstScene:'SplashScreenDigitalMedia'
 	});
 }
 window.onload = start();

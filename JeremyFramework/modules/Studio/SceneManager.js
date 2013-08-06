@@ -50,7 +50,7 @@ var __SceneManager = {
 		__SceneManager.playScene(__SceneManager.getPrev().name);
 	},
 	playNext : function() {
-		__SceneManager.playScene(__SceneManager.getPrev().name);
+		__SceneManager.playScene(__SceneManager.getNext().name);
 	},
 	setCurr : function(name) {
 		__SceneManager.currScene = __SceneManager.getScene(name);

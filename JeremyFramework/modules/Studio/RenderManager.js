@@ -26,4 +26,4 @@ var __RenderManager = {
 			update : __RenderManager.update
 		});
 	}
-})(); 
+})();
