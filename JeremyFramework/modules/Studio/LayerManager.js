@@ -2,17 +2,14 @@
  * @author JeremyJeong
  */
 var __LayerManager = {
+	layers : {},
 	init : function() {
 		console.log('Init: JeremyStudio.LayerManager');
 		__LayerManager.type = 'LayerManager';
-		__LayerManager.layers = {};
 		__LayerManager.initLayers(Jeremy.getConfig('layer'));
 	},
-	update : function() {
-
-	},
 	initLayers : function(config) {
-		var c = config.common, l = config.layers, lName = null;
+		var c = config.common, l = config.layers;
 		l.forEach(function(layer) {
 			__LayerManager.addLayer(c.selector, layer.id, layer.context, c.width, c.height, layer.zIndex, c.top, c.left);
 		});
@@ -38,7 +35,8 @@ var __LayerManager = {
 	if (target) {
 		target.addModule('LayerManager', __LayerManager);
 		target.addInterface('Layer', {
-			layer : __LayerManager.getLayer
+			layer : __LayerManager.getLayer,
+			layers : __LayerManager.layers
 		});
 	}
-})(); 
+})();

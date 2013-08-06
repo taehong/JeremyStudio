@@ -2,7 +2,8 @@
  * @Context SplashScreenDigitalMedia
  * @author Jeremy Jeong
  */
-J('STU')('Context').add('TestScene', J('LIB')('SceneContext')({
+J('STU')('Context').add(J('LIB')('SceneContext')({
+	name : 'TestScene',
 	initCB : function() {
 		this.timer = J('LIB')('Timer')({
 			unit : 2000,
@@ -21,4 +22,4 @@ J('STU')('Context').add('TestScene', J('LIB')('SceneContext')({
 	},
 	destroyCB : function() {
 	}
-}));
+})); 

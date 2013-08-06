@@ -42,8 +42,8 @@ var __ContextManager = {
 			console.log('SceneContext Loaded : ' + contextConfig.name);
 		});
 	},
-	addContext : function(name, context) {
-		__ContextManager.contexts[name] = context;
+	addContext : function(context) {
+		__ContextManager.contexts[context.name] = context;
 	},
 	getContext : function(name) {
 		return __ContextManager.contexts[name];

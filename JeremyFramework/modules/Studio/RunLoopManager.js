@@ -9,7 +9,7 @@ var __RunLoopManager = {
 	update : function() {
 		J('STU')('Scene').update();
 		J('STU')('Context').update();
-		// J('STU')('Render').update();
+		J('STU')('Render').update();
 		requestAnimFrame(__RunLoopManager.update);
 	},
 	start : function(runLoopOption) {

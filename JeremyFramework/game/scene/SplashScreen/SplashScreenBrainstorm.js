@@ -2,15 +2,16 @@
  * @Context SplashScreenBrainstorm
  * @author Jeremy Jeong
  */
-J('STU')('Context').add('SplashScreenBrainstorm', J('LIB')('SceneContext')({
+J('STU')('Context').add(J('LIB')('SceneContext')({
+	name : 'SplashScreenBrainstorm',
 	initCB : function() {
 		this.splashBrainstorm = J('LIB')('Renderable2D')({
 			layer : 'gui',
 			drawCB : function(ctx, argo) {
-				ctx.drawImage(argo.img(), argo.posX, argo.posY);
+				ctx.drawImage(argo.img, argo.posX, argo.posY);
 			},
 			argo : {
-				img : J('STU')('Asset').get('image', 'splashBrainstorm'),
+				img : J('STU')('Asset').get('image', 'splashBrainstorm').getImage(),
 				posX : 0,
 				posY : 0
 			}
@@ -21,10 +22,10 @@ J('STU')('Context').add('SplashScreenBrainstorm', J('LIB')('SceneContext')({
 			unit : 1,
 			timerCB : function(argo) {
 				if (argo.timer.count > argo.duration) {
-					// JS('SceneManager').next();
+					// J('STU')('Scene').playNext();
 				} else {
-					// var ctx = JS('Renderer2D').context('gui');
-					// ctx.globalAlpha = argo.getAlpha();
+					var ctx = J('STU')('R2D').context('gui');
+					ctx.globalAlpha = argo.getAlpha();
 				}
 			},
 			argo : {
@@ -34,13 +35,13 @@ J('STU')('Context').add('SplashScreenBrainstorm', J('LIB')('SceneContext')({
 				}
 			}
 		});
-		// JS('Renderer2D').add(this.splashBrainstorm);
+		J('STU')('R2D').add(this.splashBrainstorm);
 	},
 	updateCB : function() {
 		this.timer.update();
 		J('STU')('Data').set('splashAlphaAngle', this.angle += (Math.PI / 240));
 	},
 	destroyCB : function() {
-		// JS('Renderer2D').remove(this.splashBrainstorm);
+		J('STU')('R2D').remove(this.splashBrainstorm);
 	}
-}));
+})); 

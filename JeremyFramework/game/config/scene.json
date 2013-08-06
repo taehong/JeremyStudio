@@ -7,7 +7,7 @@
 				"name": "TestScene",
 				"url": "game/scene/TestScene.js"
 			},
-			"nextScenes": ["SplashScreenDigitalMedia"],
+			"nextScenes": ["SplashScreenBrainstorm"],
 			"prevScenes": ["SplashScreenBrainstorm"]
 		}, {
 			"name": "SplashScreenDigitalMedia",
