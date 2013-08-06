@@ -14,6 +14,8 @@ var __RenderManager = {
 	},
 	update : function() {
 		J('STU')('R2D').update();
+		// J('STU')('R3D').update();
+		// J('STU')('Sound').update();
 	}
 };
 (function() {
