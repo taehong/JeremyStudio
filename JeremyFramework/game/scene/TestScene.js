@@ -8,10 +8,8 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		this.timer = J('LIB')('Timer')({
 			unit : 2000,
 			timerCB : function(argo) {
-				console.log(J('STU')('Scene').getCurr());
-				console.log(J('STU')('Scene').getPrev());
-				console.log(J('STU')('Scene').getNext());
-				console.log(J('STU')('Context').current());
+				console.log('playNext');
+				J('STU')('Scene').playNext();
 			},
 			argo : {
 			}
@@ -21,5 +19,6 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		this.timer.update();
 	},
 	destroyCB : function() {
+		this.timer = null;
 	}
 })); 

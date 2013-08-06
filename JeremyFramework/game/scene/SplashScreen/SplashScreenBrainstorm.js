@@ -43,5 +43,6 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 	},
 	destroyCB : function() {
 		J('STU')('R2D').remove(this.splashBrainstorm);
+		this.timer = null;
 	}
 })); 
