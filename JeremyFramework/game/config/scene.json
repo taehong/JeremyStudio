@@ -1,5 +1,5 @@
 {
-	"count": 3,
+	"count": 4,
 	"scenes": [
 		{
 			"name": "SplashScreenDigitalMedia",
@@ -23,8 +23,16 @@
 				"name": "SplashScreenCandleLight",
 				"url": "game/scene/SplashScreen/SplashScreenCandleLight.js"
 			},
-			"nextScenes": ["SplashScreenDigitalMedia"],
+			"nextScenes": ["MenuMain"],
 			"prevScenes": ["SplashScreenBrainstorm"]
+		}, {
+			"name": "MenuMain",
+			"context": {
+				"name": "MenuMain",
+				"url": "game/scene/Menu/MenuMain.js"
+			},
+			"nextScenes": [null],
+			"prevScenes": ["SplashScreenCandleLight"]
 		}
 	]
 }

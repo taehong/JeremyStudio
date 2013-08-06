@@ -1,0 +1,10 @@
+{
+	"buttons": {
+		"RectButton": {
+			"view": {
+				"idle": "",
+				"focus": ""
+			}
+		}
+	}
+}

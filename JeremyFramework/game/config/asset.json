@@ -1,6 +1,6 @@
 {
 	"image": {
-		"count": 3,
+		"count": 4,
 		"items": [
 			{
 				"name": "splashDigitalMedia",
@@ -17,6 +17,11 @@
 				"src": "game/asset/image/splashscreen/CandleLight_splashscreen.png",
 				"className": "splashImage",
 				"id": "splashCandleLight"
+			}, {
+				"name": "bgMenuMain",
+				"src": "game/asset/image/menu/MenuMain_background.png",
+				"className": "bgImage",
+				"id": "bgMenuMain"
 			}
 		]
 	},
