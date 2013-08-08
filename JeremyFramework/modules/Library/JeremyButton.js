@@ -25,6 +25,8 @@ function JeremyButton(argo) {
 		}
 	});
 	this.name = argo.name;
+	this.action = argo.action;
+	this.argo = argo.argo;
 }
 
 JeremyButton.prototype.destroy = function() {
@@ -36,9 +38,13 @@ JeremyButton.prototype.destroy = function() {
 JeremyButton.prototype.show = function() {
 	J('STU')('R2D').add(this.renderable);
 };
+
+JeremyButton.prototype.doAction = function() {
+	this.action(this.argo);
+};
 (function() {
 	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyLibrary') : undefined);
 	if (target) {
 		target.addModule('JeremyButton', JeremyButton);
 	}
-})(); 
+})();

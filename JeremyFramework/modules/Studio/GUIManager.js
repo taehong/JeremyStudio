@@ -28,4 +28,4 @@ var __GUIManager = {
 			create : __GUIManager.create
 		});
 	}
-})(); 
+})();

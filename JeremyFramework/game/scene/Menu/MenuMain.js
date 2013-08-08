@@ -19,13 +19,23 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 			name : 'Credit',
 			asset : 'btnCredit',
 			posX : 490,
-			posY : 400
+			posY : 400,
+			action : function(argo) {
+				J('STU')('Scene').setNext('MenuCredit');
+				J('STU')('Scene').playNext();
+			},
+			argo : null
 		});
 		this.btnHelp = J('STU')('GUI').create('Button', {
 			name : 'Help',
 			asset : 'btnHelp',
 			posX : 490,
-			posY : 300
+			posY : 300,
+			action : function(argo) {
+				J('STU')('Scene').setNext('MenuHelp');
+				J('STU')('Scene').playNext();
+			},
+			argo : null
 		});
 		J('STU')('R2D').add(this.bgMenuMain);
 		this.btnCredit.show();
@@ -46,4 +56,4 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		this.btnCredit = null;
 		this.btnHelp = null;
 	}
-})); 
+}));
