@@ -52,7 +52,7 @@ JeremyVector4.prototype.subtraction = function(vector4) {
 	return result;
 };
 (function() {
-	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyMath') : undefined);
+	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyMathematics') : undefined);
 	if (target) {
 		target.addModule('JeremyVector4', JeremyVector4);
 	}

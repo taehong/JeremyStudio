@@ -62,7 +62,7 @@ JeremyRectangle.prototype.rightBottom = function() {
 	});
 };
 (function() {
-	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyMath') : undefined);
+	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyMathematics') : undefined);
 	if (target) {
 		target.addModule('JeremyRectangle', JeremyRectangle);
 	}
