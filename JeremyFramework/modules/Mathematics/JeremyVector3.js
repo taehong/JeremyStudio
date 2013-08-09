@@ -50,7 +50,7 @@ JeremyVector3.prototype.subtraction = function(vector3) {
 };
 JeremyVector3.prototype.dot = function(vector3) {
 	var u = this, v = vector3;
-	if (u.isVector() && v.isVector()) {
+	if (this.isVector() && vector3.isVector()) {
 		return new JeremyVector3({
 			x : u.x * v.x,
 			y : u.y * v.y,
@@ -60,9 +60,15 @@ JeremyVector3.prototype.dot = function(vector3) {
 		return undefined;
 	}
 };
+JeremyVector3.prototype.toString = function() {
+	return JSON.stringify(this.valueOf());
+};
+JeremyVector3.prototype.valueOf = function() {
+	return [this.x, this.y, this.w];
+};
 (function() {
 	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyMathematics') : undefined);
 	if (target) {
 		target.addModule('JeremyVector3', JeremyVector3);
 	}
-})(); 
+})();

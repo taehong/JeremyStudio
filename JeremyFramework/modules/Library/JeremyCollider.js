@@ -3,7 +3,7 @@
  */
 // @param owner, rectangle
 function JeremyCollider(argo) {
-	this.owner = argo.owner;
+	this.id = (new Date()).getTime();
 	this.area = argo.area;
 }
 
@@ -14,8 +14,7 @@ JeremyCollider.prototype.isSelected = function(point) {
 	return this.area.isContaining(point);
 };
 JeremyCollider.prototype.isEquals = function(collider) {
-	var thisCollider = JSON.stringify(this), thatCollider = JSON.stringify(collider);
-	return thisCollider == thatCollider;
+	return this.id == collider.id;
 };
 (function() {
 	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyLibrary') : undefined);

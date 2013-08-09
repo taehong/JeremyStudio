@@ -4,8 +4,7 @@
 function JeremyButton(argo) {
 	var imgAsset = J('STU')('Asset').get('image', argo.asset);
 	// TODO : CollisionManager!!
-	this.collider = J('LIB')('Collider')({
-		owner : this,
+	this.collider = J('STU')('Collision').create({
 		area : J('MAT')('Rectangle')({
 			x : argo.posX,
 			y : argo.posY,

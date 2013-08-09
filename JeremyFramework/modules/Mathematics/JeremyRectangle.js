@@ -61,9 +61,22 @@ JeremyRectangle.prototype.rightBottom = function() {
 		w : 1
 	});
 };
+JeremyRectangle.prototype.toString = function() {
+	return JSON.stringify(this.valueOf());
+};
+JeremyRectangle.prototype.valueOf = function() {
+	return {
+		left : this.left,
+		right : this.right,
+		top : this.top,
+		bottom : this.bottom,
+		width : this.width,
+		height : this.height
+	};
+};
 (function() {
 	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyMathematics') : undefined);
 	if (target) {
 		target.addModule('JeremyRectangle', JeremyRectangle);
 	}
-})(); 
+})();

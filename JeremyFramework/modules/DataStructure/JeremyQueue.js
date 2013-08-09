@@ -47,4 +47,4 @@ JeremyQueue.prototype.iterator = function() {
 	if (target) {
 		target.addModule('JeremyQueue', JeremyQueue);
 	}
-})(); 
+})();

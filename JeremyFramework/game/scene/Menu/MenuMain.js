@@ -55,30 +55,25 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		J('STU')('Event').set('onClickButton', '#jeremy', 'click', function(e) {
 
 		});
-		var aObj = {
-			name : 'a'
-		};
-		var bObj = {
-			name : 'a'
-		};
-		var colA = J('LIB')('Collider')({
-			owner : aObj,
+		QUADTREE = J('DAT')('Quadtree')({
+			capacity: 5,
 			area : J('MAT')('Rectangle')({
-				x : 1,
-				y : 2,
-				w : 3,
-				h : 4
+				x : 0,
+				y : 0,
+				w : 720,
+				h : 480
 			})
 		});
-		var colB = J('LIB')('Collider')({
-			owner : bObj,
-			area : J('MAT')('Rectangle')({
-				x : 1,
-				y : 2,
-				w : 3,
-				h : 4
-			})
-		});
+		for (var i = 0; i < 50; i++) {
+			QUADTREE.insert(J('MAT')('Vector3')({
+				x:Math.random() * 720,
+				y:Math.random() * 480,
+				w:1
+			}));
+		}
+		console.log(QUADTREE);
+		console.log(JSON.stringify(QUADTREE));
+		
 	},
 	updateCB : function() {
 
@@ -93,4 +88,4 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		this.btnCredit = null;
 		this.btnHelp = null;
 	}
-})); 
+}));

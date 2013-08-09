@@ -10,7 +10,7 @@ var __CollisionManager = {
 	createCollider : function(argo) {
 		var newCollider = J('LIB')('Collider')(argo);
 		__CollisionManager.addCollider(newCollider);
-		return newCollider;
+		return newCollider.id;
 	},
 	addCollider : function(collider) {
 		__CollisionManager.colliders.push(collider);
@@ -37,4 +37,4 @@ var __CollisionManager = {
 			create : __CollisionManager.createCollider
 		});
 	}
-})(); 
+})();

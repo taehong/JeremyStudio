@@ -53,7 +53,7 @@ JeremyVector4.prototype.subtraction = function(vector4) {
 };
 JeremyVector4.prototype.dot = function(vector4) {
 	var u = this, v = vector4;
-	if (u.isVector() && v.isVector()) {
+	if (this.isVector() && vector4.isVector()) {
 		return new JeremyVector4({
 			x : u.x * v.x,
 			y : u.y * v.y,
@@ -66,7 +66,7 @@ JeremyVector4.prototype.dot = function(vector4) {
 };
 JeremyVector4.prototype.cross = function(vector4) {
 	var u = [this.x, this.y, this.z], v = [vector4.x, vector4.y, vector4.z];
-	if (u.isVector() && v.isVector()) {
+	if (this.isVector() && vector4.isVector()) {
 		return new JeremyVector4({
 			x : (u[1] * v[2] - u[2] * v[1]),
 			y : -(u[0] * v[2] - u[2] - v[0]),
@@ -76,6 +76,12 @@ JeremyVector4.prototype.cross = function(vector4) {
 	} else {
 		return undefined;
 	}
+};
+JeremyVector4.prototype.toString = function() {
+	return JSON.stringify(this.valueOf());
+};
+JeremyVector4.prototype.valueOf = function() {
+	return [this.x, this.y, this.z, this.w];
 };
 (function() {
 	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyMathematics') : undefined);
