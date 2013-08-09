@@ -51,6 +51,32 @@ JeremyVector4.prototype.subtraction = function(vector4) {
 	}
 	return result;
 };
+JeremyVector4.prototype.dot = function(vector4) {
+	var u = this, v = vector4;
+	if (u.isVector() && v.isVector()) {
+		return new JeremyVector4({
+			x : u.x * v.x,
+			y : u.y * v.y,
+			z : u.z * v.z,
+			w : 0
+		});
+	} else {
+		return undefined;
+	}
+};
+JeremyVector4.prototype.cross = function(vector4) {
+	var u = [this.x, this.y, this.z], v = [vector4.x, vector4.y, vector4.z];
+	if (u.isVector() && v.isVector()) {
+		return new JeremyVector4({
+			x : (u[1] * v[2] - u[2] * v[1]),
+			y : -(u[0] * v[2] - u[2] - v[0]),
+			z : (u[0] * v[1] - u[1] * v[0]),
+			w : 0
+		});
+	} else {
+		return undefined;
+	}
+};
 (function() {
 	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyMathematics') : undefined);
 	if (target) {

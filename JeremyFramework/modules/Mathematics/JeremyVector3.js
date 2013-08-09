@@ -48,9 +48,21 @@ JeremyVector3.prototype.subtraction = function(vector3) {
 	}
 	return result;
 };
+JeremyVector3.prototype.dot = function(vector3) {
+	var u = this, v = vector3;
+	if (u.isVector() && v.isVector()) {
+		return new JeremyVector3({
+			x : u.x * v.x,
+			y : u.y * v.y,
+			w : 0
+		});
+	} else {
+		return undefined;
+	}
+};
 (function() {
 	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyMathematics') : undefined);
 	if (target) {
 		target.addModule('JeremyVector3', JeremyVector3);
 	}
-})();
+})(); 
