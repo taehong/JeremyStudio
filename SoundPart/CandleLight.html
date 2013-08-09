@@ -34,16 +34,17 @@
         <script src='PseudoDebugger/PseudoBillboard.js'></script>
     </head>
     <body>
+    	<script>JS('soundbox').addEffect(4);</script>
     	<p>
         	<input type="button" onclick="JS('soundbox').clickedSoundPlay(); JS('soundbox').bgmToggle();" value="Play/Stop BGM , clicked"/>
-        	<input type="button" onclick="JS('soundbox').play('BGM');" value="Play BGM"/>
+        	<input type="button" onclick="JS('soundbox').play('Effect',0);" value="Play BGM"/>
         	<input type="button" onclick="JS('soundbox').stop('BGM');" value="Stop BGM"/>
         	<input type="button" onclick="JS('soundbox').pause('BGM');" value="Pause BGM"/>
         	<input type="button" onclick="JS('soundbox').resume('BGM');" value="Resume BGM"/>
         </p>
         <p>
         	<input type="button" onclick="JS('soundbox').scaleVolume('BGM', 1);" value="BGM Volume Up"/>
-        	<input type="button" onclick="JS('soundbox').scaleVolume('BGM', 0.1);" value="BGM Volume Down"/>	
+        	<input type="button" onclick="JS('soundbox').scaleVolume('BGM', 0);" value="BGM Volume Down"/>	
         </p>
         <div id='GameArea'>
         </div>
