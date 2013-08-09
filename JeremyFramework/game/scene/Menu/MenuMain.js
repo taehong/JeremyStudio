@@ -15,6 +15,17 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 				posY : 0
 			}
 		});
+		this.btnStart = J('STU')('GUI').create('Button', {
+			name : 'Start',
+			asset : 'btnStart',
+			posX : 490,
+			posY : 200,
+			action : function(argo) {
+				J('STU')('Scene').setNext('MenuStart');
+				J('STU')('Scene').playNext();
+			},
+			argo : null
+		});
 		this.btnCredit = J('STU')('GUI').create('Button', {
 			name : 'Credit',
 			asset : 'btnCredit',
@@ -38,10 +49,35 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 			argo : null
 		});
 		J('STU')('R2D').add(this.bgMenuMain);
+		this.btnStart.show();
 		this.btnCredit.show();
 		this.btnHelp.show();
 		J('STU')('Event').set('onClickButton', '#jeremy', 'click', function(e) {
 
+		});
+		var aObj = {
+			name : 'a'
+		};
+		var bObj = {
+			name : 'a'
+		};
+		var colA = J('LIB')('Collider')({
+			owner : aObj,
+			area : J('MAT')('Rectangle')({
+				x : 1,
+				y : 2,
+				w : 3,
+				h : 4
+			})
+		});
+		var colB = J('LIB')('Collider')({
+			owner : bObj,
+			area : J('MAT')('Rectangle')({
+				x : 1,
+				y : 2,
+				w : 3,
+				h : 4
+			})
 		});
 	},
 	updateCB : function() {
@@ -49,6 +85,7 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 	},
 	destroyCB : function() {
 		J('STU')('R2D').remove(this.bgMenuMain);
+		this.btnStart.destroy();
 		this.btnCredit.destroy();
 		this.btnHelp.destroy();
 
@@ -56,4 +93,4 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		this.btnCredit = null;
 		this.btnHelp = null;
 	}
-}));
+})); 
