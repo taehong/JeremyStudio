@@ -4,6 +4,8 @@
 /*
  * argo.area : JeremyRectangle
  */
+
+//TODO : Error!! queryRange, subdivide, etc.
 function JeremyQuadtree(argo) {
 	this.capacity = argo.capacity;
 	this.items = [];
