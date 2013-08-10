@@ -2,8 +2,8 @@
  * @author Jeremy
  */
 /*
- * argo.area : JeremyRectangle
- */
+* argo.area : JeremyRectangle
+*/
 
 //TODO : Error!! queryRange, subdivide, etc.
 function JeremyQuadtree(argo) {
@@ -109,6 +109,28 @@ JeremyQuadtree.prototype.queryRange = function(area) {
 	pointsInRange = pointsInRange.concat(this.lowerRight.queryRange(area));
 
 	return pointsInRange;
+};
+JeremyQuadtree.prototype.drawCB = function(ctx, argo) {
+	this.drawAABB(ctx, argo.aabb);
+	this.drawItem(ctx, argo.item);
+	if (!this.upperLeft)
+		return;
+	this.upperLeft.drawCB(ctx, argo);
+	this.upperRight.drawCB(ctx, argo);
+	this.lowerLeft.drawCB(ctx, argo);
+	this.lowerRight.drawCB(ctx, argo);
+};
+JeremyQuadtree.prototype.drawAABB = function(ctx, argo) {
+	var aabb = this.aabb.valueOf();
+	ctx.strokeStyle = argo.color;
+	ctx.strokeRect(aabb.left, aabb.top, aabb.width, aabb.height);
+};
+JeremyQuadtree.prototype.drawItem = function(ctx, argo) {
+	var items = this.items;
+	ctx.fillStyle = argo.color;
+	items.forEach(function(elem) {
+		ctx.fillRect(elem.x, elem.y, argo.size, argo.size);
+	});
 };
 (function() {
 	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyDataStructure') : undefined);

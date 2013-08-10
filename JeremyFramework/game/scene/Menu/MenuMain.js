@@ -55,24 +55,6 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		J('STU')('Event').set('onClickButton', '#jeremy', 'click', function(e) {
 
 		});
-		QUADTREE = J('DAT')('Quadtree')({
-			capacity: 5,
-			area : J('MAT')('Rectangle')({
-				x : 0,
-				y : 0,
-				w : 720,
-				h : 480
-			})
-		});
-		for (var i = 0; i < 50; i++) {
-			QUADTREE.insert(J('MAT')('Vector3')({
-				x:Math.random() * 720,
-				y:Math.random() * 480,
-				w:1
-			}));
-		}
-		console.log(QUADTREE);
-		console.log(JSON.stringify(QUADTREE));
 		
 	},
 	updateCB : function() {

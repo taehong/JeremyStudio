@@ -1,5 +1,5 @@
 {
-	"count": 4,
+	"count": 5,
 	"scenes": [
 		{
 			"name": "SplashScreenDigitalMedia",
@@ -33,6 +33,14 @@
 			},
 			"nextScenes": [null],
 			"prevScenes": ["SplashScreenCandleLight"]
+		}, {
+			"name": "TestScene",
+			"context": {
+				"name": "TestScene",
+				"url": "game/scene/Test/TestScene.js"
+			},
+			"nextScenes": [null],
+			"prevScenes": [null]
 		}
 	]
 }
