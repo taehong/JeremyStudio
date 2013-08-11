@@ -1,46 +1,54 @@
 {
-	"count": 5,
-	"scenes": [
-		{
-			"name": "SplashScreenDigitalMedia",
-			"context": {
-				"name": "SplashScreenDigitalMedia",
-				"url": "game/scene/SplashScreen/SplashScreenDigitalMedia.js"
-			},
-			"nextScenes": ["SplashScreenBrainstorm"],
-			"prevScenes": [null]
-		}, {
-			"name": "SplashScreenBrainstorm",
-			"context": {
-				"name": "SplashScreenBrainstorm",
-				"url": "game/scene/SplashScreen/SplashScreenBrainstorm.js"
-			},
-			"nextScenes": ["SplashScreenCandleLight"],
-			"prevScenes": ["SplashScreenDigitalMedia"]
-		}, {
-			"name": "SplashScreenCandleLight",
-			"context": {
-				"name": "SplashScreenCandleLight",
-				"url": "game/scene/SplashScreen/SplashScreenCandleLight.js"
-			},
-			"nextScenes": ["MenuMain"],
-			"prevScenes": ["SplashScreenBrainstorm"]
-		}, {
-			"name": "MenuMain",
-			"context": {
-				"name": "MenuMain",
-				"url": "game/scene/Menu/MenuMain.js"
-			},
-			"nextScenes": [null],
-			"prevScenes": ["SplashScreenCandleLight"]
-		}, {
-			"name": "TestScene",
-			"context": {
-				"name": "TestScene",
-				"url": "game/scene/Test/TestScene.js"
-			},
-			"nextScenes": [null],
-			"prevScenes": [null]
-		}
-	]
+    "count": 6,
+    "scenes": [
+        {
+            "name": "SplashScreenDigitalMedia",
+            "context": {
+                "name": "SplashScreenDigitalMedia",
+                "url": "game/scene/SplashScreen/SplashScreenDigitalMedia.js"
+            },
+            "nextScenes": ["SplashScreenBrainstorm"],
+            "prevScenes": [null]
+        }, {
+            "name": "SplashScreenBrainstorm",
+            "context": {
+                "name": "SplashScreenBrainstorm",
+                "url": "game/scene/SplashScreen/SplashScreenBrainstorm.js"
+            },
+            "nextScenes": ["SplashScreenCandleLight"],
+            "prevScenes": ["SplashScreenDigitalMedia"]
+        }, {
+            "name": "SplashScreenCandleLight",
+            "context": {
+                "name": "SplashScreenCandleLight",
+                "url": "game/scene/SplashScreen/SplashScreenCandleLight.js"
+            },
+            "nextScenes": ["MenuMain"],
+            "prevScenes": ["SplashScreenBrainstorm"]
+        }, {
+            "name": "MenuMain",
+            "context": {
+                "name": "MenuMain",
+                "url": "game/scene/Menu/MenuMain.js"
+            },
+            "nextScenes": [null],
+            "prevScenes": ["SplashScreenCandleLight"]
+        }, {
+            "name": "TestScene",
+            "context": {
+                "name": "TestScene",
+                "url": "game/scene/Test/TestScene.js"
+            },
+            "nextScenes": [null],
+            "prevScenes": [null]
+        }, {
+            "name": "ThreeTestScene",
+            "context": {
+                "name": "ThreeTestScene",
+                "url": "game/scene/Test/ThreeTestScene.js"
+            },
+            "nextScenes": [null],
+            "prevScenes": [null]
+        }
+    ]
 }
