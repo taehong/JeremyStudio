@@ -7,13 +7,26 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 	initCB : function() {
 		this.quadtree = J('DAT')('Quadtree')({
 			capacity : 1,
-			area : J('MAT')('Rectangle')({
-				x : 0,
-				y : 0,
-				w : 720,
-				h : 480
+			aabb : J('MAT')('AABB2')({
+				center : J('MAT')('Vec3')({
+					x : 360,
+					y : 240,
+					w : 1
+				}),
+				half : J('MAT')('Vec3')({
+					x : 360,
+					y : 240,
+					w : 0
+				})
 			})
 		});
+		for(var i = 0; i < 100; i++) {
+            this.quadtree.insert(J('MAT')('Vec3')({
+                x : Math.random() * 720,
+                y : Math.random() * 480,
+                w : 1
+            }));
+        }
 		console.log(this.quadtree);
 		this.quadtreeDrawing = J('LIB')('Renderable2D')({
 			layer : 'effect',
@@ -35,36 +48,25 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		J('STU')('R2D').add(this.quadtreeDrawing);
 		$('#jeremy').bind('click', function(e) {
 			var quadtree = J('STU')('Data').get('TestQuadtree');
-			quadtree.insert(J('MAT')('Vector3')({
+			quadtree.insert(J('MAT')('Vec3')({
 				x : e.offsetX,
 				y : e.offsetY,
 				w : 1
 			}));
-			console.log('Left Top >> ',quadtree.queryRange(J('MAT')('Rectangle')({
-				x : 0,
-				y : 0,
-				w : 360,
-				h : 240
-			})));
-			console.log('Right Top >> ',quadtree.queryRange(J('MAT')('Rectangle')({
-				x : 360,
-				y : 0,
-				w : 360,
-				h : 240
-			})));
-			console.log('Left Bottom >> ',quadtree.queryRange(J('MAT')('Rectangle')({
-				x : 0,
-				y : 240,
-				w : 360,
-				h : 240
-			})));
-			console.log('Right Bottom >> ',quadtree.queryRange(J('MAT')('Rectangle')({
-				x : 360,
-				y : 240,
-				w : 360,
-				h : 240
+			console.log('Left Top >> ', quadtree.queryRange(J('MAT')('AABB2')({
+				center: J('MAT')('Vec3')({
+				    x:360,
+				    y:240,
+				    w:1
+				}),
+				half: J('MAT')('Vec3')({
+                    x:360,
+                    y:240,
+                    w:0
+                })
 			})));
 		});
+		
 	},
 	updateCB : function() {
 
@@ -72,4 +74,3 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 	destroyCB : function() {
 	}
 }));
-

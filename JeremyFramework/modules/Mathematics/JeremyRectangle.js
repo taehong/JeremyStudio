@@ -34,28 +34,28 @@ JeremyRectangle.prototype.isContaining = function(point) {
 	return isContaining;
 };
 JeremyRectangle.prototype.leftTop = function() {
-	return new JeremyVector3({
+	return new JeremyVec3({
 		x : this.left,
 		y : this.top,
 		w : 1
 	});
 };
 JeremyRectangle.prototype.rightTop = function() {
-	return new JeremyVector3({
+	return new JeremyVec3({
 		x : this.right,
 		y : this.top,
 		w : 1
 	});
 };
 JeremyRectangle.prototype.leftBottom = function() {
-	return new JeremyVector3({
+	return new JeremyVec3({
 		x : this.left,
 		y : this.bottom,
 		w : 1
 	});
 };
 JeremyRectangle.prototype.rightBottom = function() {
-	return new JeremyVector3({
+	return new JeremyVec3({
 		x : this.right,
 		y : this.bottom,
 		w : 1

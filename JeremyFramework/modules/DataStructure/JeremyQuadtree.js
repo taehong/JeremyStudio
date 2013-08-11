@@ -9,11 +9,11 @@
 function JeremyQuadtree(argo) {
 	this.capacity = argo.capacity;
 	this.items = [];
-	this.aabb = argo.area;
-	this.upperLeft = null;
-	this.upperRight = null;
-	this.lowerLeft = null;
-	this.lowerRight = null;
+	this.aabb = argo.aabb;
+	this.northWest = null;
+	this.northEast = null;
+	this.southWest = null;
+	this.southEast = null;
 }
 
 JeremyQuadtree.prototype.insert = function(item) {
@@ -29,96 +29,105 @@ JeremyQuadtree.prototype.insert = function(item) {
 	}
 
 	// Otherwise, we need to subdivide then add the point to whichever node will accept it
-	if (this.upperLeft == null)
+	if (this.northWest == null)
 		this.subdivide();
 
-	if (this.upperLeft.insert(item))
+	if (this.northWest.insert(item))
 		return true;
-	if (this.upperRight.insert(item))
+	if (this.northEast.insert(item))
 		return true;
-	if (this.lowerLeft.insert(item))
+	if (this.southWest.insert(item))
 		return true;
-	if (this.lowerRight.insert(item))
+	if (this.southEast.insert(item))
 		return true;
 
 	// Otherwise, the point cannot be inserted for some unknown reason (which should never happen)
 	return false;
 };
 JeremyQuadtree.prototype.subdivide = function() {
-	var aabb = this.aabb.valueOf();
-	this.upperLeft = new JeremyQuadtree({
+	var aabb = this.aabb, subHalf = aabb.half.multiply(1/2);
+	
+	this.northWest = new JeremyQuadtree({
 		capacity : this.capacity,
-		area : new JeremyRectangle({
-			x : aabb.left,
-			y : aabb.top,
-			w : aabb.width / 2,
-			h : aabb.height / 2
+		aabb : new JeremyAABB2({
+		    center: new JeremyVec3({
+		        x:aabb.center.x - subHalf.x,
+		        y:aabb.center.y - subHalf.y,
+		        w:1
+		    }),
+		    half: subHalf
 		})
 	});
-	this.upperRight = new JeremyQuadtree({
+	this.northEast = new JeremyQuadtree({
 		capacity : this.capacity,
-		area : new JeremyRectangle({
-			x : aabb.left + aabb.width / 2,
-			y : aabb.top,
-			w : aabb.width / 2,
-			h : aabb.height / 2
-		})
+		aabb : new JeremyAABB2({
+            center: new JeremyVec3({
+                x:aabb.center.x + subHalf.x,
+                y:aabb.center.y - subHalf.y,
+                w:1
+            }),
+            half: subHalf
+        })
 	});
-	this.lowerLeft = new JeremyQuadtree({
+	this.southWest = new JeremyQuadtree({
 		capacity : this.capacity,
-		area : new JeremyRectangle({
-			x : aabb.left,
-			y : aabb.top + aabb.height / 2,
-			w : aabb.width / 2,
-			h : aabb.height / 2
-		})
+		aabb : new JeremyAABB2({
+            center: new JeremyVec3({
+                x:aabb.center.x - subHalf.x,
+                y:aabb.center.y + subHalf.y,
+                w:1
+            }),
+            half: subHalf
+        })
 	});
-	this.lowerRight = new JeremyQuadtree({
+	this.southEast = new JeremyQuadtree({
 		capacity : this.capacity,
-		area : new JeremyRectangle({
-			x : aabb.left + aabb.width / 2,
-			y : aabb.top + aabb.height / 2,
-			w : aabb.width / 2,
-			h : aabb.height / 2
-		})
+		aabb : new JeremyAABB2({
+            center: new JeremyVec3({
+                x:aabb.center.x + subHalf.x,
+                y:aabb.center.y + subHalf.y,
+                w:1
+            }),
+            half: subHalf
+        })
 	});
 };
-JeremyQuadtree.prototype.queryRange = function(area) {
+JeremyQuadtree.prototype.queryRange = function(aabb2) {
 	// Prepare an array of results
 	var pointsInRange = [], index, items, length;
 
 	// Automatically abort if the range does not collide with this quad
-	if (!this.aabb.isIntersectingWith(area))
+	if (!this.aabb.isIntersectingWith(aabb2))
 		return pointsInRange;
 	// empty list
 
 	// Check objects at this quad level
 	for ( index = 0, items = this.items, length = items.length; index < length; index++) {
-		if (area.isContaining(items[index]))
+		if (aabb2.isContaining(items[index]))
 			pointsInRange.push(items[index]);
 	}
 
 	// Terminate here, if there are no children
-	if (this.upperLeft == null)
+	if (this.northWest == null)
 		return pointsInRange;
 
 	// Otherwise, add the points from the children
-	pointsInRange = pointsInRange.concat(this.upperLeft.queryRange(area));
-	pointsInRange = pointsInRange.concat(this.upperRight.queryRange(area));
-	pointsInRange = pointsInRange.concat(this.lowerLeft.queryRange(area));
-	pointsInRange = pointsInRange.concat(this.lowerRight.queryRange(area));
+	pointsInRange = pointsInRange.concat(this.northWest.queryRange(aabb2));
+	pointsInRange = pointsInRange.concat(this.northEast.queryRange(aabb2));
+	pointsInRange = pointsInRange.concat(this.southWest.queryRange(aabb2));
+	pointsInRange = pointsInRange.concat(this.southEast.queryRange(aabb2));
 
 	return pointsInRange;
 };
 JeremyQuadtree.prototype.drawCB = function(ctx, argo) {
 	this.drawAABB(ctx, argo.aabb);
 	this.drawItem(ctx, argo.item);
-	if (!this.upperLeft)
+	if (!this.northWest)
 		return;
-	this.upperLeft.drawCB(ctx, argo);
-	this.upperRight.drawCB(ctx, argo);
-	this.lowerLeft.drawCB(ctx, argo);
-	this.lowerRight.drawCB(ctx, argo);
+	this.northWest.drawCB(ctx, argo);
+	this.northEast.drawCB(ctx, argo);
+	this.southWest.drawCB(ctx, argo);
+	this.southEast.drawCB(ctx, argo);
 };
 JeremyQuadtree.prototype.drawAABB = function(ctx, argo) {
 	var aabb = this.aabb.valueOf();
