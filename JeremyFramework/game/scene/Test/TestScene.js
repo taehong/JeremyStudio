@@ -2,6 +2,9 @@
  * @Context SplashScreenDigitalMedia
  * @author Jeremy Jeong
  */
+
+// TODO: Event 처리부분 완성하기
+// TODO: CollisionManager를 통해서 충돌을 처리하도록 하기 --> Quadtree와 BST를 CollisionManager에 붙이기!!
 J('STU')('Context').add(J('LIB')('SceneContext')({
     name : 'TestScene',
     initCB : function() {

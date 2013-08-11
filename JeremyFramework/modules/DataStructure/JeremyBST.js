@@ -3,6 +3,7 @@
  */
 
 // TODO: http://en.wikipedia.org/wiki/Binary_search_tree
+// TODO: Sort, Search
 function JeremyBST(argo) {
     this.key = (argo.key ? argo.key : undefined);
     this.valueList = [];
