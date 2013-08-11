@@ -11,6 +11,7 @@ function JeremyAABB2(argo) {
 	this.type = 'JeremyAABB2';
 	this.center = argo.center;
 	this.half = argo.half;
+	this.color = "#000000";
 }
 
 JeremyAABB2.prototype.isIntersectingWith = function(aabb2) {

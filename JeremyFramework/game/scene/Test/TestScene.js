@@ -5,6 +5,9 @@
 J('STU')('Context').add(J('LIB')('SceneContext')({
     name : 'TestScene',
     initCB : function() {
+        if (this.quadtreeDrawing) {
+            J('STU')('R2D').remove(this.quadtreeDrawing);
+        }
         this.quadtree = J('DAT')('Quadtree')({
             capacity : 1,
             aabb : J('MAT')('AABB2')({
@@ -20,7 +23,7 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
                 })
             })
         });
-        for (var i = 0; i < 100; i++) {
+        for (var i = 0; i < 125; i++) {
             this.quadtree.insertAABB(J('MAT')('AABB2')({
                 center : J('MAT')('Vec3')({
                     x : 360 + Math.random() * 360,
@@ -70,14 +73,14 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
                 })
             }));
         }
-        console.log(this.quadtree);
+        J('STU')('Data').set('TestQuadtree', this.quadtree);
         this.quadtreeDrawing = J('LIB')('Renderable2D')({
             layer : 'effect',
             drawCB : function(ctx, argo) {
                 argo.quadtree.drawCB(ctx, argo);
             },
             argo : {
-                quadtree : this.quadtree,
+                quadtree : J('STU')('Data').get('TestQuadtree'),
                 aabb : {
                     color : "#ff0000"
                 },
@@ -87,28 +90,7 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
                 }
             }
         });
-        J('STU')('Data').set('TestQuadtree', this.quadtree);
         J('STU')('R2D').add(this.quadtreeDrawing);
-        // $('#jeremy').bind('click', function(e) {
-        // var quadtree = J('STU')('Data').get('TestQuadtree');
-        // quadtree.insert(J('MAT')('Vec3')({
-        // x : e.offsetX,
-        // y : e.offsetY,
-        // w : 1
-        // }));
-        // console.log('Left Top >> ', quadtree.queryRange(J('MAT')('AABB2')({
-        // center: J('MAT')('Vec3')({
-        // x:360,
-        // y:240,
-        // w:1
-        // }),
-        // half: J('MAT')('Vec3')({
-        // x:360,
-        // y:240,
-        // w:0
-        // })
-        // })));
-        // });
         $('#jeremy').bind('click', function(e) {
             var point = J('MAT')('Vec3')({
                 x : e.offsetX,

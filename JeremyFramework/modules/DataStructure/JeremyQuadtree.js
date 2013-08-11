@@ -6,6 +6,7 @@
 */
 
 //TODO : Error!! queryRange, subdivide, etc.
+//TODO : http://blog.notdot.net/2009/11/Damn-Cool-Algorithms-Spatial-indexing-with-Quadtrees-and-Hilbert-Curves
 function JeremyQuadtree(argo) {
     this.capacity = argo.capacity;
     this.items = [];
@@ -162,30 +163,30 @@ JeremyQuadtree.prototype.retrieve = function(point) {
 };
 JeremyQuadtree.prototype.queryRange = function(aabb2) {
     // Prepare an array of results
-    var pointsInRange = [], index, items, length;
+    var itemInRange = [], index, items, length;
 
     // Automatically abort if the range does not collide with this quad
     if (!this.aabb.isIntersectingWith(aabb2))
-        return pointsInRange;
+        return itemInRange;
     // empty list
 
     // Check objects at this quad level
     for ( index = 0, items = this.items, length = items.length; index < length; index++) {
-        if (aabb2.isContaining(items[index]))
-            pointsInRange.push(items[index]);
+        if (aabb2.isBinding(items[index]))
+            itemInRange.push(items[index]);
     }
 
     // Terminate here, if there are no children
     if (this.northWest == null)
-        return pointsInRange;
+        return itemInRange;
 
     // Otherwise, add the points from the children
-    pointsInRange = pointsInRange.concat(this.northWest.queryRange(aabb2));
-    pointsInRange = pointsInRange.concat(this.northEast.queryRange(aabb2));
-    pointsInRange = pointsInRange.concat(this.southWest.queryRange(aabb2));
-    pointsInRange = pointsInRange.concat(this.southEast.queryRange(aabb2));
+    itemInRange = itemInRange.concat(this.northWest.queryRange(aabb2));
+    itemInRange = itemInRange.concat(this.northEast.queryRange(aabb2));
+    itemInRange = itemInRange.concat(this.southWest.queryRange(aabb2));
+    itemInRange = itemInRange.concat(this.southEast.queryRange(aabb2));
 
-    return pointsInRange;
+    return itemInRange;
 };
 JeremyQuadtree.prototype.drawCB = function(ctx, argo) {
     this.drawAABB(ctx, argo.aabb);
@@ -211,7 +212,7 @@ JeremyQuadtree.prototype.drawContainedPoints = function(ctx, argo) {
 };
 JeremyQuadtree.prototype.drawContainedAABBs = function(ctx, argo) {
     var items = this.items;
-    ctx.fillStyle = argo.color;
+    ctx.fillStyle = items.color;
     items.forEach(function(elem) {
         ctx.fillRect(elem.getLeft(), elem.getTop(), elem.getWidth(), elem.getHeight());
     });
