@@ -18,11 +18,17 @@ JeremyAABB2.prototype.isIntersectingWith = function(aabb2) {
 	   horiTest = (aabb2.half.x + this.half.x >= cVector.x), 
 	   vertTest = (aabb2.half.y + this.half.y >= cVector.y);
 	return horiTest && vertTest;
+}; 
+JeremyAABB2.prototype.isBinding = function(aabb2) {
+    var cVector = aabb2.center.subtraction(this.center), 
+       horiTest = (this.half.x - aabb2.half.x >= Math.abs(cVector.x)), 
+       vertTest = (this.half.y - aabb2.half.y >= Math.abs(cVector.y));
+    return horiTest && vertTest;
 };
 JeremyAABB2.prototype.isContaining = function(point) {
 	var pVec = point.subtraction(this.center), 
-	   horiTest = (this.half.x >= pVec.x), 
-	   vertTest = (this.half.y >= pVec.y);
+	   horiTest = (this.half.x >= Math.abs(pVec.x)), 
+	   vertTest = (this.half.y >= Math.abs(pVec.y));
 	return horiTest && vertTest;
 };
 JeremyAABB2.prototype.getLeft = function() {
