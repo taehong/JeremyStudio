@@ -18,7 +18,8 @@ JeremyBST.prototype.insert = function(key, value) {
     if (undefined === this.key || key === this.key) {
         this.key = key;
         this.valueList.push(value);
-        this.valueList.sort(); // TODO: 글쎄;;
+        this.valueList.sort();
+        // TODO: 글쎄;;
         modifiedNode = this;
     } else if (key < this.key) {
         if (undefined === this.left) {
@@ -43,9 +44,47 @@ JeremyBST.prototype.insert = function(key, value) {
     }
     return modifiedNode;
 };
+JeremyBST.prototype.traversePreorder = function(callback, argo) {
+    callback(this, argo);
+    if (this.hasLeft()) {
+        this.left.traversePreorder(callback, argo);
+    }
+    if (this.hasRight()) {
+        this.right.traversePreorder(callback, argo);
+    }
+};
+JeremyBST.prototype.traverseInorder = function(callback, argo) {
+    if (this.hasLeft()) {
+        this.left.traversePreorder(callback, argo);
+    }
+    callback(this, argo);
+    if (this.hasRight()) {
+        this.right.traversePreorder(callback, argo);
+    }
+};
+JeremyBST.prototype.traversePostorder = function(callback, argo) {
+    if (this.hasLeft()) {
+        this.left.traversePreorder(callback, argo);
+    }
+    if (this.hasRight()) {
+        this.right.traversePreorder(callback, argo);
+    }
+    callback(this, argo);
+};
+JeremyBST.prototype.traverseMinToMax = function(callback, argo) {
+    // TODO : First, sort the tree!!
+    this.left.traverseInorder(callback, argo);
+    this.right.traversePreorder(callback, argo);
+};
+JeremyBST.prototype.hasLeft = function() {
+    return (this.left ? true : false);
+};
+JeremyBST.prototype.hasRight = function() {
+    return (this.right ? true : false);
+};
 (function() {
     var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyDataStructure') : undefined);
     if (target) {
         target.addModule('JeremyBST', JeremyBST);
     }
-})(); 
+})();
