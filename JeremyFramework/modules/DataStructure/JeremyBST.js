@@ -1,6 +1,8 @@
 /**
  * @author Jeremy
  */
+
+// TODO: http://en.wikipedia.org/wiki/Binary_search_tree
 function JeremyBST(argo) {
     this.key = (argo.key ? argo.key : undefined);
     this.valueList = [];
