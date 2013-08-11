@@ -103,21 +103,36 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
             retrieved.forEach(function(elem) {
                 var key = (point.x - elem.center.x) * (point.x - elem.center.x) + (point.y - elem.center.y) * (point.y - elem.center.y);
                 bst.insert(key, elem);
-                console.log(key, elem);
                 if (elem.isContaining(point)) {
                     selected.push(elem);
                 }
             });
             console.log(bst);
-            bst.traverseMinToMax(function(node, argo) {
+            // bst.traverseMinToMax(function(node, argo) {
+                // console.log(node.key, node.valueList);
+                // if (node.valueList[0].isContaining(argo.point)) {
+                    // console.log('Selected >> ', node.valueList[0]);
+                // }
+            // }, {
+                // point : point
+            // });
+            console.log(J('DAT')('Traversal')().inorderNR(bst.left, function(node, argo) {
+                console.log(node.key, node.valueList);
+                if (node.valueList[0].isContaining(argo.point)) {
+                    console.log('Selected >> ', node.valueList[0]);
+                    return true;
+                }
+            }, {
+                point : point
+            }));
+            console.log(J('DAT')('Traversal')().preorderNR(bst.right, function(node, argo) {
                 console.log(node.key, node.valueList);
                 if (node.valueList[0].isContaining(argo.point)) {
                     console.log('Selected >> ', node.valueList[0]);
                 }
             }, {
                 point : point
-            });
-
+            }));
         });
     },
     updateCB : function() {
