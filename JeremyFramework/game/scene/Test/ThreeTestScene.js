@@ -12,7 +12,7 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
          */
         this.jThree = {
             renderer : new THREE.WebGLRenderer(),
-            camera : new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR),
+            camera : new THREE.OrthographicCamera(-720, 720, 480, -480, 0.01, 10000),
             scene : new THREE.Scene(),
             models : {},
             lights : {},
@@ -47,22 +47,49 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
             }
         };
 
-        var radius = 50, segments = 16, rings = 16;
-        this.jThree.set('model', 'sphere', new THREE.Mesh(new THREE.SphereGeometry(radius, segments, rings), new THREE.MeshLambertMaterial({
+        var cubeGeometry = new THREE.CubeGeometry(48, 48, 48, 4, 4, 4);
+        var cubeMaterial = new THREE.MeshLambertMaterial({
             color : 0xCC0000
-        })));
+        });
+        var count = 20;
+        for (var i = 0, iIter = count; i < iIter; i++) {
+            for (var j = 0, jIter = count; j < jIter; j++) {
+                var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+                cube.receiveShadow = true;
+                cube.translateX(49 * i - 49 / 2 * (iIter - 1));
+                cube.translateZ(49 * j - 49 / 2 * (iIter - 1));
+                this.jThree.set('model', 'cube' + i * iIter + j, cube);
+                this.jThree.scene.add(cube);
+            }
+        }
+        var light =  new THREE.PointLight(0xFFFFFF);
+        light.castShadow = true;
+        light.shadowCameraNear = 0.01;
+        light.shadowCameraFar = 1000;
+        light.shadowCameraFov = 50;
+        light.shadowCameraVisible = true;
+        light.shadowBias = 0.0001;
+        light.shadowDarkness = 0.5;
+        light.shadowMapWidth = 1024;
+        light.shadowMapHeight = 1024;
+        
+        this.jThree.set('light', 'pointLight', light);
+        this.jThree.setPosition('light', 'pointLight', 0, 48 * 1.5, 0);
 
-        this.jThree.set('light', 'pointLight', new THREE.PointLight(0xFFFFFF));
-        this.jThree.setPosition('light', 'pointLight', 10, 50, 130);
+        this.jThree.camera.position.set(480, 480, 480);
+        this.jThree.camera.lookAt(new THREE.Vector3(0, 0, 0));
 
-        this.jThree.camera.position.z = 300;
-        this.jThree.renderer.setSize(WIDTH, HEIGHT);
-        $('#jeremy').append(this.jThree.renderer.domElement);
-
-        this.jThree.scene.add(this.jThree.models.sphere);
         this.jThree.scene.add(this.jThree.camera);
         this.jThree.scene.add(this.jThree.lights.pointLight);
+        this.jThree.scene.add(new THREE.AxisHelper(720));
+
+        this.jThree.renderer.setSize(WIDTH, HEIGHT);
+        this.jThree.renderer.shadowMapEnabled = true;
+
+        $('#jeremy').append(this.jThree.renderer.domElement).css('background-color', 'black');
         this.jThree.renderer.render(this.jThree.scene, this.jThree.camera);
+
+        window.JThree = this.jThree;
     },
     updateCB : function() {
 
