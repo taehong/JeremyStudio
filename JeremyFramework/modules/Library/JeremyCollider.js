@@ -4,14 +4,14 @@
 // @param owner, rectangle
 function JeremyCollider(argo) {
 	this.id = (new Date()).getTime();
-	this.area = argo.area;
+	this.aabb = argo.aabb;
 }
 
 JeremyCollider.prototype.isCollidedWith = function(collider) {
-	return this.area.isIntersectingWith(collider.area);
+	return this.aabb.isIntersectingWith(collider.aabb);
 };
 JeremyCollider.prototype.isSelected = function(point) {
-	return this.area.isContaining(point);
+	return this.aabb.isContaining(point);
 };
 JeremyCollider.prototype.isEquals = function(collider) {
 	return this.id == collider.id;
