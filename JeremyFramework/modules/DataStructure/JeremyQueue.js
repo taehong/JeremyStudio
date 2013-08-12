@@ -12,7 +12,6 @@ JeremyQueue.prototype.enqueue = function(item) {
         this.count++;
     }
 };
-
 JeremyQueue.prototype.dequeue = function() {
     var item = null;
     if (!this.isEmpty()) {
@@ -22,7 +21,6 @@ JeremyQueue.prototype.dequeue = function() {
     }
     return item;
 };
-
 JeremyQueue.prototype.front = function() {
     var item = null;
     if (!this.isEmpty()) {
@@ -32,19 +30,15 @@ JeremyQueue.prototype.front = function() {
     }
     return item;
 };
-
 JeremyQueue.prototype.isEmpty = function() {
     return this.count === 0;
 };
-
 JeremyQueue.prototype.length = function() {
     return this.count;
 };
-
 JeremyQueue.prototype.iterator = function() {
     return new JeremyIterator(this);
 };
-
 JeremyQueue.prototype.concat = function(queue) {
     var newQueue = null;
     if (queue) {
@@ -61,4 +55,4 @@ JeremyQueue.prototype.concat = function(queue) {
     if (target) {
         target.addModule('JeremyQueue', JeremyQueue);
     }
-})();
+})(); 
