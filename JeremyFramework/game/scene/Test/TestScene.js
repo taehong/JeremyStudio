@@ -26,7 +26,7 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
                 })
             })
         });
-        for (var i = 0; i < 125; i++) {
+        for (var i = 0; i < 25; i++) {
             this.quadtree.insertAABB(J('MAT')('AABB2')({
                 center : J('MAT')('Vec3')({
                     x : 360 + Math.random() * 360,
@@ -34,7 +34,7 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
                     w : 1
                 }),
                 half : J('MAT')('Vec3')({
-                    x : 5,
+                    x : 15,
                     y : 5,
                     w : 0
                 })
@@ -47,7 +47,7 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
                 }),
                 half : J('MAT')('Vec3')({
                     x : 5,
-                    y : 5,
+                    y : 15,
                     w : 0
                 })
             }));
@@ -58,8 +58,8 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
                     w : 1
                 }),
                 half : J('MAT')('Vec3')({
-                    x : 5,
-                    y : 5,
+                    x : 15,
+                    y : 15,
                     w : 0
                 })
             }));
@@ -70,8 +70,8 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
                     w : 1
                 }),
                 half : J('MAT')('Vec3')({
-                    x : 5,
-                    y : 5,
+                    x : 15,
+                    y : 15,
                     w : 0
                 })
             }));
