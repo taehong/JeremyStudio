@@ -111,31 +111,17 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
                 }
             });
             console.log(bst);
-            // bst.traverseMinToMax(function(node, argo) {
-                // console.log(node.key, node.valueList);
-                // if (node.valueList[0].isContaining(argo.point)) {
-                    // console.log('Selected >> ', node.valueList[0]);
-                // }
-            // }, {
-                // point : point
-            // });
-            console.log(J('DAT')('Traversal')().inorderNR(bst.left, function(node, argo) {
-                console.log(node.key, node.valueList);
-                if (node.valueList[0].isContaining(argo.point)) {
-                    console.log('Selected >> ', node.valueList[0]);
-                    return true;
+            var bstMinToMax = bst.minToMaxRecursively(function(node){
+                return node.valueList[0];
+            }).iterator();
+            console.log(bstMinToMax);
+            while (bstMinToMax.hasNext()) {
+                var elem = bstMinToMax.next()
+                if (elem.isContaining(point)) {
+                    console.log('Selected >> ', elem);
+                    break;
                 }
-            }, {
-                point : point
-            }));
-            console.log(J('DAT')('Traversal')().preorderNR(bst.right, function(node, argo) {
-                console.log(node.key, node.valueList);
-                if (node.valueList[0].isContaining(argo.point)) {
-                    console.log('Selected >> ', node.valueList[0]);
-                }
-            }, {
-                point : point
-            }));
+            }
         });
     },
     updateCB : function() {

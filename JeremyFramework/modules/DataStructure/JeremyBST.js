@@ -48,7 +48,6 @@ JeremyBST.prototype.insert = function(key, value) {
     }
     return modifiedNode;
 };
-
 JeremyBST.prototype.findRecursively = function(key) {
     var currentNode = this;
     if (key < currentNode.key) {
@@ -58,7 +57,6 @@ JeremyBST.prototype.findRecursively = function(key) {
     }
     return currentNode;
 };
-
 JeremyBST.prototype.find = function(key) {
     var currentNode = this;
     while (currentNode) {
@@ -120,10 +118,23 @@ JeremyBST.prototype.postorderRecursively = function(callback, argo) {
 JeremyBST.prototype.minToMaxRecursively = function(callback, argo) {
     var queue = new JeremyQueue();
     // TODO : First, sort the tree!!
-    queue = this.left.inorderRecursively(callback, argo);
-    queue = queue.concat(this.right.preorderRecursively(callback, argo));
+    this.valueList.forEach(function(elem) {
+        queue.enqueue(elem);
+    });
+    if (this.hasLeft()) {
+        queue = queue.concat(this.left.inorderRecursively(callback, argo));
+    }
+    if (this.hasRight()) {
+        queue = queue.concat(this.right.preorderRecursively(callback, argo));
+    }
     return queue;
 };
+(function() {
+    var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyDataStructure') : undefined);
+    if (target) {
+        target.addModule('JeremyBST', JeremyBST);
+    }
+})();
 // // TODO: 하나만 찾고 멈추게 해놨는데 여러 개 찾도록 해보기
 // // TODO: 그냥 리스트를 반환하고 충돌체크 메소드로 처리하는게 더 좋을 수도 있음 (callback과의 비교분석이 필요)
 // JeremyBST.prototype.nonRecursivePreorder = function(callback, argo) {
@@ -223,9 +234,3 @@ JeremyBST.prototype.minToMaxRecursively = function(callback, argo) {
 // return leftRetVal.concat(rightRetVal);
 // // Both retVals are JeremyQueue
 // };
-(function() {
-    var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyDataStructure') : undefined);
-    if (target) {
-        target.addModule('JeremyBST', JeremyBST);
-    }
-})();

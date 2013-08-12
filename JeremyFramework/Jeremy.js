@@ -72,7 +72,7 @@ var Jeremy = {
 	},
 	loadConfig : function() {
 		var config = null;
-		if (Jeremy.configIterator.hasMoreElement()) {
+		if (Jeremy.configIterator.hasNext()) {
 			config = Jeremy.configIterator.next();
 			Jeremy.request({
 				method : 'get',
@@ -94,7 +94,7 @@ var Jeremy = {
 			moduleQueue.enqueue(modules[moduleName]);
 		}
 		Jeremy.moduleIterator = moduleQueue.iterator();
-		while (Jeremy.moduleIterator.hasMoreElement()) {
+		while (Jeremy.moduleIterator.hasNext()) {
 			Jeremy.moduleIterator.next().init();
 		}
 		$('#jeremy').trigger(eJeremyEventType.onInitModules);
