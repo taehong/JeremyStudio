@@ -63,16 +63,16 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
             }
         }
         var light =  new THREE.PointLight(0xFFFFFF);
-        light.castShadow = true;
-        light.shadowCameraNear = 0.01;
-        light.shadowCameraFar = 1000;
-        light.shadowCameraFov = 50;
-        light.shadowCameraVisible = true;
-        light.shadowBias = 0.0001;
-        light.shadowDarkness = 0.5;
-        light.shadowMapWidth = 1024;
-        light.shadowMapHeight = 1024;
-        
+        // light.castShadow = true;
+        // light.shadowCameraNear = 0.01;
+        // light.shadowCameraFar = 1000;
+        // light.shadowCameraFov = 50;
+        // light.shadowCameraVisible = true;
+        // light.shadowBias = 0.0001;
+        // light.shadowDarkness = 0.5;
+        // light.shadowMapWidth = 1024;
+        // light.shadowMapHeight = 1024;
+//         
         this.jThree.set('light', 'pointLight', light);
         this.jThree.setPosition('light', 'pointLight', 0, 48 * 1.5, 0);
 
@@ -84,7 +84,7 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
         this.jThree.scene.add(new THREE.AxisHelper(720));
 
         this.jThree.renderer.setSize(WIDTH, HEIGHT);
-        this.jThree.renderer.shadowMapEnabled = true;
+        // this.jThree.renderer.shadowMapEnabled = true;
 
         $('#jeremy').append(this.jThree.renderer.domElement).css('background-color', 'black');
         this.jThree.renderer.render(this.jThree.scene, this.jThree.camera);
