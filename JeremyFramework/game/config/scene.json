@@ -1,5 +1,5 @@
 {
-    "count": 7,
+    "count": 6,
     "scenes": [
         {
             "name": "EditorMain",
@@ -31,7 +31,7 @@
                 "name": "SplashScreenCandleLight",
                 "url": "game/scene/SplashScreen/SplashScreenCandleLight.js"
             },
-            "nextScenes": ["MenuMain"],
+            "nextScenes": ["EditorMain"],
             "prevScenes": ["SplashScreenBrainstorm"]
         }, {
             "name": "MenuMain",

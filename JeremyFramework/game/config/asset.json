@@ -1,55 +1,83 @@
 {
-	"image": {
-		"count": 7,
-		"items": [
-			{
-				"name": "splashDigitalMedia",
-				"src": "game/asset/image/splashscreen/DigitalMedia_splashscreen.png",
-				"className": "splashImage",
-				"id": "splashDigitalMedia"
-			}, {
-				"name": "splashBrainstorm",
-				"src": "game/asset/image/splashscreen/Brainstorm_splashscreen.png",
-				"className": "splashImage",
-				"id": "splashBrainstorm"
-			}, {
-				"name": "splashCandleLight",
-				"src": "game/asset/image/splashscreen/CandleLight_splashscreen.png",
-				"className": "splashImage",
-				"id": "splashCandleLight"
-			}, {
-				"name": "bgMenuMain",
-				"src": "game/asset/image/menu/MenuMain_background.png",
-				"className": "bgImage",
-				"id": "bgMenuMain"
-			}, {
-				"name": "btnStart",
-				"src": "game/asset/image/button/Button_Start.png",
-				"className": "btnImage",
-				"id": "btnStart"
-			}, {
-				"name": "btnCredit",
-				"src": "game/asset/image/button/Button_Credit.png",
-				"className": "btnImage",
-				"id": "btnCredit"
-			}, {
-				"name": "btnHelp",
-				"src": "game/asset/image/button/Button_Help.png",
-				"className": "btnImage",
-				"id": "btnHelp"
-			}
-		]
-	},
-	"sprite": {
-		"count": 0,
-		"items": []
-	},
-	"audio": {
-		"count": 0,
-		"items": []
-	},
-	"model": {
-		"count": 0,
-		"items": []
-	}
+    "image": {
+        "count": 12,
+        "items": [
+            {
+                "name": "splashDigitalMedia",
+                "src": "game/asset/image/splashscreen/DigitalMedia_splashscreen.png",
+                "className": "splashImage",
+                "id": "splashDigitalMedia"
+            }, {
+                "name": "splashBrainstorm",
+                "src": "game/asset/image/splashscreen/Brainstorm_splashscreen.png",
+                "className": "splashImage",
+                "id": "splashBrainstorm"
+            }, {
+                "name": "splashCandleLight",
+                "src": "game/asset/image/splashscreen/CandleLight_splashscreen.png",
+                "className": "splashImage",
+                "id": "splashCandleLight"
+            }, {
+                "name": "bgMenuMain",
+                "src": "game/asset/image/menu/MenuMain_background.png",
+                "className": "bgImage",
+                "id": "bgMenuMain"
+            }, {
+                "name": "btnStart",
+                "src": "game/asset/image/button/Button_Start.png",
+                "className": "btnImage",
+                "id": "btnStart"
+            }, {
+                "name": "btnCredit",
+                "src": "game/asset/image/button/Button_Credit.png",
+                "className": "btnImage",
+                "id": "btnCredit"
+            }
+            , {
+                "name": "btnHelp",
+                "src": "game/asset/image/button/Button_Help.png",
+                "className": "btnImage",
+                "id": "btnHelp"
+            }
+            , {
+                "name": "itemImgKey",
+                "src": "http://www.bcpark.net/imagedb/thumb/2003/0624/1056458885_0.png",
+                "className": "itemImg",
+                "id": "itemImgKey"
+            }
+            , {
+                "name": "itemImgButton",
+                "src": "http://www.clker.com/cliparts/9/1/5/2/119498475589498995button-red_benji_park_01.svg.med.png",
+                "className": "itemImg",
+                "id": "itemImgButton"
+            }, {
+                "name": "itemImgMonster",
+                "src": "http://c.ask.nate.com/imgs/qrsi.php/6133257/8214994/1/1/A/wolf2.jpg",
+                "className": "itemImg",
+                "id": "itemImgMonster"
+            }, {
+                "name": "itemImgStart",
+                "src": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcS7eqCVfNDZ8i8KOBM_s4qphrXF1gCUO97R9AhSjFRPixOhPDnjnA",
+                "className": "itemImg",
+                "id": "itemImgStart"
+            }, {
+                "name": "itemImgEnd",
+                "src": "http://terryfoote.com/wp-content/uploads/2010/11/end.png",
+                "className": "itemImg",
+                "id": "itemImgEnd"
+            }
+        ]
+    },
+    "sprite": {
+        "count": 0,
+        "items": []
+    },
+    "audio": {
+        "count": 0,
+        "items": []
+    },
+    "model": {
+        "count": 0,
+        "items": []
+    }
 }
