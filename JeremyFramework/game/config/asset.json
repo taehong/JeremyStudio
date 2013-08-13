@@ -1,6 +1,6 @@
 {
     "image": {
-        "count": 12,
+        "count": 14,
         "items": [
             {
                 "name": "splashDigitalMedia",
@@ -65,6 +65,16 @@
                 "src": "http://terryfoote.com/wp-content/uploads/2010/11/end.png",
                 "className": "itemImg",
                 "id": "itemImgEnd"
+            }, {
+                "name": "maskImgVignette",
+                "src": "game/asset/image/Mask/MaskVignette.png",
+                "className": "maskImg",
+                "id": "maskImgVignette"
+            }, {
+                "name": "maskImgNoise",
+                "src": "game/asset/image/Mask/MaskNoise.png",
+                "className": "maskImg",
+                "id": "maskImgNoise"
             }
         ]
     },
