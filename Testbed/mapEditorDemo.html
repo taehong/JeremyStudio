@@ -36,6 +36,7 @@
 		    eCellWall:1,
 		    eCellGround:2
 		}; 
+		var deletesw=false;
 		var itemType=new Array();
 		itemType[0]=[0,0,0,0,0];
 		var jsonText;
@@ -205,6 +206,7 @@
 		canvas.onclick=function(e)
 		{
 			inctx.clearRect(0,0,50,480);
+			deletesw=false;
 			rawX=e.offsetX;
 			rawY=e.offsetY;
 			var sqrt2 = Math.sqrt(2);
@@ -218,7 +220,6 @@
 					ctx.drawImage(img[i],cellList[listIndex].posX*kCellWidth+5,cellList[listIndex].posY*kCellHeight+5,30,30);
 					itemType[listIndex][i]=1;
 					cellList[listIndex].item=itemType[listIndex];
-					console.log(cellList[listIndex].item);
 				}
 				else if(inventorysw)
 				{
@@ -229,6 +230,7 @@
 							inctx.drawImage(img[i],0,i*50,50,50);
 						}
 					}
+					deletesw=true;
 				}
 				else
 				{
@@ -262,7 +264,45 @@
 			jsonText=JSON.stringify(cellList,cellfilter,"\t");
 			localStorage.setItem("contents",jsonText);
 		}
-		
+		incanvas.onclick=function(e)
+		{
+			if(deletesw)
+			{
+				sw=false;
+				y=Math.floor(e.offsetY/50);
+				inctx.clearRect(0,y*50,50,50);
+				itemType[listIndex][y]=0;
+				cellList[listIndex].item=itemType[listIndex];
+				for(i=0;i<5;++i)
+				{
+					if (cellList[listIndex].item[i]==1)
+					{
+						sw=true;
+						ctx.drawImage(img[i],cellList[listIndex].posX*kCellWidth+5,cellList[listIndex].posY*kCellHeight+5,30,30);
+						break;
+					}
+				}	
+				if(!sw)
+				{
+					switch(cellList[listIndex].type)
+					{
+						case 0:
+						ctx.fillStyle="#FFFFFF";
+						Cell.prototype.draw(colliderList[listIndex].posX,colliderList[listIndex].posY);
+						Cell.prototype.fill(colliderList[listIndex].posX,colliderList[listIndex].posY);
+						break;
+						case 1:
+						ctx.fillStyle="#8C8C8C";
+						Cell.prototype.fill(colliderList[listIndex].posX,colliderList[listIndex].posY);
+						break;
+						case 2:
+						ctx.fillStyle="#22741C";
+						Cell.prototype.fill(colliderList[listIndex].posX,colliderList[listIndex].posY);
+						break;
+					}
+				}
+			}
+		}
 	</script>
     </body>
 </html>
