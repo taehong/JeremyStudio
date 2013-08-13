@@ -230,6 +230,25 @@
 							inctx.drawImage(img[i],0,i*50,50,50);
 						}
 					}
+					var message;
+					inctx.font="15px serif";
+					inctx.fillText(cellList[listIndex].posY+1,0,265);
+					inctx.fillText("행",25,265);
+					inctx.fillText(cellList[listIndex].posX+1,0,285);
+					inctx.fillText("열",25,285);
+					inctx.fillText("타입 : ",0,305);
+					switch(cellList[listIndex].type)
+					{
+						case 0:
+						inctx.fillText("빈 공간",0,325);
+						break;
+						case 1:
+						inctx.fillText("벽",0,325);
+						break;
+						case 2:
+						inctx.fillText("길",0,325);
+						break;
+					}
 					deletesw=true;
 				}
 				else
