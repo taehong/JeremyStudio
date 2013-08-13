@@ -1,7 +1,15 @@
 {
-    "count": 6,
+    "count": 7,
     "scenes": [
         {
+            "name": "Play2d",
+            "context": {
+                "name": "Play2d",
+                "url": "game/scene/Play2d/Play2d.js"
+            },
+            "nextScenes": [null],
+            "prevScenes": [null]
+        }, {
             "name": "EditorMain",
             "context": {
                 "name": "EditorMain",

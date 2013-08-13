@@ -3,7 +3,7 @@
  */
 function start() {
 	Jeremy.init({
-		firstScene:'EditorMain'
+		firstScene:'Play2d'
 	});
 }
 window.onload = start();
