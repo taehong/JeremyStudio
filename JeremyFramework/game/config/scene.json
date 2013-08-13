@@ -1,7 +1,15 @@
 {
-    "count": 6,
+    "count": 7,
     "scenes": [
         {
+            "name": "EditorMain",
+            "context": {
+                "name": "EditorMain",
+                "url": "game/scene/Editor/EditorMain.js"
+            },
+            "nextScenes": [null],
+            "prevScenes": [null]
+        }, {
             "name": "SplashScreenDigitalMedia",
             "context": {
                 "name": "SplashScreenDigitalMedia",
