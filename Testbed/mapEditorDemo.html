@@ -7,7 +7,8 @@
 	</head>
 	<body>
 		<canvas id='canvas' width='720' height='480'>Canvas</canvas>
-		<canvas id='itemcanvas' width='100' height='480'>Canvas</canvas>
+		<canvas id="itemcanvas" width="100" height="480" style="position: absolute;  left: 740px; top: 8px;">Canvas</canvas>
+		<canvas id="inventorycanvas" width="50" height="480" style="position: absolute;  left: 850px; top: 8px;">Canvas</canvas>
 		<script>
 		var canvas, ctx;
 		var img=[];
@@ -15,10 +16,13 @@
 		var kVerticalMargin = 0, kHorizontalMargin = 0;
 		var icanvas=document.getElementById('itemcanvas');
 		var ictx=icanvas.getContext('2d');
+		var incanvas=document.getElementById('inventorycanvas');
+		var inctx=incanvas.getContext('2d');
 		var s;
 		var imagenumber=0;
 		var i;
 		var k=0;
+		var cursorimg=new Image();
 		var rawX, rawY;
 		var newX, newY;
 		var x,y;
@@ -32,18 +36,13 @@
 		    eCellWall:1,
 		    eCellGround:2
 		}; 
-		var itemType={
-			itemEmpty:0,
-			itemKey:1,
-			itemButton:2,
-			itemDuck:3,
-			itemWolf:4,
-			itemStart:5,
-			itemEnd:6
-		};
+		var itemType=new Array();
+		itemType[0]=[0,0,0,0,0];
 		var jsonText;
 		var dragsw=false;
+		var inventorysw=false;
 		var sw;
+		var ms=new Array(5);
 		var imagesw;
 		var cellfilter=new Array();
 		cellfilter[0]="posX";
@@ -64,10 +63,10 @@
 		function initCells(numOfX, numOfY) {
 		    var xIndex, yIndex;
 		    s=numOfX;
-		    for (yIndex = 0; yIndex < numOfY; yIndex += 1) { 
+			for (yIndex = 0; yIndex < numOfY; yIndex += 1) { 
 		        for (xIndex = 0; xIndex < numOfX; xIndex += 1) {
-		            cellList.push(new Cell(xIndex, yIndex, eCellType.eCellEmpty,itemType.itemEmpty));
-			    colliderList.push(new Collider(xIndex,yIndex,kCellWidth,kCellHeight));
+					cellList.push(new Cell(xIndex, yIndex, eCellType.eCellEmpty,itemType[0]));
+					colliderList.push(new Collider(xIndex,yIndex,kCellWidth,kCellHeight));
 		        }    
 		    }
 		}
@@ -75,6 +74,7 @@
 		function updateCells() {
 		    listLength = cellList.length;
 		    for (listIndex, listLength; listIndex < listLength; listIndex += 1) {
+				itemType[listIndex]=[0,0,0,0,0];
 		        cellList[listIndex].update();
 		    }
 		}
@@ -133,7 +133,7 @@
 		};
 		function judge(newX,newY)
 		{
-			for(listIndex=listLength+k-1;listIndex>=0;listIndex-=1)
+			for(listIndex=listLength-1;listIndex>=0;listIndex-=1)
 			{
 				sw=colliderList[listIndex].isCollided(newX,newY);
 				if (sw)
@@ -164,51 +164,77 @@
 					imagecolliderList.push(new Collider(xIndex,yIndex,50,50));
 					ictx.drawImage(img[imagenumber],imagecolliderList[imagenumber].posX*50,imagecolliderList[imagenumber].posY*50,50,50);
 					++imagenumber;
+					if (imagenumber==5)
+					{
+						break;
+					}
 				}
 			}
 		}
 		init();
 		isometricProjection(ctx);
-		for(i=0;i<6;++i)
+		for(i=0;i<5;++i)
 		{
 			img[i]=new Image();
 		}
-		img[0].src="http://www.bcpark.net/imagedb/thumb/2003/0624/1056458885_0.png";
 		img[1].src="http://www.clker.com/cliparts/9/1/5/2/119498475589498995button-red_benji_park_01.svg.med.png";
-		img[2].src="http://t0.gstatic.com/images?q=tbn:ANd9GcQBKwdvLMbBg4f3bMv2ZRhqQGfCMcp5j6vF-z_zxO42X0bpp-izlw";
-		img[3].src="http://c.ask.nate.com/imgs/qrsi.php/6133257/8214994/1/1/A/wolf2.jpg"
-		img[4].src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcS7eqCVfNDZ8i8KOBM_s4qphrXF1gCUO97R9AhSjFRPixOhPDnjnA";
-		img[5].src="http://terryfoote.com/wp-content/uploads/2010/11/end.png";
-		img[1].addEventListener('load',eventLoaded,false);
+		img[0].src="http://www.bcpark.net/imagedb/thumb/2003/0624/1056458885_0.png";
+		img[2].src="http://c.ask.nate.com/imgs/qrsi.php/6133257/8214994/1/1/A/wolf2.jpg"
+		img[3].src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcS7eqCVfNDZ8i8KOBM_s4qphrXF1gCUO97R9AhSjFRPixOhPDnjnA";
+		img[4].src="http://terryfoote.com/wp-content/uploads/2010/11/end.png";
+		img[4].addEventListener('load',eventLoaded,false);
+		cursorimg.src="http://t0.gstatic.com/images?q=tbn:ANd9GcSV3vaos6fcO5fhS096bxqUfjw0hQEBkE_n4FrA44egsLGVtX3I";
+		cursorimg.onload=function(e)
+		{
+			ictx.drawImage(cursorimg,0,150,50,50);
+		}
 		icanvas.onclick=function(e)
 		{
-			x=e.pageX-735;
-			y=e.pageY-9;
+			x=e.offsetX;
+			y=e.offsetY;
 			imagejudge(x,y);
 			if(i<imagenumber)
 			{
 				dragsw=true;
 			}
+			else if(x<=50 || (y>=150 && y<=200))
+			{
+				inventorysw=true;
+			}
 		}
 		canvas.onclick=function(e)
 		{
-			rawX=e.pageX;
-			rawY=e.pageY;
+			inctx.clearRect(0,0,50,480);
+			rawX=e.offsetX;
+			rawY=e.offsetY;
 			var sqrt2 = Math.sqrt(2);
-			newX =sqrt2/2*rawX + sqrt2*rawY-sqrt2*(kVerticalMargin/2+kHorizontalMargin)-8;
-			newY =  -sqrt2/2*rawX+sqrt2*rawY+sqrt2*(kVerticalMargin/2-kHorizontalMargin)-8;
+			newX =sqrt2/2*rawX + sqrt2*rawY-sqrt2*(kVerticalMargin/2+kHorizontalMargin);
+			newY =  -sqrt2/2*rawX+sqrt2*rawY+sqrt2*(kVerticalMargin/2-kHorizontalMargin);
 			judge(newX,newY);
 			if(listIndex>=0)
 			{
 				if(dragsw)
 				{
 					ctx.drawImage(img[i],cellList[listIndex].posX*kCellWidth+5,cellList[listIndex].posY*kCellHeight+5,30,30);
-					cellList[listIndex].item=i+1;
+					itemType[listIndex][i]=1;
+					cellList[listIndex].item=itemType[listIndex];
+					console.log(cellList[listIndex].item);
+				}
+				else if(inventorysw)
+				{
+					for(i=0;i<5;++i)
+					{
+						if(cellList[listIndex].item[i]==1)
+						{
+							inctx.drawImage(img[i],0,i*50,50,50);
+						}
+					}
 				}
 				else
 				{
 					++cellList[listIndex].type;
-					cellList[listIndex].item=0;
+					cellList[listIndex].item=[0,0,0,0,0];
+					itemType[listIndex]=[0,0,0,0,0];
 					if(cellList[listIndex].type==3)
 					{
 						cellList[listIndex].type=0;
@@ -231,7 +257,8 @@
 					}
 				}
 			}
-			dragsw=false;
+			dragsw=false;	
+			inventorysw=false;
 			jsonText=JSON.stringify(cellList,cellfilter,"\t");
 			localStorage.setItem("contents",jsonText);
 		}
