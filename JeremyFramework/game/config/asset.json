@@ -1,6 +1,6 @@
 {
     "image": {
-        "count": 14,
+        "count": 15,
         "items": [
             {
                 "name": "splashDigitalMedia",
@@ -70,11 +70,18 @@
                 "src": "game/asset/image/Mask/MaskVignette.png",
                 "className": "maskImg",
                 "id": "maskImgVignette"
-            }, {
+            }
+            , {
                 "name": "maskImgNoise",
                 "src": "game/asset/image/Mask/MaskNoise.png",
                 "className": "maskImg",
                 "id": "maskImgNoise"
+            }
+            , {
+                "name": "maskImgScanline",
+                "src": "game/asset/image/Mask/MaskScanline.png",
+                "className": "maskImg",
+                "id": "maskImgScanline"
             }
         ]
     },
