@@ -33,7 +33,9 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
         this.effectNoise = J('LIB')('Renderable2D')({
             layer : 'effect',
             drawCB : function(ctx, argo) {
+                ctx.globalAlpha = 0.8;
                 ctx.drawImage(argo.img, 0, 0);
+                ctx.globalAlpha = 1.0;
             },
             argo : {
                 img : J('STU')('Asset').get('image', 'maskImgNoise').getImage()
@@ -42,14 +44,16 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
         this.effectScanline = J('LIB')('Renderable2D')({
             layer : 'effect',
             drawCB : function(ctx, argo) {
+                ctx.globalAlpha = 0.4;
                 ctx.drawImage(argo.img, 0, 0);
+                ctx.globalAlpha = 1.0;
             },
             argo : {
                 img : J('STU')('Asset').get('image', 'maskImgScanline').getImage()
             }
         });
         this.characterMask = J('LIB')('Renderable2D')({
-            layer : 'effect',
+            layer : 'game',
             drawCB : function(ctx, argo) {
                 var mousePos = J('STU')('Data').get('mousePos') || {
                     x : 0,
@@ -79,42 +83,6 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
                 y : e.offsetY
             });
         });
-        function Spotlight(x, y, left, top, width, height) {
-            this.area = {
-                left : left,
-                top : top,
-                width : width,
-                height : height
-            };
-            this.spotX = x;
-            this.spotY = y;
-            this.baseRad = 30;
-            this.drRange = 5;
-            this.speed = 3;
-            this.alpha = 0.5;
-            this.color = "#000000";
-            this.radius = 0;
-            this.angle = 0;
-        }
-
-
-        Spotlight.prototype.update = function() {
-            this.angle += this.speed;
-            this.radius = this.baseRad + this.drRange * Math.sin(this.angle / 180 * Math.PI);
-        };
-        Spotlight.prototype.render = function(ctx) {
-            ctx.globalCompositeOperation = 'source-over';
-            ctx.globalAlpha = this.alpha;
-            ctx.fillStyle = this.color;
-            ctx.fillRect(this.area.left, this.area.top, this.area.width, this.area.height);
-            ctx.globalCompositeOperation = 'xor';
-            ctx.globalAlpha = 1.0;
-            ctx.fillStyle = '#ffffff';
-            ctx.beginPath();
-            ctx.arc(this.spotX, this.spotY, this.radius, 0, 2 * Math.PI);
-            ctx.fill();
-        };
-        this.spotlight = new Spotlight(100, 100, 0, 0, 730, 440);
         this.map.tiles.forEach(function(col, row, list, elem) {
             J('STU')('R2D').add(elem.renderable);
         });
@@ -124,11 +92,29 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
         J('STU')('R2D').add(this.characterMask);
         this.characterMaskAngle = 0;
         J('STU')('Data').set('characterMaskAngle', this.characterMaskAngle);
+
+        this.girlSprite = J('LIB')('Renderable2D')({
+            layer : 'game',
+            drawCB : function(ctx, argo) {
+                argo.sprite.drawFrame(ctx, argo.posX, argo.posY, argo.pivot);
+            },
+            argo : {
+                sprite : {
+                    front : J('STU')('Asset').get('sprite', 'GirlSprite').setFrameSequence({
+                        sequence : ['GirlFrontIdle', 'GirlFrontStepLeft', 'GirlFrontIdle', 'GirlFrontStepRight'],
+                        loop : true,
+                        pingpong : false
+                    })
+                },
+                posX : 100,
+                posY : 100,
+                pivot : JeremySprite.ePivotType.kCenter
+            }
+        });
+        J('STU')('R2D').add(this.girlSprite);
     },
     updateCB : function() {
         J('STU')('Data').set('characterMaskAngle', this.characterMaskAngle += 3);
-        // this.spotlight.update();
-        // this.spotlight.render(J('STU')('R2D').context('game'));
     },
     destroyCB : function() {
     }

@@ -86,8 +86,14 @@
         ]
     },
     "sprite": {
-        "count": 0,
-        "items": []
+        "count": 1,
+        "items": [
+            {
+                "name": "GirlSprite",
+                "atlas": "game/asset/sprite/GirlSprite/GirlSprite.png",
+                "data": "game/asset/sprite/GirlSprite/GirlSprite.json"
+            }
+        ]
     },
     "audio": {
         "count": 0,
