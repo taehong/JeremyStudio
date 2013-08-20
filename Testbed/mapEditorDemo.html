@@ -289,7 +289,10 @@
 			{
 				sw=false;
 				y=Math.floor(e.offsetY/50);
-				inctx.clearRect(0,y*50,50,50);
+				if(y<5)
+				{
+					inctx.clearRect(0,y*50,50,50);
+				}
 				itemType[listIndex][y]=0;
 				cellList[listIndex].item=itemType[listIndex];
 				for(i=0;i<5;++i)
