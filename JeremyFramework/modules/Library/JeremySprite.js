@@ -3,7 +3,7 @@ function JeremySprite(argo) {
 	this.data = argo.data;
 	this.sequence = argo.sequence;
 	this.currentSequence = null;
-	this.currentFrame = 0;
+	this.currentFrameIndex = 0;
 	this.timer = new JeremyTimer();
 }
 
@@ -35,18 +35,18 @@ JeremySprite.prototype.getFrameIndex = function(frameName) {
 	return frameIndex;
 };
 JeremySprite.prototype.getCurrentFrameData = function() {
-	var frameData = this.data.frames[this.getFrameIndex(this.currentSequence.frames[this.currentFrame])];
+	var frameData = this.data.frames[this.getFrameIndex(this.currentSequence.frames[this.currentFrameIndex])];
 	return frameData;
 };
 JeremySprite.prototype.getNextFrameData = function() {
-	var frameData = this.getCurrentFrameData();
-	this.timer.unit = durations[this.currentFrame];
-	this.timer.onTick = function(argo, timer) {
-		
-	};
-	this.currentFrame = (this.currentFrame + 1) % this.currentSequence.frames.length;
+	this.tickTimer();
+	// time passed as duration
+	if (this.timer.count > 0) {
+		this.currentFrameIndex = (this.currentFrameIndex + 1) % this.currentSequence.frames.length;
+		this.resetTimer();
+	}
 	// TODO: Looping, PingPong;
-	return frameData;
+	return this.getCurrentFrameData();
 };
 JeremySprite.prototype.getSequence = function(name) {
 	var sequence = this.sequence[name];
@@ -59,24 +59,37 @@ JeremySprite.prototype.setCurrentSequence = function(name) {
 	var sequence = this.getSequence(name);
 	if (sequence) {
 		this.currentSequence = sequence;
+		this.initTimer();
 	}
 	return this;
 };
 JeremySprite.prototype.drawFrame = function(ctx, posX, posY, pivot) {
-	this.timer.tick();
-	var frameData = this.getNextFrameData(), frame = frameData.frame, x, y, durations = this.currentSequence.durations;
+	var l = {
+		frame : this.getNextFrameData().frame,
+		x : 0,
+		y : 0
+	};
 	switch(pivot) {
 		case JeremySprite.ePivotType.kCenter:
-			x = posX - frame.w / 2;
-			y = posX - frame.h / 2;
+			l.x = posX - l.frame.w / 2;
+			l.y = posX - l.frame.h / 2;
 			break;
 		case JeremySprite.ePivotType.kLeftTop:
-			x = posX;
-			y = posY;
+			l.x = posX;
+			l.y = posY;
 			break;
 	}
-	ctx.drawImage(this.atlas.getImage(), frame.x, frame.y, frame.w, frame.h, x, y, frame.w, frame.h);
+	ctx.drawImage(this.atlas.getImage(), l.frame.x, l.frame.y, l.frame.w, l.frame.h, l.x, l.y, l.frame.w, l.frame.h);
 	// TODO: Doing
+};
+JeremySprite.prototype.initTimer = function() {
+	this.timer.unit = this.currentSequence.durations[this.currentFrameIndex];
+};
+JeremySprite.prototype.tickTimer = function() {
+	this.timer.tick();
+};
+JeremySprite.prototype.resetTimer = function() {
+	this.timer.reset();
 };
 (function() {
 	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyLibrary') : undefined);

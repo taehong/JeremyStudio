@@ -4,7 +4,39 @@
 J('STU')('Context').add(J('LIB')('SceneContext')({
 	name : 'Play2d',
 	initCB : function() {
+		/*
+		 * Local Variables
+		 */
 		var canvas = J('STU')('R2D').canvas('effect');
+		
+		/*
+		 * Set Data
+		 */
+		this.characterMaskAngle = 0;
+		this.characterPos = {
+			x:100,
+			y:100
+		};
+		J('STU')('Data').set('characterMaskAngle', this.characterMaskAngle);
+		J('STU')('Data').set('characterPos', this.characterPos);
+
+		/*
+		 * Define Renderables
+		 */
+		// Renderable : Background Color
+		this.bgColor = J('LIB')('Renderable2D')({
+			layer:'background',
+			drawCB: function(ctx, argo) {
+				ctx.fillStyle = argo.color;
+				ctx.fillRect(0, 0, argo.width, argo.height);
+			},
+			argo: {
+				color: '#0ff00f',
+				width:canvas.width, 
+				height: canvas.height
+			}
+		});
+		// Renderable : the map
 		this.map = J('LIB')('TileMap')({
 			aabb : J('MAT')('AABB2')({
 				center : J('MAT')('Vec3')({
@@ -20,7 +52,7 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 			}),
 			number : 12
 		});
-		console.log(this.map);
+		// Renderable : the vignette effect
 		this.effectVignette = J('LIB')('Renderable2D')({
 			layer : 'effect',
 			drawCB : function(ctx, argo) {
@@ -30,6 +62,7 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 				img : J('STU')('Asset').get('image', 'maskImgVignette').getImage()
 			}
 		});
+		// Renderable : the noise effect
 		this.effectNoise = J('LIB')('Renderable2D')({
 			layer : 'effect',
 			drawCB : function(ctx, argo) {
@@ -41,6 +74,7 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 				img : J('STU')('Asset').get('image', 'maskImgNoise').getImage()
 			}
 		});
+		// Renderable : the scanline effect
 		this.effectScanline = J('LIB')('Renderable2D')({
 			layer : 'effect',
 			drawCB : function(ctx, argo) {
@@ -52,10 +86,11 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 				img : J('STU')('Asset').get('image', 'maskImgScanline').getImage()
 			}
 		});
+		// Renderable : the character mask
 		this.characterMask = J('LIB')('Renderable2D')({
 			layer : 'game',
 			drawCB : function(ctx, argo) {
-				var mousePos = J('STU')('Data').get('mousePos') || {
+				var characterPos = J('STU')('Data').get('characterPos') || {
 					x : 0,
 					y : 0
 				}, radius = argo.getRadius();
@@ -67,22 +102,32 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 				ctx.globalAlpha = 1.0;
 				ctx.fillStyle = '#ffffff';
 				ctx.beginPath();
-				ctx.arc(mousePos.x, mousePos.y, radius, 0, 2 * Math.PI);
+				ctx.arc(characterPos.x, characterPos.y, radius, 0, 2 * Math.PI);
 				ctx.fill();
 				ctx.globalCompositeOperation = 'source-over';
 			},
 			argo : {
 				getRadius : function() {
-					return 30 + 5 * Math.sin(J('STU')('Data').get('characterMaskAngle') / 180 * Math.PI);
+					return 30 + 1 * Math.sin(J('STU')('Data').get('characterMaskAngle') / 180 * Math.PI);
 				}
 			}
 		});
-		$('#jeremy').bind('mousemove', function(e) {
-			J('STU')('Data').set('mousePos', {
-				x : e.offsetX,
-				y : e.offsetY
-			});
+		// Renderable : the girl sprite
+		this.girlSpriteRenderable = J('LIB')('Renderable2D')({
+			layer : 'game',
+			drawCB : function(ctx, argo) {
+				var characterPos = J('STU')('Data').get('characterPos');
+				argo.sprite.drawFrame(ctx, characterPos.x, characterPos.x, argo.pivot);
+			},
+			argo : {
+				sprite : J('STU')('Asset').get('sprite', 'GirlSprite').setCurrentSequence('walkFront'),
+				pivot : JeremySprite.ePivotType.kCenter
+			}
 		});
+		/*
+		 * Add Renderables
+		 */
+		J('STU')('R2D').add(this.bgColor);
 		this.map.tiles.forEach(function(col, row, list, elem) {
 			J('STU')('R2D').add(elem.renderable);
 		});
@@ -90,22 +135,6 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		J('STU')('R2D').add(this.effectNoise);
 		J('STU')('R2D').add(this.effectScanline);
 		J('STU')('R2D').add(this.characterMask);
-		this.characterMaskAngle = 0;
-		J('STU')('Data').set('characterMaskAngle', this.characterMaskAngle);
-
-		this.girlSprite = J('STU')('Asset').get('sprite', 'GirlSprite').setCurrentSequence('walkFront');
-		this.girlSpriteRenderable = J('LIB')('Renderable2D')({
-			layer : 'game',
-			drawCB : function(ctx, argo) {
-				argo.sprite.drawFrame(ctx, argo.posX, argo.posY, argo.pivot);
-			},
-			argo : {
-				sprite : this.girlSprite,
-				posX : 100,
-				posY : 100,
-				pivot : JeremySprite.ePivotType.kCenter
-			}
-		});
 		J('STU')('R2D').add(this.girlSpriteRenderable);
 	},
 	updateCB : function() {

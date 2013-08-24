@@ -5,9 +5,11 @@
  * argo.argo : argo for callback
  */
 function JeremyTimer(argo) {
-	this.unit = argo.unit;
-	this.onTick = argo.onTick;
-	this.argo = argo.argo;
+	if (argo !== undefined) {
+		this.unit = argo.unit;
+		this.onTick = argo.onTick;
+		this.argo = argo.argo;
+	}
 	this.isSleeping = false;
 	this.count = 0;
 	this.elapsed = 0;
@@ -20,7 +22,9 @@ JeremyTimer.prototype.tick = function() {
 	this.current = this.getTime();
 	this.elapsed = this.current - this.previous;
 	if (this.elapsed >= this.unit) {
-		this.onTick(this.argo, this);
+		if (this.onTick !== undefined) {
+			this.onTick(this.argo, this);
+		}
 		this.previous = this.current;
 		this.count++;
 	}
