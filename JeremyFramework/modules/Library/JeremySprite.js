@@ -4,7 +4,7 @@ function JeremySprite(argo) {
 	this.sequence = argo.sequence;
 	this.currentSequence = null;
 	this.currentFrame = 0;
-	this.timer;
+	this.timer = new JeremyTimer();
 }
 
 JeremySprite.ePivotType = {
@@ -35,19 +35,23 @@ JeremySprite.prototype.getFrameIndex = function(frameName) {
 	return frameIndex;
 };
 JeremySprite.prototype.getCurrentFrameData = function() {
-	var frameData = this.data.frames[this.currentSequence[this.currentFrame]];
+	var frameData = this.data.frames[this.getFrameIndex(this.currentSequence.frames[this.currentFrame])];
 	return frameData;
 };
 JeremySprite.prototype.getNextFrameData = function() {
 	var frameData = this.getCurrentFrameData();
-	this.currentFrame = (this.currentFrame + 1) % this.frameSequence.length;
+	this.timer.unit = durations[this.currentFrame];
+	this.timer.onTick = function(argo, timer) {
+		
+	};
+	this.currentFrame = (this.currentFrame + 1) % this.currentSequence.frames.length;
 	// TODO: Looping, PingPong;
 	return frameData;
 };
 JeremySprite.prototype.getSequence = function(name) {
 	var sequence = this.sequence[name];
 	if (sequence) {
-		return sequence
+		return sequence;
 	} else
 		return undefined;
 };
@@ -59,7 +63,8 @@ JeremySprite.prototype.setCurrentSequence = function(name) {
 	return this;
 };
 JeremySprite.prototype.drawFrame = function(ctx, posX, posY, pivot) {
-	var frameData = this.getNextFrameData(), frame = frameData.frame, x, y;
+	this.timer.tick();
+	var frameData = this.getNextFrameData(), frame = frameData.frame, x, y, durations = this.currentSequence.durations;
 	switch(pivot) {
 		case JeremySprite.ePivotType.kCenter:
 			x = posX - frame.w / 2;

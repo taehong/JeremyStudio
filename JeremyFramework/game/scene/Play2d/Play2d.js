@@ -73,7 +73,7 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 			},
 			argo : {
 				getRadius : function() {
-					return 30 + 5 * Math.sin(J('STU')('Data').get('characterMaskAngle') / 180 * Math.PI)
+					return 30 + 5 * Math.sin(J('STU')('Data').get('characterMaskAngle') / 180 * Math.PI);
 				}
 			}
 		});

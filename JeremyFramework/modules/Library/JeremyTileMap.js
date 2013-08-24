@@ -28,7 +28,7 @@ function JeremyTileMap(argo) {
                 })
             });
         });
-    }
+    };
     this.generate();
 }
 
