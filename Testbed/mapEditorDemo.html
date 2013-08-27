@@ -4,12 +4,23 @@
     	<meta charset='utf-8'/>
     	<title>Cell Example</title>
 		<style> canvas{border : 1px solid black} </style>
+		<script src='jquery-2.0.3.js'></script>
 	</head>
 	<body>
 		<canvas id='canvas' width='720' height='480'>Canvas</canvas>
 		<canvas id="itemcanvas" width="100" height="480" style="position: absolute;  left: 740px; top: 8px;">Canvas</canvas>
-		<canvas id="inventorycanvas" width="50" height="480" style="position: absolute;  left: 850px; top: 8px;">Canvas</canvas>
+		<canvas id="inventorycanvas" width="50" height="480" style="position: absolute;  left: 850px; top: 8px;">Canvas</canvas><br>
+		<input type="button" id="resetbutton" value="새로만들기"/>
+		<input type="button" id="resavebutton" value="다른 이름으로 저장하기"/>
+		<input type="button" id="savebutton" value="저장하기"/>
+		<input type="button" id="loadbutton" value="불러오기"/>
 		<script>
+		var options = [];
+		var selectDOM = $('<select>').attr('id', 'mySelection');
+		var resetbtn= document.getElementById('resetbutton');
+		var resavebtn= document.getElementById('resavebutton');
+		var savebtn= document.getElementById('savebutton');
+		var loadbtn= document.getElementById('loadbutton');
 		var canvas, ctx;
 		var img=[];
 		var kCellWidth, kCellHeight;
@@ -20,7 +31,8 @@
 		var inctx=incanvas.getContext('2d');
 		var s;
 		var imagenumber=0;
-		var i;
+		var savenumber=0;
+		var i,j;
 		var k=0;
 		var cursorimg=new Image();
 		var rawX, rawY;
@@ -28,6 +40,7 @@
 		var x,y;
 		var listIndex=0;
 		var listLength;
+		var saveList=[];
 		var cellList=[];
 		var imagecolliderList=[];
 		var colliderList=[];
@@ -172,8 +185,14 @@
 				}
 			}
 		}
+		function SaveList(name, jsonText)
+		{
+			this.name=name;
+			this.jsonText=jsonText;
+		}
 		init();
 		isometricProjection(ctx);
+		$('body').append(selectDOM);
 		for(i=0;i<5;++i)
 		{
 			img[i]=new Image();
@@ -320,6 +339,63 @@
 						case 2:
 						ctx.fillStyle="#22741C";
 						Cell.prototype.fill(colliderList[listIndex].posX,colliderList[listIndex].posY);
+						break;
+					}
+				}
+			}
+		}
+		resetbtn.onclick=function(e)
+		{
+			for(i=0;i<listLength;++i)
+			{
+				cellList[i].type=0;
+				cellList[i].item=[0, 0, 0, 0, 0];
+				ctx.fillStyle="#FFFFFF";
+				Cell.prototype.draw(cellList[i].posX,cellList[i].posY);
+				Cell.prototype.fill(cellList[i].posX,cellList[i].posY);
+			}			
+		}
+		resavebtn.onclick=function(e)
+		{
+			saveList.push(new SaveList(prompt("저장할 이름을 입력하세요."," "),jsonText));
+			++savenumber;
+			options.push($('<option>').attr('value',savenumber ).text(saveList[savenumber-1].name));
+			options.forEach(function(elem) {
+				selectDOM.append(elem);
+			});
+			$('body').append(selectDOM);
+		}
+		savebtn.onclick=function(e)
+		{
+			saveList[mySelection.value-1].jsonText=jsonText;
+		}
+		loadbtn.onclick=function(e)
+		{
+			jsonText=saveList[mySelection.value-1].jsonText;
+			cellList=JSON.parse(jsonText);
+			for(i=0;i<listLength;++i)
+			{
+				switch(cellList[i].type)
+				{
+					case 0:
+					ctx.fillStyle="#FFFFFF";
+					Cell.prototype.draw(cellList[i].posX,cellList[i].posY);
+					Cell.prototype.fill(cellList[i].posX,cellList[i].posY);
+					break;
+					case 1:
+					ctx.fillStyle="#8C8C8C";
+					Cell.prototype.fill(cellList[i].posX,cellList[i].posY);
+					break;
+					case 2:
+					ctx.fillStyle="#22741C";
+					Cell.prototype.fill(cellList[i].posX,cellList[i].posY);
+					break;
+				}
+				for(j=0;j<5;++j)
+				{
+					if (cellList[i].item[j]==1)
+					{
+						ctx.drawImage(img[j],cellList[i].posX*kCellWidth+5,cellList[i].posY*kCellHeight+5,30,30);
 						break;
 					}
 				}
