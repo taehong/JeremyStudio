@@ -8,32 +8,32 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		 * Local Variables
 		 */
 		var canvas = J('STU')('R2D').canvas('effect');
-		
+
 		/*
 		 * Set Data
 		 */
 		this.characterMaskAngle = 0;
 		this.characterPos = {
-			x:100,
-			y:100
+			x : 100,
+			y : 100
 		};
 		J('STU')('Data').set('characterMaskAngle', this.characterMaskAngle);
 		J('STU')('Data').set('characterPos', this.characterPos);
 
 		/*
-		 * Define Renderables
-		 */
+		* Define Renderables
+		*/
 		// Renderable : Background Color
 		this.bgColor = J('LIB')('Renderable2D')({
-			layer:'background',
-			drawCB: function(ctx, argo) {
+			layer : 'background',
+			drawCB : function(ctx, argo) {
 				ctx.fillStyle = argo.color;
 				ctx.fillRect(0, 0, argo.width, argo.height);
 			},
-			argo: {
-				color: '#0ff00f',
-				width:canvas.width, 
-				height: canvas.height
+			argo : {
+				color : '#0ff00f',
+				width : canvas.width,
+				height : canvas.height
 			}
 		});
 		// Renderable : the map
@@ -90,10 +90,7 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		this.characterMask = J('LIB')('Renderable2D')({
 			layer : 'game',
 			drawCB : function(ctx, argo) {
-				var characterPos = J('STU')('Data').get('characterPos') || {
-					x : 0,
-					y : 0
-				}, radius = argo.getRadius();
+				var characterPos = argo.getCharPos(), radius = argo.getRadius();
 				ctx.globalCompositeOperation = 'source-over';
 				ctx.globalAlpha = 0.5;
 				ctx.fillStyle = '#000000';
@@ -107,6 +104,12 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 				ctx.globalCompositeOperation = 'source-over';
 			},
 			argo : {
+				getCharPos : function() {
+					return J('STU')('Data').get('characterPos') || {
+						x : 0,
+						y : 0
+					};
+				},
 				getRadius : function() {
 					return 30 + 1 * Math.sin(J('STU')('Data').get('characterMaskAngle') / 180 * Math.PI);
 				}
@@ -117,6 +120,7 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 			layer : 'game',
 			drawCB : function(ctx, argo) {
 				var characterPos = J('STU')('Data').get('characterPos');
+				argo.sprite.setCurrentSequence('walkLeft');
 				argo.sprite.drawFrame(ctx, characterPos.x, characterPos.x, argo.pivot);
 			},
 			argo : {
