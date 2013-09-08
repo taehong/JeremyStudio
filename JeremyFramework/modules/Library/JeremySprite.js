@@ -72,7 +72,7 @@ JeremySprite.prototype.drawFrame = function(ctx, posX, posY, pivot) {
 	switch(pivot) {
 		case JeremySprite.ePivotType.kCenter:
 			l.x = posX - l.frame.w / 2;
-			l.y = posX - l.frame.h / 2;
+			l.y = posY - l.frame.h / 2;
 			break;
 		case JeremySprite.ePivotType.kLeftTop:
 			l.x = posX;

@@ -8,7 +8,7 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		 * Local Variables
 		 */
 		var canvas = J('STU')('R2D').canvas('effect');
-
+		
 		/*
 		 * Set Data
 		 */
@@ -17,8 +17,13 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 			x : 100,
 			y : 100
 		};
+		this.stonePos = {
+			x : 300,
+			y : 350
+		};
 		J('STU')('Data').set('characterMaskAngle', this.characterMaskAngle);
 		J('STU')('Data').set('characterPos', this.characterPos);
+		J('STU')('Data').set('stonePos', this.stonePos);
 
 		/*
 		* Define Renderables
@@ -31,7 +36,7 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 				ctx.fillRect(0, 0, argo.width, argo.height);
 			},
 			argo : {
-				color : '#0ff00f',
+				color : '#ff00ff',
 				width : canvas.width,
 				height : canvas.height
 			}
@@ -46,7 +51,7 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 				}),
 				half : J('MAT')('Vec3')({
 					x : canvas.height / 2,
-					y : canvas.height / 2,
+					y : canvas.height / 2 ,
 					w : 0
 				})
 			}),
@@ -115,19 +120,32 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 				}
 			}
 		});
+		
 		// Renderable : the girl sprite
 		this.girlSpriteRenderable = J('LIB')('Renderable2D')({
 			layer : 'game',
 			drawCB : function(ctx, argo) {
 				var characterPos = J('STU')('Data').get('characterPos');
-				argo.sprite.setCurrentSequence('walkLeft');
-				argo.sprite.drawFrame(ctx, characterPos.x, characterPos.x, argo.pivot);
+				argo.sprite.drawFrame(ctx, characterPos.x, characterPos.y, argo.pivot);
 			},
 			argo : {
 				sprite : J('STU')('Asset').get('sprite', 'GirlSprite').setCurrentSequence('walkFront'),
 				pivot : JeremySprite.ePivotType.kCenter
 			}
 		});
+		
+		// Renderable : the stone image
+		this.stoneImg = J('LIB')('Renderable2D')({
+			layer : 'game',
+			drawCB : function(ctx, argo) {
+				var stonePos = J('STU')('Data').get('stonePos');
+				ctx.drawImage(argo.img, stonePos.x, stonePos.y, 35, 35);
+			},
+			argo : {
+				img : J('STU')('Asset').get('image', 'stoneImg').getImage(),
+			}
+		});
+		
 		/*
 		 * Add Renderables
 		 */
@@ -140,10 +158,70 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		J('STU')('R2D').add(this.effectScanline);
 		J('STU')('R2D').add(this.characterMask);
 		J('STU')('R2D').add(this.girlSpriteRenderable);
+		J('STU')('R2D').add(this.stoneImg);
+		
 	},
 	updateCB : function() {
 		J('STU')('Data').set('characterMaskAngle', this.characterMaskAngle += 3);
+		gameLoop();
 	},
 	destroyCB : function() {
 	}
 }));
+
+/*
+ * collision test
+ */
+	function detectCollisions (){
+		//J('STU')('Data').get('characterPos');
+	}
+
+	function gameLoop () {
+		
+	}
+
+		
+/*
+ * Event Listener
+ */
+
+	window.addEventListener('keydown', function(e){
+		switch(e.keyCode){
+			
+				case 37:
+					if( J('STU')('Asset').get('sprite', 'GirlSprite').currentSequence === null || 
+						J('STU')('Asset').get('sprite', 'GirlSprite').currentSequence !== J('STU')('Asset').get('sprite', 'GirlSprite').getSequence('walkLeft') ) 
+						J('STU')('Asset').get('sprite', 'GirlSprite').setCurrentSequence('walkLeft');
+					var pos = J('STU')('Data').get('characterPos');
+					pos.x = pos.x - 1;
+					J('STU')('Data').set('characterPos', pos);
+					break;
+					
+				case 38:
+					if( J('STU')('Asset').get('sprite', 'GirlSprite').currentSequence === null || 
+						J('STU')('Asset').get('sprite', 'GirlSprite').currentSequence !== J('STU')('Asset').get('sprite', 'GirlSprite').getSequence('walkRear') )
+						J('STU')('Asset').get('sprite', 'GirlSprite').setCurrentSequence('walkRear');
+					var pos = J('STU')('Data').get('characterPos');
+					pos.y = pos.y - 1;
+					J('STU')('Data').set('characterPos', pos);
+					break;
+					
+				case 39:
+					if( J('STU')('Asset').get('sprite', 'GirlSprite').currentSequence === null || 
+						J('STU')('Asset').get('sprite', 'GirlSprite').currentSequence !== J('STU')('Asset').get('sprite', 'GirlSprite').getSequence('walkRight') )
+						J('STU')('Asset').get('sprite', 'GirlSprite').setCurrentSequence('walkRight');
+					var pos = J('STU')('Data').get('characterPos');
+					pos.x = pos.x + 1;
+					J('STU')('Data').set('characterPos', pos);
+					break;
+					
+				case 40:
+					if( J('STU')('Asset').get('sprite', 'GirlSprite').currentSequence === null || 
+						J('STU')('Asset').get('sprite', 'GirlSprite').currentSequence !== J('STU')('Asset').get('sprite', 'GirlSprite').getSequence('walkFront') )
+						J('STU')('Asset').get('sprite', 'GirlSprite').setCurrentSequence('walkFront');
+					var pos = J('STU')('Data').get('characterPos');
+					pos.y = pos.y + 1;
+					J('STU')('Data').set('characterPos', pos);
+					break;
+			}
+		}, false);

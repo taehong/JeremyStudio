@@ -6,7 +6,7 @@ var Heroine = {
 		layer : 'game',
 		drawCB : function(ctx, argo) {
 			var characterPos = J('STU')('Data').get('characterPos');
-			argo.sprite.drawFrame(ctx, characterPos.x, characterPos.x, argo.pivot);
+			argo.sprite.drawFrame(ctx, characterPos.x, characterPos.y, argo.pivot);
 		},
 		argo : {
 			sprite : J('STU')('Asset').get('sprite', 'GirlSprite').setCurrentSequence('walkFront'),

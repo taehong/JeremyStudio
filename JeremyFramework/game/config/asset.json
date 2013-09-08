@@ -1,6 +1,6 @@
 {
 	"image": {
-		"count": 15,
+		"count": 16,
 		"items": [
 			{
 				"name": "splashDigitalMedia",
@@ -82,6 +82,11 @@
 				"src": "game/asset/image/Mask/MaskScanline.png",
 				"className": "maskImg",
 				"id": "maskImgScanline"
+			}
+			, {
+				"name": "stoneImg",
+				"src": "game/asset/image/stone.png",
+				"id": "stoneImg"
 			}
 		]
 	},
