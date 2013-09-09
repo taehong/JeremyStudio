@@ -163,7 +163,7 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 	},
 	updateCB : function() {
 		J('STU')('Data').set('characterMaskAngle', this.characterMaskAngle += 3);
-		gameLoop();
+		//gameLoop();
 	},
 	destroyCB : function() {
 	}
@@ -172,14 +172,29 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 /*
  * collision test
  */
-	function detectCollisions (){
-		//J('STU')('Data').get('characterPos');
-	}
-
-	function gameLoop () {
+	/*
+	this.aabbs = {
+		init : function (argo) {
+			var stoneBox = J('MAT')('AABB2')({
+					center : J('MAT')('Vec3')({
+						x : argo.stonePos.x + 17.5,
+						y : argo.stonePos.y + 17.5,
+						w : 1
+					}),
+					half : J('MAT')('Vec3')({
+						x : 17.5,
+						y : 17.5,
+						w : 0
+					})
+				});
+			J('STU')('Data').set('stoneBox', stoneBox );
+		},
+		argo : {
+			stonePos : J('STU')('Data').get('stonePos');
+		}
 		
 	}
-
+	*/
 		
 /*
  * Event Listener
