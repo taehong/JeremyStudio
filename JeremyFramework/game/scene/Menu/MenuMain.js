@@ -18,8 +18,8 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
         this.btnStart = J('STU')('GUI').create('Button', {
             name : 'Start',
             asset : 'btnStart',
-            posX : 580,
-            posY : 150,
+            posX : 535,
+            posY : 50,
             action : function(argo) {
                 // J('STU')('Scene').setNext('MenuStart');
                 // J('STU')('Scene').playNext();
@@ -31,8 +31,8 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
         this.btnCredit = J('STU')('GUI').create('Button', {
             name : 'Credit',
             asset : 'btnCredit',
-            posX : 580,
-            posY : 400,
+            posX : 535,
+            posY : 350,
             action : function(argo) {
                 J('STU')('Scene').setNext('MenuCredit');
                 J('STU')('Scene').playNext();
@@ -42,11 +42,23 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
         this.btnHelp = J('STU')('GUI').create('Button', {
             name : 'Help',
             asset : 'btnHelp',
-            posX : 580,
-            posY : 300,
+            posX : 535,
+            posY : 250,
             action : function(argo) {
-                J('STU')('Scene').setNext('MenuHelp');
-                J('STU')('Scene').playNext();
+                J('STU')('Scene').setNext("MenuHelp");
+                if(J('STU')('Scene').getNext().name === "MenuHelp")
+                	J('STU')('Scene').playNext();
+            },
+            argo : null
+        });
+        this.btnStory = J('STU')('GUI').create('Button', {
+            name : 'Story',
+            asset : 'btnStory',
+            posX : 535,
+            posY : 150,
+            action : function(argo) {
+               // J('STU')('Scene').setNext('MenuStory');
+               // J('STU')('Scene').playNext();
             },
             argo : null
         });
@@ -54,12 +66,16 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
         this.btnStart.show();
         this.btnCredit.show();
         this.btnHelp.show();
+        this.btnStory.show();
+        //TODO: MOUSEOVER MOUSEOUT, SEPARATE COLLIDERS 
         J('STU')('Event').set('onClickButton', '#jeremy', 'click', function(e) {
             var selected = null;
+            console.log("c : " + e.clientX);
+            console.log("o : " + e.offsetX);
             __CollisionManager.colliders.forEach(function(elem) {
                 if (elem.isSelected(J('MAT')('Vec3')({
-                    x : e.offsetX,
-                    y : e.offsetY,
+                    x : e.clientX,
+                    y : e.clientY,
                     w : 1
                 }))) {
                     selected = elem;
@@ -95,9 +111,8 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
         this.btnStart.destroy();
         this.btnCredit.destroy();
         this.btnHelp.destroy();
+		this.btnStory.destroy();
 
         this.bgMenuMain = null;
-        this.btnCredit = null;
-        this.btnHelp = null;
     }
 }));

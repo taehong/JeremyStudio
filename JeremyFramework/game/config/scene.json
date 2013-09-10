@@ -1,5 +1,5 @@
 {
-    "count": 7,
+    "count": 9,
     "scenes": [
         {
             "name": "Play2d",
@@ -49,6 +49,14 @@
             },
             "nextScenes": [null],
             "prevScenes": ["SplashScreenCandleLight"]
+        }, {
+            "name": "MenuHelp",
+            "context": {
+                "name": "MenuHelp",
+                "url": "game/scene/Menu/MenuHelp.js"
+            },
+            "nextScenes": [null],
+            "prevScenes": ["MenuMain"]
         }, {
             "name": "TestScene",
             "context": {

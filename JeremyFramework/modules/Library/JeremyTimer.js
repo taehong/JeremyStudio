@@ -53,6 +53,7 @@ JeremyTimer.prototype.reset = function() {
 JeremyTimer.prototype.getTime = function() {
 	return (new Date()).getTime();
 };
+
 (function() {
     var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyLibrary') : undefined);
     if (target) {
