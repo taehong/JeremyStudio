@@ -1,6 +1,6 @@
 {
 	"image": {
-		"count": 19,
+		"count": 21,
 		"items": [
 			{
 				"name": "splashDigitalMedia",
@@ -28,6 +28,11 @@
 				"className": "bgImage",
 				"id": "bgMenuHelp"
 			}, {
+				"name": "bgMenuStory",
+				"src": "game/asset/image/menu/MenuStory_background.png",
+				"className": "bgImage",
+				"id": "bgMenuStory"
+			}, {
 				"name": "btnStart",
 				"src": "game/asset/image/button/Button_Start.png",
 				"className": "btnImage",
@@ -54,6 +59,12 @@
 				"src": "game/asset/image/button/Button_Back.png",
 				"className": "btnImage",
 				"id": "btnBack"
+			}
+			, {
+				"name": "btnPopUp",
+				"src": "game/asset/image/button/Button_PopUp.png",
+				"className": "btnImage",
+				"id": "btnPopUp"
 			}
 			, {
 				"name": "itemImgKey",

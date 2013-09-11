@@ -61,6 +61,15 @@ var __CollisionManager = {
             }
         });
         return targetIndex;
+    },
+    searchCollider: function(id) {
+    	var collider = null;
+        __CollisionManager.colliders.forEach(function(elem) {
+            if (elem.id === id) {
+            	collider = elem;
+            }
+        });
+        return collider;
     }
 };
 (function() {
@@ -68,7 +77,8 @@ var __CollisionManager = {
     if (target) {
         target.addModule('CollisionManager', __CollisionManager);
         target.addInterface('Collision', {
-            create : __CollisionManager.createCollider
+            create : __CollisionManager.createCollider,
+            search : __CollisionManager.searchCollider
         });
     }
 })();

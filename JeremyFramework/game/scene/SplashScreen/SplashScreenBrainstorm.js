@@ -21,7 +21,7 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		J('STU')('Data').set('splashAlphaAngle', this.angle);
 		this.timer = J('LIB')('Timer')({
 			unit : 1,
-			timerCB : function(argo) {
+			timerCB : function(argo, timer) {
 				if (argo.timer.count > argo.duration) {
 					J('STU')('Scene').playNext();
 				} else {

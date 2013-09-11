@@ -1,5 +1,5 @@
 {
-    "count": 9,
+    "count": 10,
     "scenes": [
         {
             "name": "Play2d",
@@ -54,6 +54,14 @@
             "context": {
                 "name": "MenuHelp",
                 "url": "game/scene/Menu/MenuHelp.js"
+            },
+            "nextScenes": [null],
+            "prevScenes": ["MenuMain"]
+        }, {
+        	"name": "MenuStory",
+            "context": {
+                "name": "MenuStory",
+                "url": "game/scene/Menu/MenuStory.js"
             },
             "nextScenes": [null],
             "prevScenes": ["MenuMain"]

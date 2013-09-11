@@ -5,7 +5,7 @@ var __EventManager = {
 		__EventManager.events = {};
 	},
 	setEvent : function(name, sender, event, callback) {
-		__EventManager.events[name] = {
+		return __EventManager.events[name] = {
 			sender : sender,
 			event : event,
 			callback : callback

@@ -3,7 +3,7 @@
  */
 // @param owner, rectangle
 function JeremyCollider(argo) {
-	this.id = (new Date()).getTime();
+	this.id = Math.round((new Date()).getTime() * Math.random());//(new Date()).getTime();
 	this.aabb = argo.aabb;
 }
 

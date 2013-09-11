@@ -32,9 +32,13 @@ function JeremyButton(argo) {
     this.name = argo.name;
     this.action = argo.action;
     this.argo = argo.argo;
+    this.updateCB = argo.updateCB;
+    this.updateArgo = argo.updateArgo;
     console.log('JeremyButton >> ', this.name, this.collider);
 }
-
+JeremyButton.prototype.update = function() {
+	this.updateCB(this.updateArgo, this);
+};
 JeremyButton.prototype.destroy = function() {
     J('STU')('R2D').remove(this.renderable);
     this.renderable = null;
@@ -43,6 +47,9 @@ JeremyButton.prototype.destroy = function() {
 
 JeremyButton.prototype.show = function() {
     J('STU')('R2D').add(this.renderable);
+};
+JeremyButton.prototype.hide = function() {
+    J('STU')('R2D').remove(this.renderable);
 };
 
 JeremyButton.prototype.doAction = function() {
