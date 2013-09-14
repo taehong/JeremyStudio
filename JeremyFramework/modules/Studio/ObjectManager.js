@@ -34,5 +34,24 @@ var __ObjectManager = {
 	},
 	registerObject : function(creatorName, object) {
 		__ObjectManager.objects[creatorName].push(object);
+	},
+	deregisterObject: function() {
+		
+	},
+	registerSingleton: function(singletonName, singleton) {
+		__ObjectManager.singleton[singletonName] = singleton;
+	},
+	getSingleton: function(singletonName) {
+		return __ObjectManager.singleton[singletonName];
 	}
-}; 
+};
+(function() {
+	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyStudio') : undefined);
+	if (target) {
+		target.addModule('ObjectManager', __ObjectManager);
+		target.addInterface('Object', {
+			create: __ObjectManager.create,
+			
+		});
+	}
+})();
