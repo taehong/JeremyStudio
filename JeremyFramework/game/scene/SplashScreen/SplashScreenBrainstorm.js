@@ -21,8 +21,8 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		J('STU')('Data').set('splashAlphaAngle', this.angle);
 		this.timer = J('LIB')('Timer')({
 			unit : 1,
-			timerCB : function(argo, timer) {
-				if (argo.timer.count > argo.duration) {
+			onTick : function(argo, timer) {
+				if (timer.count > argo.duration) {
 					J('STU')('Scene').playNext();
 				} else {
 					var ctx = J('STU')('R2D').context('background');
@@ -39,7 +39,7 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		J('STU')('R2D').add(this.splashBrainstorm);
 	},
 	updateCB : function() {
-		this.timer.update();
+		this.timer.tick();
 		J('STU')('Data').set('splashAlphaAngle', this.angle += (Math.PI / 240));
 	},
 	destroyCB : function() {

@@ -17,21 +17,31 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 				posY : 30
 			}
 		});
+		
+		
 		this.btnBack = J('STU')('GUI').create('Button', {
 			name : 'Back',
-			asset : 'btnBack',
 			posX : 5,
 			posY : 8,
-			action : function(argo) {
+			actionCB : function(argo) {
 				J('STU')('Scene').playPrev();
 			},
-			argo : null
+			actionArgo : null,
+			updateCB : function() {
+			},
+			updateArgo : null,
+			assets : {
+				idle : J('STU')('Asset').get('image', 'btnBack'),
+				mouseover : J('STU')('Asset').get('image', 'btnBack_MouseDown'),
+				mousedown : J('STU')('Asset').get('image', 'btnBack_MouseUp')
+			}
 		});
+		
 		J('STU')('R2D').add(this.bgMenuHelp);
 		this.btnBack.show();
 	},
 	updateCB : function() {
-
+		this.btnBack.update();
 	},
 	destroyCB : function() {
 		J('STU')('R2D').remove(this.bgMenuHelp);

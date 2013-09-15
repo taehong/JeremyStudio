@@ -1,9 +1,11 @@
 /**
  * @author JeremyJeong
+ *  it contains PopUp
  */
 J('STU')('Context').add(J('LIB')('SceneContext')({
 	name : 'MenuStory',
 	initCB : function() {
+		
 		this.bgMenuStory = J('LIB')('Renderable2D')({
 			layer : 'background',
 			drawCB : function(ctx, argo) {
@@ -22,10 +24,9 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		 */
 		this.btnPopUp = J('STU')('GUI').create('Button', {
 			name : 'popup',
-			asset : 'btnPopUp',
 			posX : J('STU')('Layer').layer('game').width - 60,
 			posY : 8,
-			action : function(argo) {
+			actionCB : function(argo) {
 				if(!argo.flag || argo.flag === null) {
 					J('STU')('R2D').add(argo.popUp);
 					argo.flag = true;
@@ -34,7 +35,7 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 					J('STU')('R2D').remove(argo.popUp);
 				}
 			},
-			argo : {
+			actionArgo : {
 				popUp : J('LIB')('Renderable2D')({
 						layer : 'background',
 						drawCB : function(ctx, argo) {
@@ -43,7 +44,7 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 						ctx.fillRect(argo.posX, argo.posY, 100, 100);
 						ctx.fillStyle = '#0f00ff';
 						ctx.font = "18px Verdana";
-						ctx.fillText( "Pausing", argo.posX + 15, argo.posY + 50 )
+						ctx.fillText( "Pausing", argo.posX + 15, argo.posY + 50 );
 						ctx.globalAlpha = 1;
 						argo.flag = true;
 						},
@@ -53,26 +54,43 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 						}
 					}),
 				flag : null
+			},
+			updateCB : function() {
+			},
+			updateArgo : null,
+			assets : {
+				idle : J('STU')('Asset').get('image', 'btnPopUp'),
+				mouseover : J('STU')('Asset').get('image', 'btnPopUp_MouseDown'),
+				mousedown : J('STU')('Asset').get('image', 'btnPopUp_MouseUp')
 			}
 		});
+		
 		this.btnBack = J('STU')('GUI').create('Button', {
 			name : 'Back',
-			asset : 'btnBack',
 			posX : 5,
 			posY : 8,
-			action : function(argo) {
+			actionCB : function(argo) {
 				J('STU')('Scene').playPrev();
 			},
-			argo : null
+			actionArgo : null,
+			updateCB : function() {
+			},
+			updateArgo : null,
+			assets : {
+				idle : J('STU')('Asset').get('image', 'btnBack'),
+				mouseover : J('STU')('Asset').get('image', 'btnBack_MouseDown'),
+				mousedown : J('STU')('Asset').get('image', 'btnBack_MouseUp')
+			}
 		});
+		
 		J('STU')('R2D').add(this.bgMenuStory);
-
 		this.btnBack.show();
 		this.btnPopUp.show();
 		
 	},
 	updateCB : function() {
-
+		this.btnBack.update();
+		this.btnPopUp.update();		
 	},
 	destroyCB : function() {
 		J('STU')('R2D').remove(this.bgMenuStory);

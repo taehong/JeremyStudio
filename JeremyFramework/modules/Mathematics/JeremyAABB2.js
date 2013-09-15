@@ -9,7 +9,7 @@
  */
 function JeremyAABB2(argo) {
 	this.type = 'JeremyAABB2';
-	this.id = Math.round((new Date()).getTime() * Math.random());//(new Date()).getTime();
+	this.id = Math.round((new Date()).getTime() * Math.random());
 	this.center = argo.center;
 	this.half = argo.half;
 	this.color = "#000000";

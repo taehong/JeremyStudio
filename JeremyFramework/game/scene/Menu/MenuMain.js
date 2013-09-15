@@ -1,9 +1,18 @@
 /**
- * @author Administrator
+ * @author JongMin Park
  */
 J('STU')('Context').add(J('LIB')('SceneContext')({
 	name : 'MenuMain',
 	initCB : function() {
+		
+		J('STU')('Data').set('mousePos', J('MAT')('Vec3')({
+			x:0,
+			y:0,
+			w:1
+		}));
+		J('STU')('Data').set('mouseClick', false);
+		
+		
 		this.bgMenuMain = J('LIB')('Renderable2D')({
 			layer : 'background',
 			drawCB : function(ctx, argo) {
@@ -15,138 +24,103 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 				posY : 0
 			}
 		});
+		
 		this.btnStart = J('STU')('GUI').create('Button', {
 			name : 'Start',
-			asset : 'btnStart',
 			posX : 535,
 			posY : 50,
-			action : function(argo) {
-				// J('STU')('Scene').setNext('MenuStart');
-				// J('STU')('Scene').playNext();
-				J('STU')('Scene').playPrev();
-				alert("Start Button");
+			actionCB : function(argo) {
+				J('STU')('Scene').setNext("EditorMain");
+				if (J('STU')('Scene').getNext().name === "EditorMain")
+					J('STU')('Scene').playNext();
 			},
-			argo : null
+			actionArgo : null,
+			updateCB:function() {
+				console.log(
+				);
+			},
+			updateArgo : null,
+			assets : {
+				idle : J('STU')('Asset').get('image', 'btnStart'),
+				mouseover : J('STU')('Asset').get('image', 'btnStart_MouseDown'),
+				mousedown : J('STU')('Asset').get('image', 'btnStart_MouseUp')
+			}
 		});
+		
 		this.btnCredit = J('STU')('GUI').create('Button', {
 			name : 'Credit',
-			asset : 'btnCredit',
 			posX : 535,
 			posY : 350,
-			action : function(argo) {
-				J('STU')('Scene').setNext('MenuCredit');
-				J('STU')('Scene').playNext();
+			actionCB : function(argo) {
+				J('STU')('Scene').setNext("MenuCredit");
+				if (J('STU')('Scene').getNext().name === "MenuCredit")
+					J('STU')('Scene').playNext();
 			},
-			argo : null
+			actionArgo : null,
+			updateCB : function() {
+			},
+			updateArgo : null,
+			assets : {
+				idle : J('STU')('Asset').get('image', 'btnCredit'),
+				mouseover : J('STU')('Asset').get('image', 'btnCredit_MouseDown'),
+				mousedown : J('STU')('Asset').get('image', 'btnCredit_MouseUp')
+			}
 		});
+
 		this.btnHelp = J('STU')('GUI').create('Button', {
 			name : 'Help',
-			asset : 'btnHelp',
 			posX : 535,
 			posY : 250,
-			action : function(argo) {
+			actionCB : function(argo) {
 				J('STU')('Scene').setNext("MenuHelp");
 				if (J('STU')('Scene').getNext().name === "MenuHelp")
 					J('STU')('Scene').playNext();
 			},
-			argo : null,
-			updateCB : function(argo, btn) {
-				var mousePos = J('STU')('Data').get('mousePos'), collider = J('STU')('Collision').search(btn.collider);
-				if (collider.isSelected(mousePos)) {
-					console.log('mouseover!!');
-				}
+			actionArgo : null,
+			updateCB : function() {
 			},
-			updateArgo : null
+			updateArgo : null,
+			assets : {
+				idle : J('STU')('Asset').get('image', 'btnHelp'),
+				mouseover : J('STU')('Asset').get('image', 'btnHelp_MouseDown'),
+				mousedown : J('STU')('Asset').get('image', 'btnHelp_MouseUp')
+			}
 		});
+
 		this.btnStory = J('STU')('GUI').create('Button', {
 			name : 'Story',
-			asset : 'btnStory',
 			posX : 535,
 			posY : 150,
-			action : function(argo) {
-				J('STU')('Scene').setNext('MenuStory');
-				J('STU')('Scene').playNext();
+			actionCB : function(argo) {
+				J('STU')('Scene').setNext("MenuStory");
+				if (J('STU')('Scene').getNext().name === "MenuStory")
+					J('STU')('Scene').playNext();
 			},
-			argo : null
-		});
+			actionArgo : null,
+			updateCB : function() {
+			},
+			updateArgo : null,
+			assets : {
+				idle : J('STU')('Asset').get('image', 'btnStory'),
+				mouseover : J('STU')('Asset').get('image', 'btnStory_MouseDown'),
+				mousedown : J('STU')('Asset').get('image', 'btnStory_MouseUp')
+			}
+		}); 
+
+
+		
 		J('STU')('R2D').add(this.bgMenuMain);
 		this.btnStart.show();
 		this.btnCredit.show();
 		this.btnHelp.show();
 		this.btnStory.show();
-		//TODO: MOUSEOVER MOUSEOUT
-
-		J('STU')('Event').set('onClickButton', '#jeremy', 'click', function(e) {
-			var selected = null;
-			__CollisionManager.colliders.forEach(function(elem) {
-				if (elem.isSelected(J('MAT')('Vec3')({
-					x : e.clientX,
-					y : e.clientY,
-					w : 1
-				}))) {
-					selected = elem;
-				}
-			});
-			if (selected) {
-				J('STU')('GUI').get(selected.id).doAction();
-			}
-		});
-		J('STU')('Event').bind('onClickButton');
-
-		J('STU')('Data').set('mousePos', J('MAT')('Vec3')({
-			x : 0,
-			y : 0,
-			w : 1
-		}));
-		J('STU')('Event').set('onMouseMove', '#jeremy', 'mousemove', function(e) {
-			J('STU')('Data').set('mousePos', J('MAT')('Vec3')({
-				x : e.offsetX,
-				y : e.offsetY,
-				w : 1
-			}));
-		});
-		J('STU')('Event').bind('onMouseMove');
-
-		/*
-		 * added Event - Mouse Over
-		 */
-		J('STU')('Event').set('mouseOverButton', '#jeremy', 'mouseover', function(e) {
-			var selected = null;
-			__CollisionManager.colliders.forEach(function(elem) {
-				if (elem.isSelected(J('MAT')('Vec3')({
-					x : e.clientX,
-					y : e.clientY,
-					w : 1
-				}))) {
-					selected = elem;
-				}
-			});
-			if (selected) {
-				console.log("aaaa");
-				//J('STU')('GUI').get(selected.id).doAction();
-			}
-		});
-		J('STU')('Event').bind('mouseOverButton');
-
-		// J('STU')('R2D').add(J('LIB')('Renderable2D')({
-		// layer : 'effect',
-		// drawCB : function(ctx, argo) {
-		// argo.quadtree.drawCB(ctx, argo);
-		// },
-		// argo : {
-		// quadtree : __CollisionManager.quadtree,
-		// aabb : {
-		// color : "#ff0000"
-		// },
-		// item : {
-		// color : "#0000ff",
-		// size : 2 // for point
-		// }
-		// }
-		// }));
+		
 	},
 	updateCB : function() {
+		this.btnStart.update();
+		this.btnCredit.update();
 		this.btnHelp.update();
+		this.btnStory.update();
 	},
 	destroyCB : function() {
 		J('STU')('R2D').remove(this.bgMenuMain);
@@ -158,3 +132,52 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		this.bgMenuMain = null;
 	}
 }));
+
+
+	/* event listener */
+		J('STU')('Event').set('onMouseMove', '#jeremy', 'mousemove', function(e) {
+			J('STU')('Data').set('mousePos', J('MAT')('Vec3')({
+				x : e.offsetX,
+				y : e.offsetY,
+				w : 1
+			}));
+		});
+		J('STU')('Event').bind('onMouseMove');
+		
+		J('STU')('Event').set('onMouseDownButton', '#jeremy', 'mousedown', function(e) {
+			var selected = null;
+			__CollisionManager.colliders.forEach(function(elem) {
+				if (elem.isSelected(J('MAT')('Vec3')({
+					x : e.clientX,
+					y : e.clientY,
+					w : 1
+				}))) {
+					selected = elem;
+				}
+			});
+			if (selected) {
+				J('STU')('Data').set('mouseClick', true);
+			}
+		});
+		J('STU')('Event').bind('onMouseDownButton');
+		
+		J('STU')('Event').set('onMouseUpButton', '#jeremy', 'mouseup', function(e) {
+			var selected = null;
+			__CollisionManager.colliders.forEach(function(elem) {
+				if (elem.isSelected(J('MAT')('Vec3')({
+					x : e.clientX,
+					y : e.clientY,
+					w : 1
+				}))) {
+					selected = elem;
+				} else J('STU')('Data').set('mouseClick', false);
+			});
+			if (selected) {
+				J('STU')('Data').set('mouseClick', false);
+				J('STU')('GUI').get(selected.id).doAction();
+			}
+		});
+		J('STU')('Event').bind('onMouseUpButton');
+		
+		
+

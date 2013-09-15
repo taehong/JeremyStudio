@@ -39,7 +39,7 @@
                 "name": "SplashScreenCandleLight",
                 "url": "game/scene/SplashScreen/SplashScreenCandleLight.js"
             },
-            "nextScenes": ["EditorMain"],
+            "nextScenes": ["MenuMain"],
             "prevScenes": ["SplashScreenBrainstorm"]
         }, {
             "name": "MenuMain",
