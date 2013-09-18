@@ -35,14 +35,24 @@ var __ObjectManager = {
 	registerObject : function(creatorName, object) {
 		__ObjectManager.objects[creatorName].push(object);
 	},
-	deregisterObject: function() {
-		
+	deregisterObject : function() {
+
 	},
-	registerSingleton: function(singletonName, singleton) {
+	registerSingleton : function(singletonName, singleton) {
 		__ObjectManager.singleton[singletonName] = singleton;
 	},
-	getSingleton: function(singletonName) {
+	getSingleton : function(singletonName) {
 		return __ObjectManager.singleton[singletonName];
+	},
+	getObject : function(isSingleton, name, id) {
+		var object = null;
+		if (isSingleton) {
+			object = __ObjectManager.getSingleton(name);
+		} else {
+			object = __ObjectManager.objects[name];
+			// this is array
+		}
+		return object;
 	}
 };
 (function() {
@@ -50,8 +60,8 @@ var __ObjectManager = {
 	if (target) {
 		target.addModule('ObjectManager', __ObjectManager);
 		target.addInterface('Object', {
-			create: __ObjectManager.create,
-			
+			create : __ObjectManager.create,
+			get : __ObjectManager.getObject
 		});
 	}
-})();
+})(); 
