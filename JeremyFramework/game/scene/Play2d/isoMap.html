@@ -33,7 +33,7 @@
                     this.list[c][r] = item;
                     return true;
                 }
-            }
+            };
 
             Array2D.prototype.get = function(c, r) {
                 if ((r > this.rows - 1) || (c > this.cols - 1) || (r < 0) || (r < 0)) {
@@ -41,7 +41,7 @@
                 } else {
                     return this.list[c][r];
                 }
-            }
+            };
             Array2D.prototype.forEach = function(forEachCB, argo) {
                 var r, c, rows, cols, list = this.list, elem;
                 for ( c = 0, cols = this.cols; c < cols; c++) {
@@ -50,7 +50,7 @@
                         forEachCB(c, r, list, elem, argo);
                     }
                 }
-            }
+            };
             /*
              * argo.size
              * argo.number
@@ -69,7 +69,7 @@
                             col:col
                         });
                     });
-                }
+                };
                 this.generate();
             }
 
