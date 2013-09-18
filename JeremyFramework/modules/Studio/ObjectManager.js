@@ -8,12 +8,28 @@ var __ObjectManager = {
 	init : function() {
 		console.log('Init : JeremyStudio.ObjectManager');
 		this.type = 'ObjectManager';
+
+		__ObjectManager.loadObjects(Jeremy.getConfig('object'));
+
 		/*
 		 * Setup object arrays
 		 */
 		// for (creatorName in __ObjectManager.creator) {
 			// __ObjectManager.objects[creatorName] = [];
 		// }
+
+	},
+	loadObjects : function(config) {
+		var l = {
+			singleton:config.singleton,
+			creator:config.creator,
+			singletonName:null,
+			creatorName:null
+		};
+		for (l.singletonName in l.singleton) {
+			
+		}
+
 	},
 	create : function(creatorName, argo) {
 		var creator = this.getCreator(), object = undefined;
