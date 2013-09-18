@@ -1,7 +1,7 @@
 /**
  * @author Jeremy
  */
-var Jacqueline = {
+J('STU')('Object').set('Singleton', 'Jacqueline', {
 	eDirection : {
 		kDirectionLeft : 0,
 		kDirectionRight : 1,
@@ -20,7 +20,7 @@ var Jacqueline = {
 			w : 1
 		});
 	},
-	getPosition: function() {
+	getPosition : function() {
 		return this.position;
 	},
 	setMoving : function(isMoving) {
@@ -64,4 +64,4 @@ var Jacqueline = {
 				break;
 		}
 	}
-};
+});

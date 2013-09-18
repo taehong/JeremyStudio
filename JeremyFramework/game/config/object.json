@@ -1,0 +1,7 @@
+{
+	"singleton":{
+		"Jacqueline":"game/object/singleton/Jacqueline.js"
+	},
+	"creator":{
+	}
+}
