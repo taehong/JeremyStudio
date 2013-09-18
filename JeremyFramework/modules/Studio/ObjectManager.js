@@ -8,15 +8,18 @@ var __ObjectManager = {
 	init : function() {
 		console.log('Init : JeremyStudio.ObjectManager');
 		this.type = 'ObjectManager';
-		for (creatorName in __ObjectManager.creator) {
-			__ObjectManager.objects[creatorName] = [];
-		}
+		/*
+		 * Setup object arrays
+		 */
+		// for (creatorName in __ObjectManager.creator) {
+			// __ObjectManager.objects[creatorName] = [];
+		// }
 	},
 	create : function(creatorName, argo) {
 		var creator = this.getCreator(), object = undefined;
 		if (creator !== undefined) {
 			object = creator(argo);
-			__ObjectManager.registerObject(creatorName, object);
+			__ObjectManager.addObject(creatorName, object);
 		}
 		// If creator is undefined, then return undefined.
 		return object;
@@ -32,17 +35,17 @@ var __ObjectManager = {
 	addCreator : function(creatorName, creator) {
 		this.creator[creatorName] = creator;
 	},
-	registerObject : function(creatorName, object) {
-		__ObjectManager.objects[creatorName].push(object);
-	},
-	deregisterObject : function() {
-
-	},
-	registerSingleton : function(singletonName, singleton) {
+	addSingleton : function(singletonName, singleton) {
 		__ObjectManager.singleton[singletonName] = singleton;
 	},
 	getSingleton : function(singletonName) {
 		return __ObjectManager.singleton[singletonName];
+	},
+	addObject : function(creatorName, object) {
+		__ObjectManager.objects[creatorName].push(object);
+	},
+	removeObject : function() {
+
 	},
 	getObject : function(isSingleton, name, id) {
 		var object = null;
@@ -61,7 +64,17 @@ var __ObjectManager = {
 		target.addModule('ObjectManager', __ObjectManager);
 		target.addInterface('Object', {
 			create : __ObjectManager.create,
-			get : __ObjectManager.getObject
+			get : __ObjectManager.getObject,
+			set : function(key, name, obj) {
+				switch(key) {
+					case 'Singleton':
+						return __ObjectManager.addSingleton(name, obj);
+						break;
+					case 'Creator':
+						return __ObjectManager.addCreator(name, obj);
+						break;
+				}
+			}
 		});
 	}
-})(); 
+})();
