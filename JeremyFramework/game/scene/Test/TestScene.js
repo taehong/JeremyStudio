@@ -116,7 +116,7 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
             }).iterator();
             console.log(bstMinToMax);
             while (bstMinToMax.hasNext()) {
-                var elem = bstMinToMax.next()
+                var elem = bstMinToMax.next();
                 if (elem.isContaining(point)) {
                     console.log('Selected >> ', elem);
                     break;
