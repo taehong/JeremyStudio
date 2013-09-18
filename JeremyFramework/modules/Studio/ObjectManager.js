@@ -5,31 +5,41 @@ var __ObjectManager = {
 	creator : {},
 	objects : {},
 	singleton : {},
+	loadCounter : 0,
 	init : function() {
 		console.log('Init : JeremyStudio.ObjectManager');
 		this.type = 'ObjectManager';
-
 		__ObjectManager.loadObjects(Jeremy.getConfig('object'));
-
 		/*
-		 * Setup object arrays
-		 */
+		* Setup object arrays
+		*/
 		// for (creatorName in __ObjectManager.creator) {
-			// __ObjectManager.objects[creatorName] = [];
+		// __ObjectManager.objects[creatorName] = [];
 		// }
 
 	},
 	loadObjects : function(config) {
 		var l = {
-			singleton:config.singleton,
-			creator:config.creator,
-			singletonName:null,
-			creatorName:null
+			singleton : config.singleton,
+			creator : config.creator
 		};
-		for (l.singletonName in l.singleton) {
-			
-		}
-
+		l.singleton.forEach(function(elem) {
+			__ObjectManager.loadObject(elem);
+		});
+		l.creator.forEach(function(elem) {
+			__ObjectManager.loadObject(elem);
+		});
+	},
+	loadObject : function(objConfig) {
+		__ObjectManager.loadCounter++;
+		$.ajax({
+			type : "GET",
+			url : objConfig.url,
+			dataType : "script"
+		}).done(function(data) {
+			__ObjectManager.loadCounter--;
+			console.log('Object Loaded : ' + objConfig.name);
+		});
 	},
 	create : function(creatorName, argo) {
 		var creator = this.getCreator(), object = undefined;
