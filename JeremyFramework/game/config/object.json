@@ -5,5 +5,10 @@
 			"url": "game/object/singleton/Jacqueline.js"
 		}
 	],
-	"creator": []
+	"creator": [
+		{
+			"name": "Switch",
+			"url": "game/object/creator/Switch.js"
+		}
+	]
 }
