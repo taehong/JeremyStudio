@@ -38,6 +38,7 @@ J('STU')('Object').set('Singleton', 'Jacqueline', {
 	initialize : function(direction, posX, posY) {
 		this.setPosition(posX, posY);
 		this.setDirection(direction);
+		return this;
 	},
 	update : function() {
 		this.updateState();

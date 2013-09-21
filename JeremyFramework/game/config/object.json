@@ -3,6 +3,12 @@
 		{
 			"name": "Jacqueline",
 			"url": "game/object/singleton/Jacqueline.js"
+		}, {
+			"name": "Candle",
+			"url": "game/object/singleton/Candle.js"
+		}, {
+			"name": "GameManager",
+			"url": "game/object/singleton/GameManager.js"
 		}
 	],
 	"creator": [

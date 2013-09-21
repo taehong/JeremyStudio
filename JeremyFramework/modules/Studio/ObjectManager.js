@@ -42,10 +42,10 @@ var __ObjectManager = {
 		});
 	},
 	create : function(creatorName, argo) {
-		var creator = this.getCreator(), object = undefined;
+		var creator = __ObjectManager.getCreator(creatorName), object = undefined;
 		if (creator !== undefined) {
-			object = creator(argo);
-			__ObjectManager.addObject(creatorName, object);
+			object = new creator(argo);
+			// __ObjectManager.addObject(creatorName, object);
 		}
 		// If creator is undefined, then return undefined.
 		return object;
