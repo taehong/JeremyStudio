@@ -25,3 +25,8 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 	destroyCB : function() {
 	}
 }));
+J('STU')('Event').set('onKeyDown', '#jeremy', 'keydown', function(e) {
+	J('STU')('Data').set('keyCode', e.keyCode);
+	J('STU')('Data').set('isNewKey', e.keyCode);
+});
+J('STU')('Event').bind('onKeyDown');

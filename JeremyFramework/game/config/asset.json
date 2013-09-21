@@ -1,6 +1,6 @@
 {
 	"image": {
-		"count": 33,
+		"count": 28,
 		"items": [
 			{
 				"name": "splashDigitalMedia",
@@ -125,32 +125,6 @@
 				"src": "game/asset/image/button/Button_PopUp_MouseUp.png",
 				"className": "btnImage",
 				"id": "btnPopUp_MouseUp"
-			}, {
-				"name": "itemImgKey",
-				"src": "http://www.bcpark.net/imagedb/thumb/2003/0624/1056458885_0.png",
-				"className": "itemImg",
-				"id": "itemImgKey"
-			}
-			, {
-				"name": "itemImgButton",
-				"src": "http://www.clker.com/cliparts/9/1/5/2/119498475589498995button-red_benji_park_01.svg.med.png",
-				"className": "itemImg",
-				"id": "itemImgButton"
-			}, {
-				"name": "itemImgMonster",
-				"src": "http://c.ask.nate.com/imgs/qrsi.php/6133257/8214994/1/1/A/wolf2.jpg",
-				"className": "itemImg",
-				"id": "itemImgMonster"
-			}, {
-				"name": "itemImgStart",
-				"src": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcS7eqCVfNDZ8i8KOBM_s4qphrXF1gCUO97R9AhSjFRPixOhPDnjnA",
-				"className": "itemImg",
-				"id": "itemImgStart"
-			}, {
-				"name": "itemImgEnd",
-				"src": "http://terryfoote.com/wp-content/uploads/2010/11/end.png",
-				"className": "itemImg",
-				"id": "itemImgEnd"
 			}, {
 				"name": "maskImgVignette",
 				"src": "game/asset/image/Mask/MaskVignette.png",
