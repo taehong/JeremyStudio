@@ -44,6 +44,7 @@ J('STU')('Object').set('Singleton', 'Jacqueline', {
 		this.updateState();
 	},
 	updateState : function() {
+		var INPUT = J('STU')('Data').get('INPUT');
 		var isMoving = false, direction = undefined;
 		if (isMoving) {
 			this.setMoving(true);
@@ -54,13 +55,13 @@ J('STU')('Object').set('Singleton', 'Jacqueline', {
 			case this.eDirection.kDirectionLeft:
 				this.setDirection(this.eDirection.kDirectionLeft);
 				break;
-			case this.eDirection.kDirectionLeft:
+			case this.eDirection.kDirectionRight:
 				this.setDirection(this.eDirection.kDirectionRight);
 				break;
-			case this.eDirection.kDirectionLeft:
+			case this.eDirection.kDirectionUp:
 				this.setDirection(this.eDirection.kDirectionUp);
 				break;
-			case this.eDirection.kDirectionLeft:
+			case this.eDirection.kDirectionDown:
 				this.setDirection(this.eDirection.kDirectionDown);
 				break;
 		}
