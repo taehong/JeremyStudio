@@ -4,10 +4,10 @@
 J('STU')('Context').add(J('LIB')('SceneContext')({
 	name : 'Playing',
 	initCB : function() {
-		this.gameManager = J('STU')('Object').get(true, 'GameManager').initialize();
+		J('STU')('Data').set('INPUT', J('STU')('Object').get(true, 'InputManager').initialize());
+		J('STU')('Data').set('GAME', J('STU')('Object').get(true, 'GameManager').initialize());
 		this.jacqueline = J('STU')('Object').get(true, 'Jacqueline');
 		this.jacqueline.initialize(this.jacqueline.eDirection.kDirectionDown, 0, 0);
-		console.log(this.jacqueline);
 		var mySwitch = J('STU')('Object').create('Switch', {
 			name : 'testSwitch',
 			actionCB : function(argo) {
@@ -18,15 +18,12 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 			}
 		});
 		mySwitch.doAction();
+		
 	},
 	updateCB : function() {
-		this.gameManager.update();
+		var GAME = J('STU')('Data').get('GAME');
+		GAME.update();
 	},
 	destroyCB : function() {
 	}
 }));
-J('STU')('Event').set('onKeyDown', '#jeremy', 'keydown', function(e) {
-	J('STU')('Data').set('keyCode', e.keyCode);
-	J('STU')('Data').set('isNewKey', e.keyCode);
-});
-J('STU')('Event').bind('onKeyDown');

@@ -200,43 +200,43 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
  * Event Listener
  */
 
-	window.addEventListener('keydown', function(e){
-		switch(e.keyCode){
-			
-				case 37:
-					if( J('STU')('Asset').get('sprite', 'GirlSprite').currentSequence === null || 
-						J('STU')('Asset').get('sprite', 'GirlSprite').currentSequence !== J('STU')('Asset').get('sprite', 'GirlSprite').getSequence('walkLeft') ) 
-						J('STU')('Asset').get('sprite', 'GirlSprite').setCurrentSequence('walkLeft');
-					var pos = J('STU')('Data').get('characterPos');
-					pos.x = pos.x - 1;
-					J('STU')('Data').set('characterPos', pos);
-					break;
-					
-				case 38:
-					if( J('STU')('Asset').get('sprite', 'GirlSprite').currentSequence === null || 
-						J('STU')('Asset').get('sprite', 'GirlSprite').currentSequence !== J('STU')('Asset').get('sprite', 'GirlSprite').getSequence('walkRear') )
-						J('STU')('Asset').get('sprite', 'GirlSprite').setCurrentSequence('walkRear');
-					var pos = J('STU')('Data').get('characterPos');
-					pos.y = pos.y - 1;
-					J('STU')('Data').set('characterPos', pos);
-					break;
-					
-				case 39:
-					if( J('STU')('Asset').get('sprite', 'GirlSprite').currentSequence === null || 
-						J('STU')('Asset').get('sprite', 'GirlSprite').currentSequence !== J('STU')('Asset').get('sprite', 'GirlSprite').getSequence('walkRight') )
-						J('STU')('Asset').get('sprite', 'GirlSprite').setCurrentSequence('walkRight');
-					var pos = J('STU')('Data').get('characterPos');
-					pos.x = pos.x + 1;
-					J('STU')('Data').set('characterPos', pos);
-					break;
-					
-				case 40:
-					if( J('STU')('Asset').get('sprite', 'GirlSprite').currentSequence === null || 
-						J('STU')('Asset').get('sprite', 'GirlSprite').currentSequence !== J('STU')('Asset').get('sprite', 'GirlSprite').getSequence('walkFront') )
-						J('STU')('Asset').get('sprite', 'GirlSprite').setCurrentSequence('walkFront');
-					var pos = J('STU')('Data').get('characterPos');
-					pos.y = pos.y + 1;
-					J('STU')('Data').set('characterPos', pos);
-					break;
-			}
-		}, false);
+	// window.addEventListener('keydown', function(e){
+		// switch(e.keyCode){
+// 			
+				// case 37:
+					// if( J('STU')('Asset').get('sprite', 'GirlSprite').currentSequence === null || 
+						// J('STU')('Asset').get('sprite', 'GirlSprite').currentSequence !== J('STU')('Asset').get('sprite', 'GirlSprite').getSequence('walkLeft') ) 
+						// J('STU')('Asset').get('sprite', 'GirlSprite').setCurrentSequence('walkLeft');
+					// var pos = J('STU')('Data').get('characterPos');
+					// pos.x = pos.x - 1;
+					// J('STU')('Data').set('characterPos', pos);
+					// break;
+// 					
+				// case 38:
+					// if( J('STU')('Asset').get('sprite', 'GirlSprite').currentSequence === null || 
+						// J('STU')('Asset').get('sprite', 'GirlSprite').currentSequence !== J('STU')('Asset').get('sprite', 'GirlSprite').getSequence('walkRear') )
+						// J('STU')('Asset').get('sprite', 'GirlSprite').setCurrentSequence('walkRear');
+					// var pos = J('STU')('Data').get('characterPos');
+					// pos.y = pos.y - 1;
+					// J('STU')('Data').set('characterPos', pos);
+					// break;
+// 					
+				// case 39:
+					// if( J('STU')('Asset').get('sprite', 'GirlSprite').currentSequence === null || 
+						// J('STU')('Asset').get('sprite', 'GirlSprite').currentSequence !== J('STU')('Asset').get('sprite', 'GirlSprite').getSequence('walkRight') )
+						// J('STU')('Asset').get('sprite', 'GirlSprite').setCurrentSequence('walkRight');
+					// var pos = J('STU')('Data').get('characterPos');
+					// pos.x = pos.x + 1;
+					// J('STU')('Data').set('characterPos', pos);
+					// break;
+// 					
+				// case 40:
+					// if( J('STU')('Asset').get('sprite', 'GirlSprite').currentSequence === null || 
+						// J('STU')('Asset').get('sprite', 'GirlSprite').currentSequence !== J('STU')('Asset').get('sprite', 'GirlSprite').getSequence('walkFront') )
+						// J('STU')('Asset').get('sprite', 'GirlSprite').setCurrentSequence('walkFront');
+					// var pos = J('STU')('Data').get('characterPos');
+					// pos.y = pos.y + 1;
+					// J('STU')('Data').set('characterPos', pos);
+					// break;
+			// }
+		// }, false);

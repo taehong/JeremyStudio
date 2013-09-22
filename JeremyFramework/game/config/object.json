@@ -9,6 +9,9 @@
 		}, {
 			"name": "GameManager",
 			"url": "game/object/singleton/GameManager.js"
+		}, {
+			"name": "InputManager",
+			"url": "game/object/singleton/InputManager.js"
 		}
 	],
 	"creator": [
