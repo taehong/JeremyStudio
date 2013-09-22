@@ -1,85 +1,85 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset='utf-8'/>
-        <title>Jeremy Framework</title>
-        <script src='external/jquery-2.0.0.js'></script>
-        <script src='external/BufferLoader.js'></script>
-        <script src='external/requestAnimFrame.js'></script>
+	<head>
+		<meta charset='utf-8'/>
+		<title>Jeremy Framework</title>
+		<script src='external/jquery-2.0.0.js'></script>
+		<script src='external/BufferLoader.js'></script>
+		<script src='external/requestAnimFrame.js'></script>
+		<script src='external/three.js'></script>
+		<!--
+		<script src="external/js/shaders/ConvolutionShader.js"></script>
+		<script src="external/js/shaders/CopyShader.js"></script>
+		<script src="external/js/shaders/VignetteShader.js"></script>
+		<script src="external/js/shaders/BleachBypassShader.js"></script>
+		<script src="external/js/shaders/FilmShader.js"></script>
+		<script src="external/js/shaders/VerticalBlurShader.js"></script>
+		<script src="external/js/shaders/HorizontalBlurShader.js"></script>
+		<script src="external/js/postprocessing/EffectComposer.js"></script>
+		<script src="external/js/postprocessing/RenderPass.js"></script>
+		<script src="external/js/postprocessing/TexturePass.js"></script>
+		<script src="external/js/postprocessing/ShaderPass.js"></script>
+		<script src="external/js/postprocessing/BloomPass.js"></script>
+		<script src="external/js/postprocessing/FilmPass.js"></script> -->
 
-        <!-- <script src='external/three.js'></script>
-        <script src="external/js/shaders/ConvolutionShader.js"></script>
-        <script src="external/js/shaders/CopyShader.js"></script>
-        <script src="external/js/shaders/VignetteShader.js"></script>
-        <script src="external/js/shaders/BleachBypassShader.js"></script>
-        <script src="external/js/shaders/FilmShader.js"></script>
-        <script src="external/js/shaders/VerticalBlurShader.js"></script>
-        <script src="external/js/shaders/HorizontalBlurShader.js"></script>
-        <script src="external/js/postprocessing/EffectComposer.js"></script>
-        <script src="external/js/postprocessing/RenderPass.js"></script>
-        <script src="external/js/postprocessing/TexturePass.js"></script>
-        <script src="external/js/postprocessing/ShaderPass.js"></script>
-        <script src="external/js/postprocessing/BloomPass.js"></script>
-        <script src="external/js/postprocessing/FilmPass.js"></script> -->
+		<script src="Jeremy.js"></script>
 
-        <script src="Jeremy.js"></script>
+		<script src="modules/JeremyDataStructure.js"></script>
+		<script src="modules/DataStructure/JeremyIterator.js"></script>
+		<script src="modules/DataStructure/JeremyStack.js"></script>
+		<script src="modules/DataStructure/JeremyQueue.js"></script>
+		<script src="modules/DataStructure/JeremyDeque.js"></script>
+		<script src="modules/DataStructure/JeremyArrayList.js"></script>
+		<script src="modules/DataStructure/JeremyQuadtree.js"></script>
+		<script src="modules/DataStructure/JeremyBST.js"></script>
+		<script src="modules/DataStructure/JeremyArray2D.js"></script>
 
-        <script src="modules/JeremyDataStructure.js"></script>
-        <script src="modules/DataStructure/JeremyIterator.js"></script>
-        <script src="modules/DataStructure/JeremyStack.js"></script>
-        <script src="modules/DataStructure/JeremyQueue.js"></script>
-        <script src="modules/DataStructure/JeremyDeque.js"></script>
-        <script src="modules/DataStructure/JeremyArrayList.js"></script>
-        <script src="modules/DataStructure/JeremyQuadtree.js"></script>
-        <script src="modules/DataStructure/JeremyBST.js"></script>
-        <script src="modules/DataStructure/JeremyArray2D.js"></script>
+		<script src="modules/JeremyLibrary.js"></script>
+		<script src="modules/Library/JeremyAsset.js"></script>
+		<script src="modules/Library/JeremyCanvas.js"></script>
+		<script src="modules/Library/JeremyCollider.js"></script>
+		<script src="modules/Library/JeremyImage.js"></script>
+		<script src="modules/Library/JeremyRenderable2D.js"></script>
+		<script src="modules/Library/JeremyScene.js"></script>
+		<script src="modules/Library/JeremySceneContext.js"></script>
+		<script src="modules/Library/JeremySound.js"></script>
+		<script src="modules/Library/JeremySprite.js"></script>
+		<script src="modules/Library/JeremyTimer.js"></script>
+		<script src="modules/Library/JeremyButton.js"></script>
+		<script src="modules/Library/JeremyTile.js"></script>
+		<script src="modules/Library/JeremyTileMap.js"></script>
 
-        <script src="modules/JeremyLibrary.js"></script>
-        <script src="modules/Library/JeremyAsset.js"></script>
-        <script src="modules/Library/JeremyCanvas.js"></script>
-        <script src="modules/Library/JeremyCollider.js"></script>
-        <script src="modules/Library/JeremyImage.js"></script>
-        <script src="modules/Library/JeremyRenderable2D.js"></script>
-        <script src="modules/Library/JeremyScene.js"></script>
-        <script src="modules/Library/JeremySceneContext.js"></script>
-        <script src="modules/Library/JeremySound.js"></script>
-        <script src="modules/Library/JeremySprite.js"></script>
-        <script src="modules/Library/JeremyTimer.js"></script>
-        <script src="modules/Library/JeremyButton.js"></script>
-        <script src="modules/Library/JeremyTile.js"></script>
-        <script src="modules/Library/JeremyTileMap.js"></script>
+		<script src="modules/JeremyMathematics.js"></script>
+		<script src="modules/Mathematics/JeremyRectangle.js"></script>
+		<script src="modules/Mathematics/JeremyVec3.js"></script>
+		<script src="modules/Mathematics/JeremyVec4.js"></script>
+		<script src="modules/Mathematics/JeremyAABB2.js"></script>
 
-        <script src="modules/JeremyMathematics.js"></script>
-        <script src="modules/Mathematics/JeremyRectangle.js"></script>
-        <script src="modules/Mathematics/JeremyVec3.js"></script>
-        <script src="modules/Mathematics/JeremyVec4.js"></script>
-        <script src="modules/Mathematics/JeremyAABB2.js"></script>
+		<script src="modules/JeremyStudio.js"></script>
+		<script src="modules/Studio/LayerManager.js"></script>
+		<script src="modules/Studio/AssetManager.js"></script>
+		<script src="modules/Studio/EventManager.js"></script>
+		<script src="modules/Studio/ObjectManager.js"></script>
+		<script src="modules/Studio/DataManager.js"></script>
+		<script src="modules/Studio/Renderer2D.js"></script>
+		<script src="modules/Studio/RenderManager.js"></script>
+		<script src="modules/Studio/Soundbox.js"></script>
+		<script src="modules/Studio/GUIManager.js"></script>
+		<script src="modules/Studio/CollisionManager.js"></script>
+		<script src="modules/Studio/SceneManager.js"></script>
+		<script src="modules/Studio/ContextManager.js"></script>
+		<script src="modules/Studio/RunLoopManager.js"></script>
 
-        <script src="modules/JeremyStudio.js"></script>
-        <script src="modules/Studio/LayerManager.js"></script>
-        <script src="modules/Studio/AssetManager.js"></script>
-        <script src="modules/Studio/EventManager.js"></script>
-        <script src="modules/Studio/ObjectManager.js"></script>
-        <script src="modules/Studio/DataManager.js"></script>
-        <script src="modules/Studio/Renderer2D.js"></script>
-        <script src="modules/Studio/RenderManager.js"></script>
-        <script src="modules/Studio/Soundbox.js"></script>
-        <script src="modules/Studio/GUIManager.js"></script>
-        <script src="modules/Studio/CollisionManager.js"></script>
-        <script src="modules/Studio/SceneManager.js"></script>
-        <script src="modules/Studio/ContextManager.js"></script>
-        <script src="modules/Studio/RunLoopManager.js"></script>
-        
-        <style>
-            canvas {
-                border: 1px solid black;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="jeremy">
+		<style>
+			canvas {
+				border: 1px solid black;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="jeremy">
 
-        </div>
-        <script src="game/app2.js"></script>
-    </body>
+		</div>
+		<script src="game/app2.js"></script>
+	</body>
 </html>
