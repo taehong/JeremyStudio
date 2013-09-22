@@ -11,7 +11,8 @@ J('STU')('Object').set('Singleton', 'GameManager', {
 		isLose : false
 	},
 	numberOfStars : 0,
-	gameTimer : null,
+	timer : null,
+	playTimer : null,
 	/*
 	 * Setters
 	 */
@@ -40,19 +41,27 @@ J('STU')('Object').set('Singleton', 'GameManager', {
 	 * Methods
 	 */
 	initialize : function() {
-		this.gameTimer = J('LIB')('Timer')(0, function(argo, timer) {
-
-		}, {
-
-		});
 		this.setPlaying(true);
+		this.timer = J('LIB')('Timer')({
+			unit : 1000,
+			onTick : function(argo, timer) {
+				document.title = timer.count + 'sec';
+			},
+			argo : {
+
+			}
+		});
+		this.playTimer = J('LIB')('Timer')({
+			unit : 100
+		});
 		return this;
 	},
 	update : function() {
+		this.timer.tick();
+		this.playTimer.tick();
 		this.updateState();
 	},
 	updateState : function() {
-		this.gameTimer.tick();
 		// TODO : 승리조건의 검사
 		// TODO : 패배조건의 검사
 		if (this.isWin || this.isLose)

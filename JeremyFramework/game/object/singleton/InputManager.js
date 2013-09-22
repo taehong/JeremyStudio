@@ -22,99 +22,172 @@ J('STU')('Object').set('Singleton', 'InputManager', {
 		kEscape : 5
 	},
 	state : {
-		pressedArrowLeft : false,
-		pressedArrowUp : false,
-		pressedArrowRight : false,
-		pressedArrowDown : false,
-		pressedSpacebar : false,
-		pressedEscape : false,
+		arrowLeft : {
+			pressed : false,
+			when : 0
+		},
+		arrowUp : {
+			pressed : false,
+			when : 0
+		},
+		arrowRight : {
+			pressed : false,
+			when : 0
+		},
+		arrowDown : {
+			pressed : false,
+			when : 0
+		},
+		spacebar : {
+			pressed : false,
+			when : 0
+		},
+		escape : {
+			pressed : false,
+			when : 0
+		},
 	},
 	/*
 	 * Setters
 	 */
-	setPressedArrowLeft : function(pressed) {
-		this.state.pressedArrowLeft = pressed;
-		// console.log('InputManager >> setPressed >> left');
+	setArrowLeftPressed : function(pressed) {
+		this.state.arrowLeft.pressed = pressed;
+		this.state.arrowLeft.when = (new Date()).getTime();
+		console.log('InputManager >> setPressed >> left');
 	},
-	setPressedArrowUp : function(pressed) {
-		this.state.pressedArrowUp = pressed;
-		// console.log('InputManager >> setPressed >> up');
+	setArrowUpPressed : function(pressed) {
+		this.state.arrowUp.pressed = pressed;
+		this.state.arrowUp.when = (new Date()).getTime();
+		console.log('InputManager >> setPressed >> up');
 	},
-	setPressedArrowRight : function(pressed) {
-		this.state.pressedArrowRight = pressed;
-		// console.log('InputManager >> setPressed >> right');
+	setArrowRightPressed : function(pressed) {
+		this.state.arrowRight.pressed = pressed;
+		this.state.arrowRight.when = (new Date()).getTime();
+		console.log('InputManager >> setPressed >> right');
 	},
-	setPressedArrowDown : function(pressed) {
-		this.state.pressedArrowDown = pressed;
-		// console.log('InputManager >> setPressed >> down');
+	setArrowDownPressed : function(pressed) {
+		this.state.arrowDown.pressed = pressed;
+		this.state.arrowDown.when = (new Date()).getTime();
+		console.log('InputManager >> setPressed >> down');
 	},
-	setPressedSpacebar : function(pressed) {
-		this.state.pressedSpacebar = pressed;
-		// console.log('InputManager >> setPressed >> spacebar');
+	setSpacebarPressed : function(pressed) {
+		this.state.spacebar.pressed = pressed;
+		this.state.spacebar.when = (new Date()).getTime();
+		console.log('InputManager >> setPressed >> spacebar');
 	},
-	setPressedEscape : function(pressed) {
-		this.state.pressedEscape = pressed;
-		// console.log('InputManager >> setPressed >> escape');
+	setEscapePressed : function(pressed) {
+		this.state.escape.pressed = pressed;
+		this.state.escape.when = (new Date()).getTime();
+		console.log('InputManager >> setPressed >> escape');
 	},
-	setPressedKeyCode : function(keyCode, pressed) {
+	setKeyPressed : function(keyCode, pressed) {
 		switch(keyCode) {
 			case this.eKeyCode.kArrowLeft:
-				this.setPressedArrowLeft(pressed);
+				this.setArrowLeftPressed(pressed);
 				break;
 			case this.eKeyCode.kArrowUp:
-				this.setPressedArrowUp(pressed);
+				this.setArrowUpPressed(pressed);
 				break;
 			case this.eKeyCode.kArrowRight:
-				this.setPressedArrowRight(pressed);
+				this.setArrowRightPressed(pressed);
 				break;
 			case this.eKeyCode.kArrowDown:
-				this.setPressedArrowDown(pressed);
+				this.setArrowDownPressed(pressed);
 				break;
 			case this.eKeyCode.kSpacebar:
-				this.setPressedSpacebar(pressed);
+				this.setSpacebarPressed(pressed);
 				break;
 			case this.eKeyCode.kEscape:
-				this.setPressedEscape(pressed);
+				this.setEscapePressed(pressed);
 				break;
 		}
 	},
 	/*
 	 * Getters
 	 */
-	isPressedArrowLeft : function() {
-		return this.state.pressedArrowLeft;
+	isArrowLeftPressed : function() {
+		return this.state.arrowLeft.pressed;
 	},
-	isPressedArrowUp : function() {
-		return this.state.pressedArrowUp;
+	isArrowUpPressed : function() {
+		return this.state.arrowUp.pressed;
 	},
-	isPressedArrowRight : function() {
-		return this.state.pressedArrowRight;
+	isArrowRightPressed : function() {
+		return this.state.arrowRight.pressed;
 	},
-	isPressedArrowDown : function() {
-		return this.state.pressedArrowDown;
+	isArrowDownPressed : function() {
+		return this.state.arrowDown.pressed;
 	},
-	isPressedSpacebar : function() {
-		return this.state.pressedSpacebar;
+	isSpacebarPressed : function() {
+		return this.state.spacebar.pressed;
 	},
-	isPressedEscape : function() {
-		return this.state.pressedEscape;
+	isEscapePressed : function() {
+		return this.state.escape.pressed;
+	},
+	isAnyArrowKeyPressed : function() {
+		return this.isArrowLeftPressed() || this.isArrowUpPressed() || this.isArrowRightPressed() || this.isArrowDownPressed();
+	},
+	getRecentlyPressedKeyType : function() {
+		var recentlyPressedKey = {
+			when : 0
+		}, recentlyPressedKeyType = undefined;
+		if (this.isArrowLeftPressed())
+			if (this.state.arrowLeft.when > recentlyPressedKey.when) {
+				recentlyPressedKey = this.state.arrowLeft;
+				recentlyPressedKeyType = this.eKeyType.kArrowLeft;
+			}
+		if (this.isArrowUpPressed())
+			if (this.state.arrowUp.when > recentlyPressedKey.when) {
+				recentlyPressedKey = this.state.arrowUp;
+				recentlyPressedKeyType = this.eKeyType.kArrowUp;
+			}
+		if (this.isArrowRightPressed())
+			if (this.state.arrowRight.when > recentlyPressedKey.when) {
+				recentlyPressedKey = this.state.arrowRight;
+				recentlyPressedKeyType = this.eKeyType.kArrowRight;
+			}
+		if (this.isArrowDownPressed())
+			if (this.state.arrowDown.when > recentlyPressedKey.when) {
+				recentlyPressedKey = this.state.arrowDown;
+				recentlyPressedKeyType = this.eKeyType.kArrowDown;
+			}
+		if (this.isSpacebarPressed())
+			if (this.state.spacebar.when > recentlyPressedKey.when) {
+				recentlyPressedKey = this.state.spacebar;
+				recentlyPressedKeyType = this.eKeyType.kSpacebar;
+			}
+		if (this.isEscapePressed())
+			if (this.state.escape.when > recentlyPressedKey.when) {
+				recentlyPressedKey = this.state.escape;
+				recentlyPressedKeyType = this.eKeyType.kEscape;
+			}
+		return recentlyPressedKeyType;
 	},
 	/*
 	 * Methods
 	 */
 	initialize : function() {
-		J('STU')('Event').set('onKeyDown', window, 'keydown', function(e) {
-			var INPUT = J('STU')('Data').get('INPUT');
-			INPUT.setPressedKeyCode(e.keyCode, true);
+		var EVENT = J('STU')('Event');
+		EVENT.set('onKeyDown', window, 'keydown', function(e) {
+			// DataManager에 값을 셋팅
+			J('STU')('Data').set('newDownKeyCode', e.keyCode);
 		});
-		J('STU')('Event').set('onKeyUp', window, 'keyup', function(e) {
-			var INPUT = J('STU')('Data').get('INPUT');
-			INPUT.setPressedKeyCode(e.keyCode, false);
+		EVENT.set('onKeyUp', window, 'keyup', function(e) {
+			J('STU')('Data').set('newUpKeyCode', e.keyCode);
 		});
-		J('STU')('Event').bind('onKeyDown');
-		J('STU')('Event').bind('onKeyUp');
+		EVENT.bind('onKeyDown');
+		EVENT.bind('onKeyUp');
 		return this;
 	},
 	update : function() {
+		// DataManager에서 값을 읽어와서 변경~!
+		var DATA = J('STU')('Data'), downKeyCode = null, upKeyCode = null;
+		if ( downKeyCode = DATA.get('newDownKeyCode')) {
+			this.setKeyPressed(downKeyCode, true);
+			DATA.set('newDownKeyCode', null);
+		}
+		if ( upKeyCode = DATA.get('newUpKeyCode')) {
+			this.setKeyPressed(upKeyCode, false);
+			DATA.set('newUpKeyCode', null);
+		}
 	}
 });

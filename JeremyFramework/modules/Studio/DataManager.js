@@ -8,7 +8,7 @@ var __DataManager = {
 		return __DataManager.data[attr];
 	},
 	setData : function(attr, value) {
-		__DataManager.data[attr] = value;
+		return __DataManager.data[attr] = value;
 	}
 };
 (function() {

@@ -4,8 +4,8 @@
 J('STU')('Object').set('Singleton', 'Jacqueline', {
 	eDirection : {
 		kDirectionLeft : 0,
-		kDirectionRight : 1,
-		kDirectionUp : 2,
+		kDirectionUp : 1,
+		kDirectionRight : 2,
 		kDirectionDown : 3
 	},
 	state : {
@@ -42,28 +42,30 @@ J('STU')('Object').set('Singleton', 'Jacqueline', {
 	},
 	update : function() {
 		this.updateState();
+		if (this.isMoving()) {
+			console.log(this.state);
+		}
 	},
 	updateState : function() {
 		var INPUT = J('STU')('Data').get('INPUT');
-		var isMoving = false, direction = undefined;
-		if (isMoving) {
+		if (INPUT.isAnyArrowKeyPressed()) {
 			this.setMoving(true);
+			switch(INPUT.getRecentlyPressedKeyType()) {
+				case this.eDirection.kDirectionLeft:
+					this.setDirection(this.eDirection.kDirectionLeft);
+					break;
+				case this.eDirection.kDirectionRight:
+					this.setDirection(this.eDirection.kDirectionRight);
+					break;
+				case this.eDirection.kDirectionUp:
+					this.setDirection(this.eDirection.kDirectionUp);
+					break;
+				case this.eDirection.kDirectionDown:
+					this.setDirection(this.eDirection.kDirectionDown);
+					break;
+			}
 		} else {
 			this.setMoving(false);
-		}
-		switch(direction) {
-			case this.eDirection.kDirectionLeft:
-				this.setDirection(this.eDirection.kDirectionLeft);
-				break;
-			case this.eDirection.kDirectionRight:
-				this.setDirection(this.eDirection.kDirectionRight);
-				break;
-			case this.eDirection.kDirectionUp:
-				this.setDirection(this.eDirection.kDirectionUp);
-				break;
-			case this.eDirection.kDirectionDown:
-				this.setDirection(this.eDirection.kDirectionDown);
-				break;
 		}
 	}
 });
