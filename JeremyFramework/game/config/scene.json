@@ -1,5 +1,5 @@
 {
-	"count": 10,
+	"count": 11,
 	"scenes": [
 		{
 			"name": "Play2d",
@@ -65,6 +65,14 @@
 			},
 			"nextScenes": [null],
 			"prevScenes": ["MenuMain"]
+		}, {
+			"name": "PressAnyKey",
+			"context": {
+				"name": "PressAnyKey",
+				"url": "game/scene/Menu/PressAnyKey.js"
+			},
+			"nextScenes": ["MenuMain"],
+			"prevScenes": [null]
 		}, {
 			"name": "TestScene",
 			"context": {
