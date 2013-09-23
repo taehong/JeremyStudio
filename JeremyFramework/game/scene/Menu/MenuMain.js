@@ -27,8 +27,8 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		
 		this.btnStart = J('STU')('GUI').create('Button', {
 			name : 'Start',
-			posX : 535,
-			posY : 50,
+			posX : 600,
+			posY : 150,
 			actionCB : function(argo) {
 				J('STU')('Scene').setNext("EditorMain");
 				if (J('STU')('Scene').getNext().name === "EditorMain")
@@ -36,8 +36,6 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 			},
 			actionArgo : null,
 			updateCB:function() {
-				console.log(
-				);
 			},
 			updateArgo : null,
 			assets : {
@@ -50,7 +48,7 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		this.btnCredit = J('STU')('GUI').create('Button', {
 			name : 'Credit',
 			posX : 535,
-			posY : 350,
+			posY : 330,
 			actionCB : function(argo) {
 				J('STU')('Scene').setNext("MenuCredit");
 				if (J('STU')('Scene').getNext().name === "MenuCredit")
@@ -70,7 +68,7 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		this.btnHelp = J('STU')('GUI').create('Button', {
 			name : 'Help',
 			posX : 535,
-			posY : 250,
+			posY : 230,
 			actionCB : function(argo) {
 				J('STU')('Scene').setNext("MenuHelp");
 				if (J('STU')('Scene').getNext().name === "MenuHelp")
@@ -87,25 +85,25 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 			}
 		});
 
-		this.btnStory = J('STU')('GUI').create('Button', {
-			name : 'Story',
-			posX : 535,
-			posY : 150,
-			actionCB : function(argo) {
-				J('STU')('Scene').setNext("MenuStory");
-				if (J('STU')('Scene').getNext().name === "MenuStory")
-					J('STU')('Scene').playNext();
-			},
-			actionArgo : null,
-			updateCB : function() {
-			},
-			updateArgo : null,
-			assets : {
-				idle : J('STU')('Asset').get('image', 'btnStory'),
-				mouseover : J('STU')('Asset').get('image', 'btnStory_MouseDown'),
-				mousedown : J('STU')('Asset').get('image', 'btnStory_MouseUp')
-			}
-		}); 
+		// this.btnStory = J('STU')('GUI').create('Button', {
+			// name : 'Story',
+			// posX : 535,
+			// posY : 150,
+			// actionCB : function(argo) {
+				// J('STU')('Scene').setNext("MenuStory");
+				// if (J('STU')('Scene').getNext().name === "MenuStory")
+					// J('STU')('Scene').playNext();
+			// },
+			// actionArgo : null,
+			// updateCB : function() {
+			// },
+			// updateArgo : null,
+			// assets : {
+				// idle : J('STU')('Asset').get('image', 'btnStory'),
+				// mouseover : J('STU')('Asset').get('image', 'btnStory_MouseDown'),
+				// mousedown : J('STU')('Asset').get('image', 'btnStory_MouseUp')
+			// }
+		// }); 
 
 
 		
@@ -113,21 +111,21 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		this.btnStart.show();
 		this.btnCredit.show();
 		this.btnHelp.show();
-		this.btnStory.show();
+		//this.btnStory.show();
 		
 	},
 	updateCB : function() {
 		this.btnStart.update();
 		this.btnCredit.update();
 		this.btnHelp.update();
-		this.btnStory.update();
+		//this.btnStory.update();
 	},
 	destroyCB : function() {
 		J('STU')('R2D').remove(this.bgMenuMain);
 		this.btnStart.destroy();
 		this.btnCredit.destroy();
 		this.btnHelp.destroy();
-		this.btnStory.destroy();
+		//this.btnStory.destroy();
 
 		this.bgMenuMain = null;
 	}

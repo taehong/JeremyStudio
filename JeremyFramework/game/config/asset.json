@@ -1,6 +1,6 @@
 {
 	"image": {
-		"count": 28,
+		"count": 29,
 		"items": [
 			{
 				"name": "splashDigitalMedia",
@@ -17,7 +17,9 @@
 				"src": "game/asset/image/splashscreen/CandleLight_splashscreen.png",
 				"className": "splashImage",
 				"id": "splashCandleLight"
-			}, {
+			}, 
+			
+			{
 				"name": "bgMenuMain",
 				"src": "game/asset/image/menu/MenuMain_background.png",
 				"className": "bgImage",
@@ -33,6 +35,13 @@
 				"className": "bgImage",
 				"id": "bgMenuStory"
 			}, {
+				"name": "bgPressAnyKey",
+				"src": "game/asset/image/menu/PressAnyKey_background.png",
+				"className": "bgImage",
+				"id": "bgPressAnyKey"
+			},
+			
+			{
 				"name": "btnStart",
 				"src": "game/asset/image/button/Button_Start.png",
 				"className": "btnImage",

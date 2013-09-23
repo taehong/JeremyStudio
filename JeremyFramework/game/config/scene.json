@@ -1,5 +1,5 @@
 {
-	"count": 11,
+	"count": 15,
 	"scenes": [
 		{
 			"name": "Play2d",
@@ -73,6 +73,38 @@
 			},
 			"nextScenes": ["MenuMain"],
 			"prevScenes": [null]
+		}, {
+			"name": "MenuCreateID",
+			"context": {
+				"name": "MenuCreateID",
+				"url": "game/scene/Menu/MenuCreateID.js"
+			},
+			"nextScenes": [null],
+			"prevScenes": ["MenuMain"]
+		}, {
+			"name": "MenuFindID",
+			"context": {
+				"name": "MenuFindID",
+				"url": "game/scene/Menu/MenuFindID.js"
+			},
+			"nextScenes": [null],
+			"prevScenes": ["MenuMain"]
+		}, {
+			"name": "LevelSelect",
+			"context": {
+				"name": "LevelSelect",
+				"url": "game/scene/Menu/LevelSelect.js"
+			},
+			"nextScenes": [null],
+			"prevScenes": [null]
+		}, {
+			"name": "WorldSelect",
+			"context": {
+				"name": "WorldSelect",
+				"url": "game/scene/Menu/WorldSelect.js"
+			},
+			"nextScenes": ["LevelSelect"],
+			"prevScenes": ["MenuMain"]
 		}, {
 			"name": "TestScene",
 			"context": {
