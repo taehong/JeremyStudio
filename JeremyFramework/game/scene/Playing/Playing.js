@@ -4,6 +4,12 @@
 J('STU')('Context').add(J('LIB')('SceneContext')({
 	name : 'Playing',
 	initCB : function() {
+		this.LEVEL = J('STU')('Data').set('LEVEL', J('STU')('Object').get(true, 'LevelManager').initialize());
+		this.INPUT = J('STU')('Data').set('INPUT', J('STU')('Object').get(true, 'InputManager').initialize());
+		this.GAME = J('STU')('Data').set('GAME', J('STU')('Object').get(true, 'GameManager').initialize());
+		this.JACQUELINE = J('STU')('Object').get(true, 'Jacqueline');
+		this.JACQUELINE.initialize(this.JACQUELINE.eDirection.kDirectionDown, 0, 0);
+		
 		var k = {
 			width : 730,
 			height : 440,
@@ -54,10 +60,6 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		// $('#game').remove();
 		$('#jeremy').append(this.R3D.renderer.domElement);
 
-		this.INPUT = J('STU')('Data').set('INPUT', J('STU')('Object').get(true, 'InputManager').initialize());
-		this.GAME = J('STU')('Data').set('GAME', J('STU')('Object').get(true, 'GameManager').initialize());
-		this.JACQUELINE = J('STU')('Object').get(true, 'Jacqueline');
-		this.JACQUELINE.initialize(this.JACQUELINE.eDirection.kDirectionDown, 0, 0);
 		// var mySwitch = J('STU')('Object').create('Switch', {
 		// name : 'testSwitch',
 		// actionCB : function(argo) {
@@ -70,6 +72,8 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		// mySwitch.doAction();
 	},
 	updateCB : function() {
+		this.LEVEL.update();
+		if (!this.LEVEL.isDone()) return;
 		this.INPUT.update();
 		this.JACQUELINE.update();
 		this.GAME.update();

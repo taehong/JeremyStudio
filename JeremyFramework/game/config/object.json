@@ -12,6 +12,9 @@
 		}, {
 			"name": "InputManager",
 			"url": "game/object/singleton/InputManager.js"
+		}, {
+			"name": "LevelManager",
+			"url": "game/object/singleton/LevelManager.js"
 		}
 	],
 	"creator": [
