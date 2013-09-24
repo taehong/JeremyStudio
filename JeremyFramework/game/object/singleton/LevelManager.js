@@ -23,16 +23,22 @@ J('STU')('Object').set('Singleton', 'LevelManager', {
 	isDone : function() {
 		return this.state.isDone;
 	},
+	getLevel : function(levelName) {
+		return this.level[levelName];
+	},
 	/*
 	 * Methods
 	 */
 	initialize : function() {
 		J('STU')('Data').set('LEVEL', this);
 		this.levelConfig = {
-			count : 1,
+			count : 2,
 			config : [{
 				name : "1-1",
 				path : "game/asset/level/1-1.json"
+			}, {
+				name : "튜토리얼1",
+				path : "game/asset/level/튜토리얼1.json"
 			}]
 		};
 		this.loadCount = this.levelConfig.count;
@@ -62,5 +68,16 @@ J('STU')('Object').set('Singleton', 'LevelManager', {
 	},
 	addLevel : function(levelName, levelData) {
 		this.level[levelName] = levelData;
+	},
+	getProcessedLevel : function(levelName) {
+		var level = this.getLevel(levelName), processedLevel = {
+			cellList : []
+		};
+		level.cellList.forEach(function(elem) {
+			if (elem.type !== "" + 0) {
+				processedLevel.cellList.push(elem);
+			}
+		});
+		return processedLevel;
 	}
-}); 
+});
