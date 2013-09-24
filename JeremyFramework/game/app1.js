@@ -3,7 +3,7 @@
  */
 function start() {
 	Jeremy.init({
-		firstScene: 'PressAnyKey' //'SplashScreenDigitalMedia'
+		firstScene: 'LevelSelect' //'SplashScreenDigitalMedia'
 	});
 }
 window.onload = start();

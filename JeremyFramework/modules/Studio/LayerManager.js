@@ -35,6 +35,7 @@ var __LayerManager = {
 	if (target) {
 		target.addModule('LayerManager', __LayerManager);
 		target.addInterface('Layer', {
+			add : __LayerManager.addLayer,
 			layer : __LayerManager.getLayer,
 			layers : __LayerManager.layers
 		});

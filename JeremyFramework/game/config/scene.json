@@ -96,7 +96,7 @@
 				"url": "game/scene/Menu/LevelSelect.js"
 			},
 			"nextScenes": [null],
-			"prevScenes": [null]
+			"prevScenes": ["WorldSelect"]
 		}, {
 			"name": "WorldSelect",
 			"context": {

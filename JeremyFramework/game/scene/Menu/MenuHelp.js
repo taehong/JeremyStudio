@@ -1,6 +1,3 @@
-/**
- * @author JeremyJeong
- */
 J('STU')('Context').add(J('LIB')('SceneContext')({
 	name : 'MenuHelp',
 	initCB : function() {

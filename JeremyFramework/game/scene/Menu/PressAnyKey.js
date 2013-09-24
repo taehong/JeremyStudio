@@ -26,8 +26,8 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 					ctx.fillText( "Press Any Key", argo.posX, argo.posY);
 				},
 				argo : {
-					posX : 220,
-					posY : 220 + 130
+					posX : 230,
+					posY : 350
 				}
 			
 		});

@@ -99,7 +99,9 @@ JeremyButton.prototype.show = function() {
 JeremyButton.prototype.hide = function() {
 	J('STU')('R2D').remove(this.renderable);
 };
-
+JeremyButton.prototype.getCurrentState = function() {
+	return this.currentState;
+};
 JeremyButton.prototype.doAction = function() {
 	this.actionCB(this.actionArgo);
 };
