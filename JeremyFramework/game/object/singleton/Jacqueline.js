@@ -8,43 +8,52 @@ J('STU')('Object').set('Singleton', 'Jacqueline', {
 		kDirectionRight : 2,
 		kDirectionDown : 3
 	},
+	kTimeForMove : 800, // (msec)
 	state : {
 		isMoving : false,
 		direction : undefined
 	},
+	currentCell : undefined,
 	position : undefined,
-	setPosition : function(posX, posY) {
-		return this.position = J('MAT')('Vec3')({
-			x : posX,
-			y : posY,
-			w : 1
-		});
-	},
-	getPosition : function() {
-		return this.position;
+	renderable : undefined,
+	setPosition : function(position) {
+		return this.position = position;
 	},
 	setMoving : function(isMoving) {
 		return this.state.isMoving = isMoving;
 	},
-	isMoving : function() {
-		return this.state.isMoving;
-	},
 	setDirection : function(direction) {
 		return this.state.direction = direction;
+	},
+	getPosition : function() {
+		return this.position;
+	},
+	isMoving : function() {
+		return this.state.isMoving;
 	},
 	getDirection : function() {
 		return this.state.direction;
 	},
-	initialize : function(direction, posX, posY) {
-		this.setPosition(posX, posY);
-		this.setDirection(direction);
+	getRenderable : function() {
+		return this.renderable;
+	},
+	initialize : function(argo) {
+		var k = J('STU')('Data').get('k');
+		this.setDirection(argo.direction);
+		this.renderable = argo.renderable;
+		this.currentCell = argo.initialCell;
+		this.setPosition(J('MAT')('Vec4')({
+			x : k.cubePaddingX + k.boxSize * this.currentCell.posX,
+			y : 15,
+			z : k.cubePaddingX + k.boxSize * this.currentCell.posY,
+			w : 1
+		}));
 		return this;
 	},
 	update : function() {
 		this.updateState();
-		if (this.isMoving()) {
-			console.log(this.state);
-		}
+		this.updatePosition();
+		this.updateRenderable();
 	},
 	updateState : function() {
 		var INPUT = J('STU')('Data').get('INPUT');
@@ -67,5 +76,31 @@ J('STU')('Object').set('Singleton', 'Jacqueline', {
 		} else {
 			this.setMoving(false);
 		}
+	},
+	updatePosition : function() {
+		if (this.isMoving()) {
+			switch(this.getDirection()) {
+				case this.eDirection.kDirectionLeft:
+					this.getPosition().z += 1;
+					break;
+				case this.eDirection.kDirectionRight:
+					this.getPosition().z -= 1;
+					break;
+				case this.eDirection.kDirectionUp:
+					this.getPosition().x -= 1;
+					break;
+				case this.eDirection.kDirectionDown:
+					this.getPosition().x += 1;
+					break;
+			}
+		}
+	},
+	updateRenderable : function() {
+		this.renderable.position.x = this.getPosition().x;
+		this.renderable.position.y = this.getPosition().y;
+		this.renderable.position.z = this.getPosition().z;
+	},
+	move : function() {
+
 	}
 });

@@ -15,6 +15,9 @@
 		}, {
 			"name": "LevelManager",
 			"url": "game/object/singleton/LevelManager.js"
+		}, {
+			"name": "MapHelper",
+			"url": "game/object/singleton/MapHelper.js"
 		}
 	],
 	"creator": [
