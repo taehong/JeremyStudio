@@ -18,6 +18,9 @@
 		}, {
 			"name": "MapHelper",
 			"url": "game/object/singleton/MapHelper.js"
+		}, {
+			"name": "Subsentence",
+			"url": "game/object/singleton/Subsentence.js"
 		}
 	],
 	"creator": [

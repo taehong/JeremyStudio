@@ -4,6 +4,13 @@
 J('STU')('Context').add(J('LIB')('SceneContext')({
 	name : 'Playing',
 	initCB : function() {
+		
+		this.jack_sentence = J('STU')('Data').set('SUBSENTENCE', J('STU')('Object').get(true, 'Subsentence')).initialize({
+			font : '30px',
+			style : '#ffffff',
+			//etc..
+		}, ["a","b","c"]);
+		
 		/*
 		 * Managers
 		 */
