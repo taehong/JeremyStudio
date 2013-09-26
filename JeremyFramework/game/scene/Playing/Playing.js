@@ -148,7 +148,7 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 			this.initJacqueline({
 				direction : this.JACQUELINE.eDirection.kDirectionDown,
 				renderable : this.R3D.mesh.Jacqueline,
-				initialCell : this.MapHelper.getCell(currentLevel.cellList, 1, 14)
+				initialCell : this.MapHelper.getCell(currentLevel.cellList, 1, 13)
 			});
 		}
 		this.INPUT.update();

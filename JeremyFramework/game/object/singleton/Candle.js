@@ -34,9 +34,25 @@ J('STU')('Object').set('Singleton', 'Candle', {
 		this.updateState();
 	},
 	updateState : function() {
+		this.updatePosition();
+		this.updateOnOff();
+	},
+	updatePosition : function() {
 		var posJACQUELINE = J('STU')('Data').get('JACQUELINE').getPosition();
-		this.renderable.position.set(posJACQUELINE.x-10, posJACQUELINE.y + 75, posJACQUELINE.z-1);
+		this.renderable.position.set(posJACQUELINE.x - 10, posJACQUELINE.y + 75, posJACQUELINE.z - 1);
 		this.renderable.target.position.set(posJACQUELINE.x, posJACQUELINE.y, posJACQUELINE.z);
-
+	},
+	updateOnOff : function() {
+		var INPUT = J('STU')('Data').get('INPUT');
+		if (INPUT.isSpacebarPressed()) {
+			this.setOn(false);
+		} else {
+			this.setOn(true);
+		}
+		if (this.isOn()) {
+			this.renderable.visible = true;
+		} else {
+			this.renderable.visible = false;
+		}
 	}
 });

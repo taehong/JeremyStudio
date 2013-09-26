@@ -92,4 +92,4 @@ var __SceneManager = {
 			update : __SceneManager.update
 		});
 	}
-})(); 
+})();
