@@ -4,13 +4,13 @@
 J('STU')('Context').add(J('LIB')('SceneContext')({
 	name : 'Playing',
 	initCB : function() {
-		
-		this.jack_sentence = J('STU')('Data').set('SUBSENTENCE', J('STU')('Object').get(true, 'Subsentence')).initialize({
-			font : '30px',
-			style : '#ffffff',
-			//etc..
-		}, ["a","b","c"]);
-		
+
+		// this.jack_sentence = J('STU')('Data').set('SUBSENTENCE', J('STU')('Object').get(true, 'Subsentence')).initialize({
+			// font : '30px',
+			// style : '#ffffff',
+			// //etc..
+		// }, ["a", "b", "c"]);
+
 		/*
 		 * Managers
 		 */
@@ -172,7 +172,7 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		this.R3D.camera.position.y = posJACQUELINE.y + k.viewportSize * 2.0;
 		this.R3D.camera.position.x = posJACQUELINE.x + k.viewportSize * 1.3;
 		this.R3D.camera.lookAt(new THREE.Vector3(posJACQUELINE.x, posJACQUELINE.y, posJACQUELINE.z));
-		
+
 		/*
 		 * TODO : Changing Cams : Zoom in, Zoom out
 		 */

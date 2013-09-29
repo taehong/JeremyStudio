@@ -8,7 +8,7 @@ J('STU')('Object').set('Singleton', 'Jacqueline', {
 		kDirectionRight : 2,
 		kDirectionDown : 3
 	},
-	kTimeForMove : 1000 / 60, // (msec)
+	kTimeForMove : 1000 / 100, // (msec)
 	state : {
 		isMoving : false,
 		direction : undefined
@@ -85,15 +85,19 @@ J('STU')('Object').set('Singleton', 'Jacqueline', {
 			switch(this.getDirection()) {
 				case this.eDirection.kDirectionLeft:
 					this.move(INPUT.eKeyCode.kArrowLeft, 0, +1, 'z', +k.boxSize);
+					console.log('왼쪽');
 					break;
 				case this.eDirection.kDirectionRight:
 					this.move(INPUT.eKeyCode.kArrowRight, 0, -1, 'z', -k.boxSize);
+					console.log('오른쪽');
 					break;
 				case this.eDirection.kDirectionUp:
 					this.move(INPUT.eKeyCode.kArrowUp, -1, 0, 'x', -k.boxSize);
+					console.log('위쪽');
 					break;
 				case this.eDirection.kDirectionDown:
 					this.move(INPUT.eKeyCode.kArrowDown, +1, 0, 'x', +k.boxSize);
+					console.log('아래쪽');
 					break;
 			}
 		}
@@ -115,7 +119,8 @@ J('STU')('Object').set('Singleton', 'Jacqueline', {
 	move : function(keyCode, dX, dY, dir, amount) {
 		var INPUT = J('STU')('Data').get('INPUT'), MapHelper = J('STU')('Data').get('MapHelper'), k = J('STU')('Data').get('k');
 		if (!INPUT.isKeyBeingUsed(keyCode)) {
-			INPUT.setArrowLeftBeingUsed(true);
+			INPUT.setKeyBeingUsed(keyCode,true);
+			INPUT.lockArrowKey();
 			this.nextCell = MapHelper.getCell(J('STU')('Data').get('currentLevel').cellList, +(this.currentCell.posX) + dX, +(this.currentCell.posY) + dY);
 			this.movementTimer = J('LIB')('Timer')({
 				unit : this.kTimeForMove,

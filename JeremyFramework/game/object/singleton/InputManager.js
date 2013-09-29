@@ -53,6 +53,9 @@ J('STU')('Object').set('Singleton', 'InputManager', {
 			when : 0
 		},
 	},
+	lock:{
+		arrow:false
+	},
 	/*
 	 * Setters
 	 */
@@ -276,5 +279,11 @@ J('STU')('Object').set('Singleton', 'InputManager', {
 			this.setKeyPressed(upKeyCode, false);
 			DATA.set('newUpKeyCode', null);
 		}
+	},
+	lockArrowKey : function() {
+		
+	},
+	unlockArrowKey : function() {
+		
 	}
 });
