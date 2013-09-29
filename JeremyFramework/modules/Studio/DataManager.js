@@ -9,6 +9,9 @@ var __DataManager = {
 	},
 	setData : function(attr, value) {
 		return __DataManager.data[attr] = value;
+	},
+	updateData : function(attr, updateCB) {
+		return __DataManager.setData(attr, updateCB(__DataManager.getData(attr)));
 	}
 };
 (function() {
@@ -17,7 +20,8 @@ var __DataManager = {
 		target.addModule('DataManager', __DataManager);
 		target.addInterface('Data', {
 			get : __DataManager.getData,
-			set : __DataManager.setData
+			set : __DataManager.setData,
+			update : __DataManager.updateData
 		});
 	}
 })();

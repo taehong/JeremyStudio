@@ -1,7 +1,7 @@
 /**
  * @author Jeremy
  */
-J('STU')('Object').set('Singleton', 'Jacqueline', {
+J('STU')('Object').set('Singleton', 'Monster', {
 	eDirection : {
 		kDirectionLeft : 0,
 		kDirectionUp : 1,
@@ -13,9 +13,6 @@ J('STU')('Object').set('Singleton', 'Jacqueline', {
 	state : {
 		isMoving : false,
 		direction : undefined,
-		isOnExit : false,
-		hasKey : false,
-		isDead : false
 	},
 	currentCell : undefined,
 	nextCell : undefined,
@@ -31,29 +28,11 @@ J('STU')('Object').set('Singleton', 'Jacqueline', {
 	setDirection : function(direction) {
 		return this.state.direction = direction;
 	},
-	setHasKey : function(hasKey) {
-		return this.state.hasKey = hasKey;
-	},
-	setOnExit : function(isOnExit) {
-		return this.state.isOnExit = isOnExit;
-	},
-	setDead : function(isDead) {
-		return this.state.isDead = isDead;
-	},
 	getPosition : function() {
 		return this.position;
 	},
 	isMoving : function() {
 		return this.state.isMoving;
-	},
-	isOnExit : function() {
-		return this.state.isOnExit;
-	},
-	hasKey : function() {
-		return this.state.hasKey;
-	},
-	isDead : function() {
-		return this.state.isDead;
 	},
 	getDirection : function() {
 		return this.state.direction;
@@ -65,7 +44,7 @@ J('STU')('Object').set('Singleton', 'Jacqueline', {
 		var k = J('STU')('Data').get('k');
 		this.setDirection(argo.direction);
 		this.renderable = argo.renderable;
-		this.currentCell = argo.initialCell;
+		this.currentCell = argo.location;
 		this.setPosition(J('MAT')('Vec4')({
 			x : k.cubePaddingX + k.boxSize * this.currentCell.posX,
 			y : this.kPositionY,
@@ -82,14 +61,11 @@ J('STU')('Object').set('Singleton', 'Jacqueline', {
 	updateState : function() {
 		this.updateDirection();
 		this.updateMoving();
-		this.updateExit();
-		this.updateKey();
 	},
 	updateMoving : function() {
-		var INPUT = J('STU')('Data').get('INPUT');
-		if (INPUT.isAnyArrowKeyPressed()) {
+		if (1) {
 			this.setMoving(true);
-			switch(INPUT.getRecentlyPressedKeyType()) {
+			switch(1) {
 				case this.eDirection.kDirectionLeft:
 					this.setDirection(this.eDirection.kDirectionLeft);
 					break;
@@ -106,22 +82,6 @@ J('STU')('Object').set('Singleton', 'Jacqueline', {
 		} else {
 			this.setMoving(false);
 		}
-	},
-	updateExit : function() {
-		var isOnExit = false, currentLevel = J('STU')('Data').get('currentLevel'), 
-			thisPos = J('STU')('Data').get('MapHelper').positionToLocation(this.position);
-		currentLevel.exits.forEach(function(elem) {
-			isOnExit = isOnExit || ((elem.posX == thisPos.posX) && (elem.posY == thisPos.posY));
-		});
-		this.setOnExit(isOnExit);
-	},
-	updateKey : function() {
-		if (this.hasKey())
-			return;
-			// TODO : Level이 Key를 가지도록 바꿔야함
-		var hasKey = false, keyPos = J('STU')('Data').get('KEY').position, thisPos = this.position;
-		
-		this.setHasKey((keyPos.x === thisPos.x) && (keyPos.z === thisPos.z));
 	},
 	updatePosition : function() {
 		var k = J('STU')('Data').get('k'), INPUT = J('STU')('Data').get('INPUT');

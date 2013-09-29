@@ -83,6 +83,11 @@ JeremyVec4.prototype.toString = function() {
 JeremyVec4.prototype.valueOf = function() {
 	return [this.x, this.y, this.z, this.w];
 };
+JeremyVec4.prototype.isEquals = function(vec4) {
+	var sub = vec4.subtraction(this);
+	// 서로 빼서 모든 요소가 0이면 같은 벡터 or 포인트
+	return (sub.x + sub.y + sub.z + sub.w) === 0;
+};
 (function() {
 	var target = (Jeremy != undefined ? Jeremy.getComponent('JeremyMathematics') : undefined);
 	if (target) {

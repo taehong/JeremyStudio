@@ -21,6 +21,12 @@
 		}, {
 			"name": "Subsentence",
 			"url": "game/object/singleton/Subsentence.js"
+		}, {
+			"name": "Key",
+			"url": "game/object/singleton/Key.js"
+		}, {
+			"name": "Monster",
+			"url": "game/object/singleton/Monster.js"
 		}
 	],
 	"creator": [

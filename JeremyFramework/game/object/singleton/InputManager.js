@@ -53,25 +53,33 @@ J('STU')('Object').set('Singleton', 'InputManager', {
 			when : 0
 		},
 	},
-	lock:{
-		arrow:false
+	lock : {
+		arrow : false
 	},
 	/*
 	 * Setters
 	 */
 	setArrowLeftPressed : function(pressed) {
+		if (this.lock.arrow)
+			return console.log('Locked : Arrow Key');
 		this.state.arrowLeft.pressed = pressed;
 		this.state.arrowLeft.when = (new Date()).getTime();
 	},
 	setArrowUpPressed : function(pressed) {
+		if (this.lock.arrow)
+			return console.log('Locked : Arrow Key');
 		this.state.arrowUp.pressed = pressed;
 		this.state.arrowUp.when = (new Date()).getTime();
 	},
 	setArrowRightPressed : function(pressed) {
+		if (this.lock.arrow)
+			return console.log('Locked : Arrow Key');
 		this.state.arrowRight.pressed = pressed;
 		this.state.arrowRight.when = (new Date()).getTime();
 	},
 	setArrowDownPressed : function(pressed) {
+		if (this.lock.arrow)
+			return console.log('Locked : Arrow Key');
 		this.state.arrowDown.pressed = pressed;
 		this.state.arrowDown.when = (new Date()).getTime();
 	},
@@ -281,9 +289,9 @@ J('STU')('Object').set('Singleton', 'InputManager', {
 		}
 	},
 	lockArrowKey : function() {
-		
+		this.lock.arrow = true;
 	},
 	unlockArrowKey : function() {
-		
+		this.lock.arrow = false;
 	}
-});
+}); 

@@ -1,5 +1,5 @@
 {
-	"count": 15,
+	"count": 16,
 	"scenes": [
 		{
 			"name": "Play2d",
@@ -10,13 +10,21 @@
 			"nextScenes": [null],
 			"prevScenes": [null]
 		}, {
+			"name": "PrePlaying",
+			"context": {
+				"name": "PrePlaying",
+				"url": "game/scene/PrePlaying/PrePlaying.js"
+			},
+			"nextScenes": ["Playing"],
+			"prevScenes": [null]
+		}, {
 			"name": "Playing",
 			"context": {
 				"name": "Playing",
 				"url": "game/scene/Playing/Playing.js"
 			},
 			"nextScenes": [null],
-			"prevScenes": [null]
+			"prevScenes": ["PrePlaying"]
 		}, {
 			"name": "SplashScreenDigitalMedia",
 			"context": {

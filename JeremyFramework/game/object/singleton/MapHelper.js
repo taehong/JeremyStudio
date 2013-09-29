@@ -46,5 +46,21 @@ J('STU')('Object').set('Singleton', 'MapHelper', {
 				isCollided = true;
 		});
 		return isCollided;
+	},
+	locationToPosition : function(location) {
+		var k = J('STU')('Data').get('k'), position = J('MAT')('Vec4')({
+			x : k.cubePaddingX + k.boxSize * location.posX,
+			y : 15,
+			z : k.cubePaddingZ + k.boxSize * location.posY,
+			w : 1
+		});
+		return position;
+	},
+	positionToLocation : function(position) {
+		var k = J('STU')('Data').get('k');
+		return {
+			posX : (position.x - k.cubePaddingX) / k.boxSize,
+			posY : (position.z - k.cubePaddingZ) / k.boxSize
+		};
 	}
 });

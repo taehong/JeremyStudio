@@ -4,13 +4,56 @@
 J('STU')('Context').add(J('LIB')('SceneContext')({
 	name : 'Playing',
 	initCB : function() {
-
+		/*
+		* TODO : Subsentences
+		*/
 		// this.jack_sentence = J('STU')('Data').set('SUBSENTENCE', J('STU')('Object').get(true, 'Subsentence')).initialize({
-			// font : '30px',
-			// style : '#ffffff',
-			// //etc..
+		// font : '30px',
+		// style : '#ffffff',
+		// //etc..
 		// }, ["a", "b", "c"]);
 
+		/************ Game *************/
+		/*
+		* Renderable2Ds
+		*/
+		// Renderable : the vignette effect
+		this.effectVignette = J('LIB')('Renderable2D')({
+			layer : 'effect',
+			drawCB : function(ctx, argo) {
+				ctx.drawImage(argo.img, 0, 0);
+			},
+			argo : {
+				img : J('STU')('Asset').get('image', 'maskImgVignette').getImage()
+			}
+		});
+		// Renderable : the noise effect
+		this.effectNoise = J('LIB')('Renderable2D')({
+			layer : 'effect',
+			drawCB : function(ctx, argo) {
+				ctx.globalAlpha = 0.8;
+				ctx.drawImage(argo.img, 0, 0);
+				ctx.globalAlpha = 1.0;
+			},
+			argo : {
+				img : J('STU')('Asset').get('image', 'maskImgNoise').getImage()
+			}
+		});
+		// Renderable : the scanline effect
+		this.effectScanline = J('LIB')('Renderable2D')({
+			layer : 'effect',
+			drawCB : function(ctx, argo) {
+				ctx.globalAlpha = 0.4;
+				ctx.drawImage(argo.img, 0, 0);
+				ctx.globalAlpha = 1.0;
+			},
+			argo : {
+				img : J('STU')('Asset').get('image', 'maskImgScanline').getImage()
+			}
+		});
+		J('STU')('R2D').add(this.effectVignette);
+		J('STU')('R2D').add(this.effectNoise);
+		J('STU')('R2D').add(this.effectScanline);
 		/*
 		 * Managers
 		 */
@@ -33,12 +76,10 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 			boxSize : 30,
 			cubePaddingX : -60,
 			cubePaddingZ : -60,
-			vecOrigin : new THREE.Vector3(0, 0, 0)
+			vecOrigin : new THREE.Vector3(0, 0, 0),
+			up : new THREE.Vector3(0, 1, 0)
 		};
 		J('STU')('Data').set('k', k);
-		// {
-		// canvas: J('STU')('Layer').layer('game').getCanvas()
-		// }
 		J('STU')('Data').set('R3D', this.R3D = {
 			// camera : new THREE.PerspectiveCamera(45, 730 / 440, 1, 10000),
 			camera : new THREE.OrthographicCamera(-k.width / k.height * k.viewportSize, k.width / k.height * k.viewportSize, k.viewportSize, -k.viewportSize, k.cameraNear, k.cameraFar),
@@ -73,6 +114,9 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		this.isDone = {
 			initLevel : false
 		};
+
+		// this.R3D.scene.add(this.KEY.getRenderable());
+
 		/*
 		 * Level
 		 */
@@ -85,17 +129,19 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 				}
 				switch(type) {
 					case ""+1:
+						aCube = J('STU')('Data').get('modelWall').clone();
 						// Wall
-						mat = R3D.material.matCubeB;
-						elev = k.boxSize / 2;
-						aCube = new THREE.Mesh(geo, mat);
-						aCube.castShadow = true;
+						// mat = R3D.material.matCubeB;
+						// elev = k.boxSize / 2;
+						// aCube = new THREE.Mesh(geo, mat);
+						// aCube.castShadow = true;
 						break;
 					case ""+2:
+						aCube = J('STU')('Data').get('modelGround').clone();
 						// Ground
-						mat = R3D.material.matCubeG;
-						aCube = new THREE.Mesh(geo, mat);
-						aCube.receiveShadow = true;
+						// mat = R3D.material.matCubeG;
+						// aCube = new THREE.Mesh(geo, mat);
+						// aCube.receiveShadow = true;
 						break;
 				}
 				aCube.position.x = x * k.boxSize + k.cubePaddingX;
@@ -107,7 +153,21 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 			R3D.mesh.mesCubes.forEach(function(elem) {
 				J('STU')('Data').get('R3D').scene.add(elem);
 			});
+			// var ground = J('STU')('Data').get('modelGround');
+			// ground.position.set(90, 15, 0);
+			// R3D.scene.add(ground);
 		};
+		/*
+		 * Key
+		 */
+		this.KEY = J('STU')('Data').set('KEY', J('STU')('Object').get(true, 'Key').initialize({
+			location : {
+				posX : 5,
+				posY : 2
+			},
+			renderable : J('STU')('Data').get('modelKey')
+		}));
+		this.R3D.scene.add(this.KEY.getRenderable());
 		/*
 		* Jacqueline
 		*/
@@ -126,24 +186,18 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		/*
 		 * Candle
 		 */
-		this.R3D.light.Candle = new THREE.SpotLight(0xFFFFFF);
-		this.CANDLE = J('STU')('Object').get(true, 'Candle').initialize({
-			renderable : this.R3D.light.Candle
-		});
+		this.R3D.light.Candle = new THREE.SpotLight(0xFFBB00);
+		this.R3D.light.CandleOff = new THREE.SpotLight(0x007733);
+		this.CANDLE = J('STU')('Data').set('CANDLE', J('STU')('Object').get(true, 'Candle').initialize({
+			renderable : this.R3D.light.Candle,
+			offRenderable : this.R3D.light.CandleOff
+		}));
 		this.R3D.scene.add(this.CANDLE.getRenderable());
+		this.R3D.scene.add(this.CANDLE.getOffRenderable());
+		
 		// $('#game').remove();
 		$('#jeremy').append(this.R3D.renderer.domElement);
 
-		// var mySwitch = J('STU')('Object').create('Switch', {
-		// name : 'testSwitch',
-		// actionCB : function(argo) {
-		// console.log(argo.text);
-		// },
-		// actionArgo : {
-		// text : "this is test switch"
-		// }
-		// });
-		// mySwitch.doAction();
 	},
 	updateCB : function() {
 		this.LEVEL.update();
@@ -154,15 +208,16 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 			this.initLevel(currentLevel);
 			this.initJacqueline({
 				direction : this.JACQUELINE.eDirection.kDirectionDown,
-				renderable : this.R3D.mesh.Jacqueline,
-				initialCell : this.MapHelper.getCell(currentLevel.cellList, 1, 13)
+				renderable : J('STU')('Data').get('modelJacqueline'),
+				initialCell : this.MapHelper.getCell(currentLevel.cellList, 2, 13)
 			});
 		}
-		this.INPUT.update();
-		this.JACQUELINE.update();
-		this.CANDLE.update();
 		this.GAME.update();
-
+		this.INPUT.update();
+		this.CANDLE.update();
+		this.JACQUELINE.update();
+		this.KEY.update();
+		//this.MONSTER.update();
 		/*
 		 * TODO : CameraHelper
 		 */
@@ -172,12 +227,25 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		this.R3D.camera.position.y = posJACQUELINE.y + k.viewportSize * 2.0;
 		this.R3D.camera.position.x = posJACQUELINE.x + k.viewportSize * 1.3;
 		this.R3D.camera.lookAt(new THREE.Vector3(posJACQUELINE.x, posJACQUELINE.y, posJACQUELINE.z));
-
 		/*
 		 * TODO : Changing Cams : Zoom in, Zoom out
 		 */
+
+		var monster = J('STU')('Data').get('modelMonster');
+		monster.position.set(90, 30, 0);
+		this.R3D.scene.add(monster);
 		this.R3D.renderer.render(this.R3D.scene, this.R3D.camera);
 	},
 	destroyCB : function() {
 	}
 }));
+// var mySwitch = J('STU')('Object').create('Switch', {
+// name : 'testSwitch',
+// actionCB : function(argo) {
+// console.log(argo.text);
+// },
+// actionArgo : {
+// text : "this is test switch"
+// }
+// });
+// mySwitch.doAction();
