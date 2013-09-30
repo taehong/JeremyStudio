@@ -48,7 +48,7 @@ J('STU')('Object').set('Singleton', 'Monster', {
 		var k = J('STU')('Data').get('k');
 		this.setDirection(argo.direction);
 		this.renderable = argo.renderable;
-		this.initialCell = this.currentCell = argo.location;
+		this.selectedLight = this.initialCell = this.currentCell = argo.location;
 		this.setPosition(J('MAT')('Vec4')({
 			x : k.cubePaddingX + k.boxSize * this.currentCell.posX,
 			y : this.kPositionY,
@@ -59,8 +59,8 @@ J('STU')('Object').set('Singleton', 'Monster', {
 	},
 	update : function() {
 		this.updateState();
-		// this.updatePosition();
-		// this.updateRenderable();
+		this.updatePosition();
+		this.updateRenderable();
 		this.see();
 		this.senseLight();
 		this.selectLight();
@@ -112,8 +112,41 @@ J('STU')('Object').set('Singleton', 'Monster', {
 	},
 	updateDirection : function() {
 		var k = J('STU')('Data').get('k');
-		var lightDist;
-
+		if (this.selectedLight.getCurrentCell) {
+			var lightCell = this.selectedLight.getCurrentCell();
+		} else {
+			var lightCell = this.currentCell;
+		}
+		var thisCell = this.currentCell;
+		var lightDistX = lightCell.posX - thisCell.posX;
+		var lightDistY = lightCell.posY - thisCell.posY;
+		var horizontal = 0x00, vertical = 0x01, increamental = 0x10, decreamental = 0x00;
+		// 상하, 좌우 중에 선택
+		var dirCode = (lightDistX < lightDistY ? horizontal : vertical);
+		// 증가하는 방향인지, 감소하는 방향인지 선택
+		switch(dirCode) {
+			case horizontal:
+				dirCode += (lightDistX > 0 ? increamental : decreamental);
+				break;
+			case vertical:
+				dirCode += (lightDistY > 0 ? increamental : decreamental);
+				break;
+		}
+		// 상, 하, 좌, 우 중에 하나의 방향을 선택
+		switch(dirCode) {
+			case horizontal + increamental:
+				this.setDirection(this.eDirection.kDirectionLeft);
+				break;
+			case horizontal + decreamental:
+				this.setDirection(this.eDirection.kDirectionRight);
+				break;
+			case vertical + increamental:
+				this.setDirection(this.eDirection.kDirectionDown);
+				break;
+			case horizontal + decreamental:
+				this.setDirection(this.eDirection.kDirectionUp);
+				break;
+		}
 		switch(this.getDirection()) {
 			case this.eDirection.kDirectionLeft:
 				this.getRenderable().setRotationFromAxisAngle(k.up, 2 * Math.PI);
@@ -128,6 +161,7 @@ J('STU')('Object').set('Singleton', 'Monster', {
 				this.getRenderable().setRotationFromAxisAngle(k.up, Math.PI / 2);
 				break;
 		}
+		this.getRenderable().rotateX(Math.PI/2);
 	},
 	setPositionByCurrentCell : function() {
 		var k = J('STU')('Data').get('k');
