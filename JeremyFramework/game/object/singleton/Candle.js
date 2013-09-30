@@ -2,6 +2,7 @@
  * @author Jeremy
  */
 J('STU')('Object').set('Singleton', 'Candle', {
+	kLightType : 'Candle',
 	kDeltaHeatOn : 2,
 	kDeltaHeatOff : -0.3,
 	kDeltaHeatMoving : 2, // On --> 나누기, Off --> 곱하기
@@ -30,6 +31,9 @@ J('STU')('Object').set('Singleton', 'Candle', {
 	getHeat : function () {
 		return this.state.heat;
 	},
+	getCurrentCell : function() {
+		return J('STU')('Data').get('JACQUELINE').currentCell;
+	},	
 	initialize : function(argo) {
 		this.setOn(true);
 		this.renderable = argo.renderable;

@@ -62,5 +62,13 @@ J('STU')('Object').set('Singleton', 'MapHelper', {
 			posX : (position.x - k.cubePaddingX) / k.boxSize,
 			posY : (position.z - k.cubePaddingZ) / k.boxSize
 		};
+	},
+	CellLocation : function(posX, posY) {
+		this.posX = posX;
+		this.posY = posY;
+		// TODO: 추후에 리팩토링을 통해 position과 location의 차이를 정리할 것!
+		this.getCurrentCell = function() {
+			return this;
+		};
 	}
 });

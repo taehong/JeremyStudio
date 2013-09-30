@@ -184,6 +184,15 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 			R3D.scene.add(JACQUELINE.getRenderable());
 		};
 		/*
+		 * Monster
+		 */
+		this.MONSTER = J('STU')('Data').set('MONSTER', J('STU')('Object').get(true, 'Monster'));
+		this.initMonster = function(argo) {
+			var R3D = this.R3D, MONSTER = this.MONSTER;
+			MONSTER.initialize(argo);
+			R3D.scene.add(MONSTER.getRenderable());
+		};
+		/*
 		 * Candle
 		 */
 		this.R3D.light.Candle = new THREE.SpotLight(0xFFBB00);
@@ -194,7 +203,7 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		}));
 		this.R3D.scene.add(this.CANDLE.getRenderable());
 		this.R3D.scene.add(this.CANDLE.getOffRenderable());
-		
+
 		// $('#game').remove();
 		$('#jeremy').append(this.R3D.renderer.domElement);
 
@@ -211,11 +220,17 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 				renderable : J('STU')('Data').get('modelJacqueline'),
 				initialCell : this.MapHelper.getCell(currentLevel.cellList, 2, 13)
 			});
+			this.initMonster({
+				direction : this.MONSTER.eDirection.kDirectionDown,
+				renderable : J('STU')('Data').get('modelMonster'),
+				location : this.MapHelper.getCell(currentLevel.cellList, 12, 6)
+			});
 		}
 		this.GAME.update();
 		this.INPUT.update();
 		this.CANDLE.update();
 		this.JACQUELINE.update();
+		this.MONSTER.update();
 		this.KEY.update();
 		//this.MONSTER.update();
 		/*
@@ -230,10 +245,6 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		/*
 		 * TODO : Changing Cams : Zoom in, Zoom out
 		 */
-
-		var monster = J('STU')('Data').get('modelMonster');
-		monster.position.set(90, 30, 0);
-		this.R3D.scene.add(monster);
 		this.R3D.renderer.render(this.R3D.scene, this.R3D.camera);
 	},
 	destroyCB : function() {

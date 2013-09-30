@@ -72,12 +72,13 @@ J('STU')('Object').set('Singleton', 'LevelManager', {
 	getProcessedLevel : function(levelName) {
 		var level = this.getLevel(levelName), processedLevel = {
 			cellList : [],
-			exits : []
+			exits : [],
+			monsterInit : undefined,
+			jacquelineInit : undefined
 		};
 		level.cellList.forEach(function(elem) {
 			if (elem.type !== "" + 0) {
 				processedLevel.cellList.push(elem);
-				
 			}
 			if (elem.item[1] === "1")
 				processedLevel.exits.push(elem);
