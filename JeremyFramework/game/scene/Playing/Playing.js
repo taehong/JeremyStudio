@@ -207,6 +207,43 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 		// $('#game').remove();
 		$('#jeremy').append(this.R3D.renderer.domElement);
 
+		this.GameOverMessage = J('LIB')('Renderable2D')({
+			layer : 'gui',
+			drawCB : function(ctx, argo) {
+				ctx.drawImage(argo.img, 0, 0);
+			},
+			argo : {
+				img : J('STU')('Asset').get('image', 'msgGameOver').getImage()
+			}
+		});
+		this.WinMessage = J('LIB')('Renderable2D')({
+			layer : 'gui',
+			drawCB : function(ctx, argo) {
+				ctx.drawImage(argo.img, 0, 0);
+			},
+			argo : {
+				img : J('STU')('Asset').get('image', 'msgWin').getImage()
+			}
+		});
+		this.QuestGetKey = J('LIB')('Renderable2D')({
+			layer : 'gui',
+			drawCB : function(ctx, argo) {
+				ctx.font = "20px 맑은 고딕";
+				if (J('STU')('Data').get('QuestGetKeyClear')) {
+					ctx.fillStyle = argo.onColor;
+				} else {
+					ctx.fillStyle = argo.offColor;
+				}
+				ctx.fillText(argo.txt, 10, 30);
+			},
+			argo : {
+				txt : "열쇠를 찾기",
+				offColor : "#777777",
+				onColor : "#ffffff"
+			}
+		});
+
+		J('STU')('R2D').add(this.QuestGetKey);
 	},
 	updateCB : function() {
 		this.LEVEL.update();
@@ -225,13 +262,50 @@ J('STU')('Context').add(J('LIB')('SceneContext')({
 				renderable : J('STU')('Data').get('modelMonster'),
 				location : this.MapHelper.getCell(currentLevel.cellList, 12, 6)
 			});
+
+			this.MiniMap = J('LIB')('Renderable2D')({
+				layer : 'gui',
+				drawCB : function(ctx, argo) {
+					ctx.save();
+					ctx.rotate(50*Math.PI/180);
+					ctx.translate(-190,-550);
+					argo.level.cellList.forEach(function(elem) {
+						if (elem.type == 1) {
+							ctx.fillStyle = "#ff0000";
+						} else if (elem.type == 2) {
+							ctx.fillStyle = "#00ff00";
+						}
+						ctx.fillRect(630 + elem.posX * 5, 30+elem.posY * 5, 5, 5);
+					});
+					var here = argo.jacqueline.currentCell;
+					ctx.fillStyle = "#0000ff";
+					ctx.fillRect(630 + here.posX * 5, 30+ here.posY *5, 5, 5);
+					ctx.restore();
+				},
+				argo : {
+					level : currentLevel,
+					jacqueline : this.JACQUELINE,
+					monster : this.MONSTER
+				}
+			});
+			
+			J('STU')('R2D').add(this.MiniMap);
 		}
 		this.GAME.update();
-		this.INPUT.update();
-		this.CANDLE.update();
-		this.JACQUELINE.update();
-		this.MONSTER.update();
-		this.KEY.update();
+		if (this.GAME.isPlaying()) {
+			this.INPUT.update();
+			this.CANDLE.update();
+			this.JACQUELINE.update();
+			this.MONSTER.update();
+			this.KEY.update();
+		} else {
+			if (this.GAME.isWin()) {
+				J('STU')('R2D').add(this.WinMessage);
+			} else {
+				J('STU')('R2D').add(this.GameOverMessage);
+			}
+
+		}
 		//this.MONSTER.update();
 		/*
 		 * TODO : CameraHelper

@@ -12,8 +12,9 @@ J('STU')('Object').set('Singleton', 'Monster', {
 	kTimeForMove : 1000 / 100, // (msec)
 	state : {
 		isMoving : false,
-		direction : undefined,
+		direction : undefined
 	},
+	moveLock : false,
 	initialCell : undefined,
 	currentCell : undefined,
 	nextCell : undefined,
@@ -64,89 +65,103 @@ J('STU')('Object').set('Singleton', 'Monster', {
 		this.see();
 		this.senseLight();
 		this.selectLight();
-		this.returnToInitialCell();
+		// TODO : 되돌아가는 코드
+		// this.returnToInitialCell();
 	},
 	updateState : function() {
 		this.updateDirection();
 		this.updateMoving();
 	},
 	updateMoving : function() {
-		if (1) {
-			this.setMoving(true);
-			switch(1) {
-				case this.eDirection.kDirectionLeft:
-					this.setDirection(this.eDirection.kDirectionLeft);
-					break;
-				case this.eDirection.kDirectionRight:
-					this.setDirection(this.eDirection.kDirectionRight);
-					break;
-				case this.eDirection.kDirectionUp:
-					this.setDirection(this.eDirection.kDirectionUp);
-					break;
-				case this.eDirection.kDirectionDown:
-					this.setDirection(this.eDirection.kDirectionDown);
-					break;
-			}
+		if (this.selectedLight.getCurrentCell) {
+			this.kTimeForMove = 1000 / 100;
+			var lightCell = this.selectedLight.getCurrentCell();
 		} else {
+			// TODO : 되돌아가는 코드
+			// Return
+			this.kTimeForMove = 1000 / 50;
+			var lightCell = this.selectedLight;
+		}
+		var thisCell = this.currentCell;
+		var lightDistX = lightCell.posX - thisCell.posX;
+		var lightDistY = lightCell.posY - thisCell.posY;
+		if (lightDistX == 0 && lightDistY == 0) {
 			this.setMoving(false);
+		} else {
+			this.setMoving(true);
+			if (lightDistX == 0) {
+				// X거리가 0이면 Y로 움직인다
+				if (lightDistY > 0) {
+					this.setDirection(this.eDirection.kDirectionLeft);
+				} else {
+					this.setDirection(this.eDirection.kDirectionRight);
+				}
+			} else if (lightDistY == 0) {
+				// Y거리가 0이면 X로 움직인다
+				if (lightDistX > 0) {
+					this.setDirection(this.eDirection.kDirectionDown);
+				} else {
+					this.setDirection(this.eDirection.kDirectionUp);
+				}
+			} else {
+				// X방향과 Y방향 중 하나를 선택해야 한다.
+				// 절대값이 작은 쪽으로 먼저 움직이도록 한다.
+				if (Math.abs(lightDistX) > Math.abs(lightDistY)) {
+					if (lightDistY > 0) {
+						this.setDirection(this.eDirection.kDirectionLeft);
+					} else {
+						this.setDirection(this.eDirection.kDirectionRight);
+					}
+				} else if (Math.abs(lightDistX) < Math.abs(lightDistY)) {
+					if (lightDistX > 0) {
+						this.setDirection(this.eDirection.kDirectionDown);
+					} else {
+						this.setDirection(this.eDirection.kDirectionUp);
+					}
+				} else {
+					// 절대값이 같으므로 둘 중에 아무 방향으로나 움직인다.
+					if (Math.random() >= 0.5) {
+						if (lightDistY > 0) {
+							this.setDirection(this.eDirection.kDirectionLeft);
+						} else {
+							this.setDirection(this.eDirection.kDirectionRight);
+						}
+					} else {
+						if (lightDistX > 0) {
+							this.setDirection(this.eDirection.kDirectionDown);
+						} else {
+							this.setDirection(this.eDirection.kDirectionUp);
+						}
+					}
+				}
+			}
 		}
 	},
 	updatePosition : function() {
-		var k = J('STU')('Data').get('k'), INPUT = J('STU')('Data').get('INPUT');
+		var k = J('STU')('Data').get('k');
 		if (this.isMoving()) {
 			switch(this.getDirection()) {
 				case this.eDirection.kDirectionLeft:
-					this.move(INPUT.eKeyCode.kArrowLeft, 0, +1, 'z', +k.boxSize);
+					this.move(0, +1, 'z', +k.boxSize);
+					console.log('왼쪽');
 					break;
 				case this.eDirection.kDirectionRight:
-					this.move(INPUT.eKeyCode.kArrowRight, 0, -1, 'z', -k.boxSize);
+					this.move(0, -1, 'z', -k.boxSize);
+					console.log('오른쪽');
 					break;
 				case this.eDirection.kDirectionUp:
-					this.move(INPUT.eKeyCode.kArrowUp, -1, 0, 'x', -k.boxSize);
+					this.move(-1, 0, 'x', -k.boxSize);
+					console.log('위쪽');
 					break;
 				case this.eDirection.kDirectionDown:
-					this.move(INPUT.eKeyCode.kArrowDown, +1, 0, 'x', +k.boxSize);
+					this.move(+1, 0, 'x', +k.boxSize);
+					console.log('아래쪽');
 					break;
 			}
 		}
 	},
 	updateDirection : function() {
 		var k = J('STU')('Data').get('k');
-		if (this.selectedLight.getCurrentCell) {
-			var lightCell = this.selectedLight.getCurrentCell();
-		} else {
-			var lightCell = this.currentCell;
-		}
-		var thisCell = this.currentCell;
-		var lightDistX = lightCell.posX - thisCell.posX;
-		var lightDistY = lightCell.posY - thisCell.posY;
-		var horizontal = 0x00, vertical = 0x01, increamental = 0x10, decreamental = 0x00;
-		// 상하, 좌우 중에 선택
-		var dirCode = (lightDistX < lightDistY ? horizontal : vertical);
-		// 증가하는 방향인지, 감소하는 방향인지 선택
-		switch(dirCode) {
-			case horizontal:
-				dirCode += (lightDistX > 0 ? increamental : decreamental);
-				break;
-			case vertical:
-				dirCode += (lightDistY > 0 ? increamental : decreamental);
-				break;
-		}
-		// 상, 하, 좌, 우 중에 하나의 방향을 선택
-		switch(dirCode) {
-			case horizontal + increamental:
-				this.setDirection(this.eDirection.kDirectionLeft);
-				break;
-			case horizontal + decreamental:
-				this.setDirection(this.eDirection.kDirectionRight);
-				break;
-			case vertical + increamental:
-				this.setDirection(this.eDirection.kDirectionDown);
-				break;
-			case horizontal + decreamental:
-				this.setDirection(this.eDirection.kDirectionUp);
-				break;
-		}
 		switch(this.getDirection()) {
 			case this.eDirection.kDirectionLeft:
 				this.getRenderable().setRotationFromAxisAngle(k.up, 2 * Math.PI);
@@ -161,7 +176,7 @@ J('STU')('Object').set('Singleton', 'Monster', {
 				this.getRenderable().setRotationFromAxisAngle(k.up, Math.PI / 2);
 				break;
 		}
-		this.getRenderable().rotateX(Math.PI/2);
+		this.getRenderable().rotateX(Math.PI / 2);
 	},
 	setPositionByCurrentCell : function() {
 		var k = J('STU')('Data').get('k');
@@ -177,9 +192,10 @@ J('STU')('Object').set('Singleton', 'Monster', {
 		this.renderable.position.y = this.getPosition().y;
 		this.renderable.position.z = this.getPosition().z;
 	},
-	move : function(keyCode, dX, dY, dir, amount) {
-		var INPUT = J('STU')('Data').get('INPUT'), MapHelper = J('STU')('Data').get('MapHelper'), k = J('STU')('Data').get('k');
-		if (!INPUT.isKeyBeingUsed(keyCode)) {
+	move : function(dX, dY, dir, amount) {
+		var MapHelper = J('STU')('Data').get('MapHelper'), k = J('STU')('Data').get('k');
+		if (!this.moveLock) {
+			this.moveLock = true;
 			this.nextCell = MapHelper.getCell(J('STU')('Data').get('currentLevel').cellList, +(this.currentCell.posX) + dX, +(this.currentCell.posY) + dY);
 			this.movementTimer = J('LIB')('Timer')({
 				unit : this.kTimeForMove,
@@ -202,8 +218,11 @@ J('STU')('Object').set('Singleton', 'Monster', {
 				}
 			});
 		} else {
+			if (this.nextCell.type == "1")
+				return this.moveLock = false;
 			this.movementTimer.tick();
 			if (this.movementTimer.isSleeping) {
+				this.moveLock = false;
 			}
 		}
 	},
@@ -219,6 +238,7 @@ J('STU')('Object').set('Singleton', 'Monster', {
 					sensedLights.push(lights[lightIdx]);
 			}
 		}
+
 		this.sensedLights = sensedLights;
 	},
 	see : function() {
@@ -233,13 +253,29 @@ J('STU')('Object').set('Singleton', 'Monster', {
 			NW : new MapHelper.CellLocation(+currCell.posX - 1, +currCell.posY + 0)
 		};
 		this.vision = [];
+
+		this.castRay(dir.N, -1, 0);
 		this.castRay(dir.N, -1, -1);
+		this.castRay(dir.N, 0, -1);
+
 		this.castRay(dir.NE, 0, -1);
+
+		this.castRay(dir.E, 0, -1);
 		this.castRay(dir.E, +1, -1);
+		this.castRay(dir.E, +1, 0);
+
 		this.castRay(dir.SE, +1, 0);
+
+		this.castRay(dir.S, +1, 0);
 		this.castRay(dir.S, +1, +1);
+		this.castRay(dir.S, 0, +1);
+
 		this.castRay(dir.SW, 0, +1);
+
+		this.castRay(dir.W, 0, +1);
 		this.castRay(dir.W, -1, +1);
+		this.castRay(dir.W, -1, 0);
+
 		this.castRay(dir.NW, -1, 0);
 	},
 	castRay : function(cellLoc, nextDX, nextDY) {
@@ -273,9 +309,8 @@ J('STU')('Object').set('Singleton', 'Monster', {
 			}
 		}
 		this.selectedLight = selectedLight;
-	},
-	returnToInitialCell : function() {
-		if (this.selectedLight == undefined)
+		if (this.selectedLight == undefined) {
 			this.selectedLight = this.initialCell;
+		}
 	}
 });

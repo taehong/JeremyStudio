@@ -72,7 +72,14 @@ J('STU')('Object').set('Singleton', 'GameManager', {
 			this.setWin(true);
 		if (CANDLE.hasNoHeat() || JACQUELINE.isDead())
 			this.setLose(true);
-		if (this.isWin() || this.isLose())
+		if (this.isWin() || this.isLose()) {
 			this.setPlaying(false);
+			if (this.isWin()) {
+				
+			} else {
+				CANDLE.setOn(false);
+				CANDLE.updatePosition();
+			}
+		}
 	}
 });

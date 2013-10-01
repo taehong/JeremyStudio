@@ -84,6 +84,7 @@ J('STU')('Object').set('Singleton', 'Jacqueline', {
 		this.updateMoving();
 		this.updateExit();
 		this.updateKey();
+		this.updateDead();
 	},
 	updateMoving : function() {
 		var INPUT = J('STU')('Data').get('INPUT');
@@ -108,20 +109,32 @@ J('STU')('Object').set('Singleton', 'Jacqueline', {
 		}
 	},
 	updateExit : function() {
-		var isOnExit = false, currentLevel = J('STU')('Data').get('currentLevel'), 
-			thisPos = J('STU')('Data').get('MapHelper').positionToLocation(this.position);
+		var isOnExit = false, currentLevel = J('STU')('Data').get('currentLevel'), thisPos = J('STU')('Data').get('MapHelper').positionToLocation(this.position);
 		currentLevel.exits.forEach(function(elem) {
 			isOnExit = isOnExit || ((elem.posX == thisPos.posX) && (elem.posY == thisPos.posY));
 		});
 		this.setOnExit(isOnExit);
 	},
 	updateKey : function() {
-		if (this.hasKey())
+		if (this.hasKey()) {
+			J('STU')('Data').set('QuestGetKeyClear', true);
 			return;
-			// TODO : Level이 Key를 가지도록 바꿔야함
+		}
+		// TODO : Level이 Key를 가지도록 바꿔야함
 		var hasKey = false, keyPos = J('STU')('Data').get('KEY').position, thisPos = this.position;
-		
+
 		this.setHasKey((keyPos.x === thisPos.x) && (keyPos.z === thisPos.z));
+	},
+	updateDead : function() {
+		var MONSTER = J('STU')('Data').get('MONSTER'), CANDLE = J('STU')('Data').get('CANDLE');
+		if (this.currentCell.posX == MONSTER.currentCell.posX && this.currentCell.posY == MONSTER.currentCell.posY) {
+			this.setDead(true);
+			console.log('Dead');
+		}
+		if (CANDLE.hasNoHeat()) {
+			this.setDead(true);
+			console.log('Dead');
+		}
 	},
 	updatePosition : function() {
 		var k = J('STU')('Data').get('k'), INPUT = J('STU')('Data').get('INPUT');
@@ -129,19 +142,15 @@ J('STU')('Object').set('Singleton', 'Jacqueline', {
 			switch(this.getDirection()) {
 				case this.eDirection.kDirectionLeft:
 					this.move(INPUT.eKeyCode.kArrowLeft, 0, +1, 'z', +k.boxSize);
-					console.log('왼쪽');
 					break;
 				case this.eDirection.kDirectionRight:
 					this.move(INPUT.eKeyCode.kArrowRight, 0, -1, 'z', -k.boxSize);
-					console.log('오른쪽');
 					break;
 				case this.eDirection.kDirectionUp:
 					this.move(INPUT.eKeyCode.kArrowUp, -1, 0, 'x', -k.boxSize);
-					console.log('위쪽');
 					break;
 				case this.eDirection.kDirectionDown:
 					this.move(INPUT.eKeyCode.kArrowDown, +1, 0, 'x', +k.boxSize);
-					console.log('아래쪽');
 					break;
 			}
 		}
@@ -204,6 +213,16 @@ J('STU')('Object').set('Singleton', 'Jacqueline', {
 				}
 			});
 		} else {
+			if (!this.nextCell) {
+				INPUT.unlockArrowKey();
+				INPUT.setKeyBeingUsed(keyCode, false);
+				return;
+			}
+			if (this.nextCell.type == "1") {
+				INPUT.unlockArrowKey();
+				INPUT.setKeyBeingUsed(keyCode, false);
+				return;
+			}
 			this.movementTimer.tick();
 			if (this.movementTimer.isSleeping) {
 				INPUT.unlockArrowKey();
